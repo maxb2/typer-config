@@ -32,7 +32,7 @@ def conf_callback_factory(
             ctx.default_map = ctx.default_map or {}  # Initialize the default map
             ctx.default_map.update(conf)  # Merge the config Dict into default_map
         except Exception as ex:
-            raise typer.BadParameter(value) from ex
+            raise typer.BadParameter(value, ctx=ctx, param=param) from ex
         return value
 
     return _callback

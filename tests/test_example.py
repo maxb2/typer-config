@@ -50,21 +50,21 @@ def test_simple_example(simple_app):
 
         result = RUNNER.invoke(_app, ["--config", conf])
 
-        assert result.exit_code == 0, f"Loading failed for {conf}, {callback}"
+        assert result.exit_code == 0, f"Loading failed for {conf}"
         assert (
             result.stdout.strip() == "things nothing stuff"
         ), f"Unexpected output for {conf}"
 
         result = RUNNER.invoke(_app, ["--config", conf, "others"])
 
-        assert result.exit_code == 0, f"Loading failed for {conf}, {callback}"
+        assert result.exit_code == 0, f"Loading failed for {conf}"
         assert (
             result.stdout.strip() == "things nothing others"
         ), f"Unexpected output for {conf}"
 
         result = RUNNER.invoke(_app, ["--config", conf, "--opt1", "people"])
 
-        assert result.exit_code == 0, f"Loading failed for {conf}, {callback}"
+        assert result.exit_code == 0, f"Loading failed for {conf}"
         assert (
             result.stdout.strip() == "people nothing stuff"
         ), f"Unexpected output for {conf}"
