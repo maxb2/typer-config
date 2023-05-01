@@ -2,7 +2,7 @@
 Typer Configuration Utilities
 """
 
-from typing import Any, Callable
+from typing import Any, Callable, Dict
 
 import typer
 
@@ -10,13 +10,13 @@ from .loaders import json_loader, toml_loader, yaml_loader
 
 
 def conf_callback_factory(
-    loader: Callable[[Any], dict[str, Any]]
+    loader: Callable[[Any], Dict[str, Any]]
 ) -> Callable[[typer.Context, typer.CallbackParam, Any], Any]:
     """Configuration callback factory
 
     Parameters
     ----------
-    loader : Callable[[Any], dict[str, Any]]
+    loader : Callable[[Any], Dict[str, Any]]
         Loader function that takes the value passed to the typer CLI and
         returns a dictionary that is applied to the click context's default map.
 
@@ -30,7 +30,7 @@ def conf_callback_factory(
         try:
             conf = loader(value)  # Load config file
             ctx.default_map = ctx.default_map or {}  # Initialize the default map
-            ctx.default_map.update(conf)  # Merge the config dict into default_map
+            ctx.default_map.update(conf)  # Merge the config Dict into default_map
         except Exception as ex:
             raise typer.BadParameter(param) from ex
         return value

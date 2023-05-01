@@ -87,9 +87,9 @@ Then, we can read the values in our typer CLI:
 import typer
 import typer_config
 
-from typing import Any
+from typing import Any, Dict
 
-def pyproject_loader(path: str) -> dict[str, Any]:
+def pyproject_loader(path: str) -> Dict[str, Any]:
     if not path: # set a default path to read from
         path = "pyproject.toml"
         

@@ -1,10 +1,10 @@
 """
 Configuration File Loaders.
 
-These loaders must follow the signature: Callable[[Any], dict[str, Any]]
+These loaders must follow the signature: Callable[[Any], Dict[str, Any]]
 """
 
-from typing import Any
+from typing import Any, Dict
 
 try:
     # Only available for python>=3.11
@@ -25,7 +25,7 @@ import json
 
 
 # pylint: disable-next=unused-argument
-def dummy_loader(path: str) -> dict[str, Any]:
+def dummy_loader(path: str) -> Dict[str, Any]:
     """Dummy loader to show the required interface.
 
     Parameters
@@ -35,13 +35,13 @@ def dummy_loader(path: str) -> dict[str, Any]:
 
     Returns
     -------
-    dict
+    Dict
         dictionary loaded from file
     """
     return {}
 
 
-def yaml_loader(path: str) -> dict[str, Any]:
+def yaml_loader(path: str) -> Dict[str, Any]:
     """YAML file loader
 
     Parameters
@@ -51,7 +51,7 @@ def yaml_loader(path: str) -> dict[str, Any]:
 
     Returns
     -------
-    dict
+    Dict
         dictionary loaded from file
     """
 
@@ -61,7 +61,7 @@ def yaml_loader(path: str) -> dict[str, Any]:
     return conf
 
 
-def json_loader(path: str) -> dict[str, Any]:
+def json_loader(path: str) -> Dict[str, Any]:
     """JSON file loader
 
     Parameters
@@ -71,7 +71,7 @@ def json_loader(path: str) -> dict[str, Any]:
 
     Returns
     -------
-    dict
+    Dict
         dictionary loaded from file
     """
 
@@ -81,7 +81,7 @@ def json_loader(path: str) -> dict[str, Any]:
     return conf
 
 
-def toml_loader(path: str) -> dict[str, Any]:
+def toml_loader(path: str) -> Dict[str, Any]:
     """TOML file loader
 
     Parameters
@@ -91,7 +91,7 @@ def toml_loader(path: str) -> dict[str, Any]:
 
     Returns
     -------
-    dict
+    Dict
         dictionary loaded from file
     """
 
