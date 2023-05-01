@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "typer-config"
+version = "0.1.0"
+description = "Utilities for working with configuration files in typer CLIs. "
+authors = ["Matt Anderson <matt@manderscience.com>"]
+readme = "README.md"
+license = "MIT"
+packages = [{include = "typer_config"}]
+repository = "https://github.com/maxb2/typer-config"
+keywords = ["typer"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+typer = "^0.8.0"
+
+
+[tool.poetry.group.dev.dependencies]
+pylint = "^2.17.3"
+black = "^23.3.0"
+isort = "^5.12.0"
+ruff = "^0.0.263"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
