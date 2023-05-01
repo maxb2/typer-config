@@ -6,9 +6,13 @@ These loaders must follow the signature: Callable[[Any], Dict[str, Any]]
 
 from typing import Any, Dict
 
+USING_TOMLLIB = False
+
 try:
     # Only available for python>=3.11
     import tomllib as toml
+
+    USING_TOMLLIB = True
 except ImportError:
     try:
         # Third-party toml parsing library
@@ -95,7 +99,11 @@ def toml_loader(path: str) -> Dict[str, Any]:
         dictionary loaded from file
     """
 
-    with open(path, "r", encoding="utf-8") as _file:
-        conf = toml.load(_file)
+    if USING_TOMLLIB:
+        with open(path, "rb") as _file:
+            conf = toml.load(_file)
+    else:
+        with open(path, "r", encoding="utf-8") as _file:
+            conf = toml.load(_file)
 
     return conf
