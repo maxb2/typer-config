@@ -1,5 +1,7 @@
 """
-Configuration File Loaders
+Configuration File Loaders.
+
+These loaders must follow the signature: Callable[[Any], dict[str, Any]]
 """
 
 from typing import Any

@@ -6,7 +6,7 @@ from typing import Any, Callable
 
 import typer
 
-from .loaders import yaml_loader, json_loader, toml_loader
+from .loaders import json_loader, toml_loader, yaml_loader
 
 
 def conf_callback_factory(
