@@ -1,12 +1,10 @@
-from typer.testing import CliRunner
-
 from pathlib import Path
 
+import pytest
 import typer
+from typer.testing import CliRunner
 
 import typer_config
-
-import pytest
 
 RUNNER = CliRunner()
 

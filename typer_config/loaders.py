@@ -4,6 +4,7 @@ Configuration File Loaders.
 These loaders must follow the signature: Callable[[Any], Dict[str, Any]]
 """
 
+import json
 from typing import Any, Dict
 
 USING_TOMLLIB = False
@@ -24,8 +25,6 @@ try:
     import yaml
 except ImportError:
     yaml = None
-
-import json
 
 
 # pylint: disable-next=unused-argument
