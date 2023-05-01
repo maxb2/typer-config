@@ -22,7 +22,7 @@ jobs:
     - name: Setup Poetry
       uses: abatilo/actions-poetry@v2
       with:
-        poetry-version: ${{ matrix.poetry-version }}
+        poetry-version: '1.4'
     
     - name: Set PyPI Credentials
       env:
