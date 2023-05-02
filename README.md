@@ -83,7 +83,7 @@ opt2 = "nothing"
 Then, we can read the values in our typer CLI:
 
 ```python
-# typer_config.py
+# my_tool.py
 import typer
 import typer_config
 
