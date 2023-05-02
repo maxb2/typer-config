@@ -23,7 +23,7 @@ jobs:
           poetry-version: ${{ matrix.poetry-version }}
       - name: Install Dependencies
         run: poetry install --extras all
-      - name: Linting
-        run: poetry run pylint typer_config/
+      - name: Linting and Type checking
+        run: poetry run pylint typer_config/ && poetry run mypy typer_config/
       - name: Testing
         run: poetry run pytest

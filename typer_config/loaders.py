@@ -1,34 +1,46 @@
 """
 Configuration File Loaders.
 
-These loaders must follow the signature: Callable[[Any], Dict[str, Any]]
+These loaders must implement the interface:
+    typer_config.types.Loader = Callable[[Any], Dict[str, Any]]
 """
+import sys
 
 import json
-from typing import Any, Dict
+
+from .types import ConfDict
 
 USING_TOMLLIB = False
+TOML_MISSING = True
+YAML_MISSING = True
 
-try:
-    # Only available for python>=3.11
-    import tomllib as toml
 
+if sys.version_info >= (3, 11):
+    import tomllib  # type: ignore
+
+    TOML_MISSING = False
     USING_TOMLLIB = True
-except ImportError:
+else:
     try:
         # Third-party toml parsing library
         import toml
+
+        TOML_MISSING = False
+
     except ImportError:
-        toml = None
+        pass
+
 
 try:
     import yaml
+
+    YAML_MISSING = False
 except ImportError:
-    yaml = None
+    pass
 
 
 # pylint: disable-next=unused-argument
-def dummy_loader(path: str) -> Dict[str, Any]:
+def dummy_loader(path: str) -> ConfDict:
     """Dummy loader to show the required interface.
 
     Parameters
@@ -38,13 +50,13 @@ def dummy_loader(path: str) -> Dict[str, Any]:
 
     Returns
     -------
-    Dict
+    ConfDict
         dictionary loaded from file
     """
     return {}
 
 
-def yaml_loader(path: str) -> Dict[str, Any]:
+def yaml_loader(path: str) -> ConfDict:
     """YAML file loader
 
     Parameters
@@ -54,17 +66,20 @@ def yaml_loader(path: str) -> Dict[str, Any]:
 
     Returns
     -------
-    Dict
+    ConfDict
         dictionary loaded from file
     """
 
+    if YAML_MISSING:
+        raise ModuleNotFoundError("Please install the pyyaml library.")
+
     with open(path, "r", encoding="utf-8") as _file:
-        conf = yaml.safe_load(_file)
+        conf: ConfDict = yaml.safe_load(_file)
 
     return conf
 
 
-def json_loader(path: str) -> Dict[str, Any]:
+def json_loader(path: str) -> ConfDict:
     """JSON file loader
 
     Parameters
@@ -74,17 +89,17 @@ def json_loader(path: str) -> Dict[str, Any]:
 
     Returns
     -------
-    Dict
+    ConfDict
         dictionary loaded from file
     """
 
     with open(path, "r", encoding="utf-8") as _file:
-        conf = json.load(_file)
+        conf: ConfDict = json.load(_file)
 
     return conf
 
 
-def toml_loader(path: str) -> Dict[str, Any]:
+def toml_loader(path: str) -> ConfDict:
     """TOML file loader
 
     Parameters
@@ -94,15 +109,20 @@ def toml_loader(path: str) -> Dict[str, Any]:
 
     Returns
     -------
-    Dict
+    ConfDict
         dictionary loaded from file
     """
 
+    if TOML_MISSING:
+        raise ModuleNotFoundError("Please install the toml library.")
+
+    conf: ConfDict = {}
+
     if USING_TOMLLIB:
         with open(path, "rb") as _file:
-            conf = toml.load(_file)
+            conf = tomllib.load(_file)  # type: ignore
     else:
         with open(path, "r", encoding="utf-8") as _file:
-            conf = toml.load(_file)
+            conf = toml.load(_file)  # type: ignore
 
     return conf
