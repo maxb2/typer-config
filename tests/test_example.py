@@ -66,3 +66,37 @@ def test_simple_example(simple_app):
         assert (
             result.stdout.strip() == "people nothing stuff"
         ), f"Unexpected output for {conf}"
+
+
+def test_pyproject_example(simple_app):
+    def pyproject_loader(path: str) -> typer_config._typing.ConfDict:
+        if not path:  # set a default path to read from
+            path = str(HERE.joinpath("pyproject.toml"))
+
+        pyproject = typer_config.loaders.toml_loader(path)
+        conf = pyproject["tools"]["my_tool"]["parameters"]
+        return conf
+
+    pyproject_callback = typer_config.conf_callback_factory(pyproject_loader)
+
+    _app = simple_app(pyproject_callback)
+
+    result = RUNNER.invoke(_app)
+
+    assert result.exit_code == 0, f"{result.stdout}"
+    assert result.stdout.strip() == "things nothing stuff"
+
+    result = RUNNER.invoke(_app, ["others"])
+
+    assert result.exit_code == 0, f"{result.stdout}"
+    assert result.stdout.strip() == "things nothing others"
+
+    result = RUNNER.invoke(_app, ["--opt1", "people"])
+
+    assert result.exit_code == 0, f"{result.stdout}"
+    assert result.stdout.strip() == "people nothing stuff"
+
+    result = RUNNER.invoke(_app, ["--config", str(HERE.joinpath("other.toml"))])
+
+    assert result.exit_code == 0, f"{result.stdout}"
+    assert result.stdout.strip() == "something else entirely"

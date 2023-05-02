@@ -1,0 +1,4 @@
+[tools.my_tool.parameters]
+arg1 = "stuff"
+opt1 = "things"
+opt2 = "nothing"
