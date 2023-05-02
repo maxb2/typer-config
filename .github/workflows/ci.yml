@@ -14,16 +14,23 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
+      
       - uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
+      
       - name: Setup Poetry
         uses: abatilo/actions-poetry@v2
         with:
           poetry-version: ${{ matrix.poetry-version }}
+      
       - name: Install Dependencies
-        run: poetry install --extras all
+        run: poetry install --all-extras
+      
       - name: Linting and Type checking
-        run: poetry run pylint typer_config/ && poetry run mypy typer_config/
+        run: |
+          poetry run pylint typer_config/
+          poetry run mypy typer_config/
+      
       - name: Testing
         run: poetry run pytest
