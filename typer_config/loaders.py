@@ -7,7 +7,7 @@ These loaders must implement the interface:
 import json
 import sys
 
-from ._typing import ConfDict
+from ._typing import ConfDict, Loader, ConfDictPath, ValueGetter
 
 USING_TOMLLIB = False
 TOML_MISSING = True
@@ -38,29 +38,68 @@ except ImportError:
     pass
 
 
-# pylint: disable-next=unused-argument
-def dummy_loader(path: str) -> ConfDict:
-    """Dummy loader to show the required interface.
+def subpath_loader(loader: Loader, dictpath: ConfDictPath) -> Loader:
+    """Modify a loader to return a subpath of the dictionary from file.
 
     Parameters
     ----------
-    path : str
-        path of file to load
+    loader : Loader
+        loader to modify
+    dictpath : ConfDictPath
+        path to the section of the dictionary to return
 
     Returns
     -------
-    ConfDict
-        dictionary loaded from file
+    Loader
+        sub dictionary loader
     """
-    return {}
+
+    def _loader(param_value: str) -> ConfDict:
+        # get original ConfDict
+        conf: ConfDict = loader(param_value)
+
+        # get subpath of dictionary
+        for path in dictpath:
+            conf = conf.get(path, {})
+        return conf
+
+    return _loader
 
 
-def yaml_loader(path: str) -> ConfDict:
+def default_value_loader(loader: Loader, value_getter: ValueGetter) -> Loader:
+    """Modify a loader to use a default value if the passed value is false-ish
+
+    Parameters
+    ----------
+    loader : Loader
+        loader to modify
+    value_getter : ValueGetter
+        function that returns default value
+
+    Returns
+    -------
+    Loader
+        modified loader
+    """
+
+    def _loader(param_value: str) -> ConfDict:
+        # parameter value was not specified by user
+        if not param_value:
+            param_value = value_getter()
+
+        conf: ConfDict = loader(param_value)
+
+        return conf
+
+    return _loader
+
+
+def yaml_loader(param_value: str) -> ConfDict:
     """YAML file loader
 
     Parameters
     ----------
-    path : str
+    param_value : str
         path of YAML file
 
     Returns
@@ -72,18 +111,18 @@ def yaml_loader(path: str) -> ConfDict:
     if YAML_MISSING:
         raise ModuleNotFoundError("Please install the pyyaml library.")
 
-    with open(path, "r", encoding="utf-8") as _file:
+    with open(param_value, "r", encoding="utf-8") as _file:
         conf: ConfDict = yaml.safe_load(_file)
 
     return conf
 
 
-def json_loader(path: str) -> ConfDict:
+def json_loader(param_value: str) -> ConfDict:
     """JSON file loader
 
     Parameters
     ----------
-    path : str
+    param_value : str
         path of JSON file
 
     Returns
@@ -92,18 +131,18 @@ def json_loader(path: str) -> ConfDict:
         dictionary loaded from file
     """
 
-    with open(path, "r", encoding="utf-8") as _file:
+    with open(param_value, "r", encoding="utf-8") as _file:
         conf: ConfDict = json.load(_file)
 
     return conf
 
 
-def toml_loader(path: str) -> ConfDict:
+def toml_loader(param_value: str) -> ConfDict:
     """TOML file loader
 
     Parameters
     ----------
-    path : str
+    param_value : str
         path of TOML file
 
     Returns
@@ -118,10 +157,10 @@ def toml_loader(path: str) -> ConfDict:
     conf: ConfDict = {}
 
     if USING_TOMLLIB:
-        with open(path, "rb") as _file:
+        with open(param_value, "rb") as _file:
             conf = tomllib.load(_file)  # type: ignore
     else:
-        with open(path, "r", encoding="utf-8") as _file:
+        with open(param_value, "r", encoding="utf-8") as _file:
             conf = toml.load(_file)  # type: ignore
 
     return conf
