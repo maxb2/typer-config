@@ -4,8 +4,8 @@ Typer Configuration Utilities
 
 import typer
 
+from ._typing import ConfigParameterCallback, Loader, ParameterValue
 from .loaders import json_loader, toml_loader, yaml_loader
-from .types import ConfigParameterCallback, Loader, ParameterValue
 
 
 def conf_callback_factory(loader: Loader) -> ConfigParameterCallback:

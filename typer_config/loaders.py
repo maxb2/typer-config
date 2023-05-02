@@ -7,7 +7,7 @@ These loaders must implement the interface:
 import json
 import sys
 
-from .types import ConfDict
+from ._typing import ConfDict
 
 USING_TOMLLIB = False
 TOML_MISSING = True
