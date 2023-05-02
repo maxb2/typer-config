@@ -94,7 +94,7 @@ def pyproject_loader(path: str) -> Dict[str, Any]:
         path = "pyproject.toml"
         
     pyproject = toml.load("pyproject.toml")
-    conf = pyproject["tool"]["my_tool"]
+    conf = pyproject["tool"]["my_tool"]["parameters"]
     return conf
 
 pyproject_callback = typer_config.conf_callback_factory(pyproject_loader)
