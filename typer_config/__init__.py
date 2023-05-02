@@ -24,15 +24,15 @@ def conf_callback_factory(loader: Loader) -> ConfigParameterCallback:
     """
 
     def _callback(
-        ctx: typer.Context, param: typer.CallbackParam, value: ParameterValue
+        ctx: typer.Context, param: typer.CallbackParam, param_value: ParameterValue
     ) -> ParameterValue:
         try:
-            conf = loader(value)  # Load config file
+            conf = loader(param_value)  # Load config file
             ctx.default_map = ctx.default_map or {}  # Initialize the default map
             ctx.default_map.update(conf)  # Merge the config Dict into default_map
         except Exception as ex:
             raise typer.BadParameter(str(ex), ctx=ctx, param=param) from ex
-        return value
+        return param_value
 
     return _callback
 

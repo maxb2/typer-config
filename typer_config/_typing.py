@@ -3,10 +3,10 @@ Data and Function types.
 """
 
 import sys
-from typing import Any, Callable, Dict
+from typing import Any, Callable, Dict, Iterable, ParamSpec
 
-from typer import CallbackParam as typer_CallbackParam
-from typer import Context as typer_Context
+from typer import CallbackParam
+from typer import Context
 
 # Handle TypeAlias based on python version
 if sys.version_info < (3, 10):
@@ -17,9 +17,12 @@ else:
 # Data types
 ConfDict: TypeAlias = Dict[str, Any]
 ParameterValue: TypeAlias = Any
+ConfDictPath: TypeAlias = Iterable[str]
 
-# Function types
+# Function(al) types
 Loader: TypeAlias = Callable[[Any], ConfDict]
 ConfigParameterCallback: TypeAlias = Callable[
-    [typer_Context, typer_CallbackParam, ParameterValue], ParameterValue
+    [Context, CallbackParam, ParameterValue], ParameterValue
 ]
+ValueGetter: TypeAlias = Callable[[], Any]
+LoaderCombinator: TypeAlias = Callable[[Loader, ParamSpec], Loader]

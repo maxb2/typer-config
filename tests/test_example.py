@@ -69,13 +69,12 @@ def test_simple_example(simple_app):
 
 
 def test_pyproject_example(simple_app):
-    def pyproject_loader(path: str) -> typer_config._typing.ConfDict:
-        if not path:  # set a default path to read from
-            path = str(HERE.joinpath("pyproject.toml"))
+    from typer_config.loaders import default_value_loader, subpath_loader, toml_loader
 
-        pyproject = typer_config.loaders.toml_loader(path)
-        conf = pyproject["tools"]["my_tool"]["parameters"]
-        return conf
+    pyproject_loader = subpath_loader(
+        default_value_loader(toml_loader, lambda: str(HERE.joinpath("pyproject.toml"))),
+        ["tools", "my_tool", "parameters"],
+    )
 
     pyproject_callback = typer_config.conf_callback_factory(pyproject_loader)
 

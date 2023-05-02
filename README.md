@@ -21,7 +21,7 @@ An example typer app:
 ```python
 # typer_config.py
 import typer
-import typer_config
+from typer_config import yaml_conf_callback
 
 app = typer.Typer( )
 
@@ -30,7 +30,7 @@ def main(
     arg1: str,
     config: str = typer.Option(
         "",
-        callback=typer_config.yaml_conf_callback,
+        callback=yaml_conf_callback,
         is_eager=True,  # THIS IS REALLY IMPORTANT
     ),
     opt1: str = typer.Option(...),
@@ -74,7 +74,7 @@ If you use an unsupported file format or need to do extra processing of the file
 Suppose you want to specify parameters in a section of `pyproject.toml`:
 
 ```toml
-[tool.my_tool.parameters]
+[tools.my_tool.parameters]
 arg1 = "stuff"
 opt1 = "things"
 opt2 = "nothing"
@@ -84,20 +84,31 @@ Then, we can read the values in our typer CLI:
 
 ```python
 # my_tool.py
-import typer
-import typer_config
-
 from typing import Any, Dict
 
-def pyproject_loader(path: str) -> Dict[str, Any]:
-    if not path: # set a default path to read from
-        path = "pyproject.toml"
+import typer
+from typer_config import conf_callback_factory
+from typer_config.loaders import toml_loader
+
+
+def pyproject_loader(param_value: str) -> Dict[str, Any]:
+    if not param_value: # set a default path to read from
+        param_value = "pyproject.toml"
         
-    pyproject = toml.load("pyproject.toml")
-    conf = pyproject["tool"]["my_tool"]["parameters"]
+    pyproject = toml_loader("pyproject.toml")
+    conf = pyproject["tools"]["my_tool"]["parameters"]
     return conf
 
-pyproject_callback = typer_config.conf_callback_factory(pyproject_loader)
+### You can define the same loader using some provided combinators:
+#
+# from typer_config.loaders import default_value_loader, subpath_loader, toml_loader
+# 
+# pyproject_loader = subpath_loader(
+#     default_value_loader(toml_loader, lambda: "pyproject.toml"),
+#     ["tools", "my_tool", "parameters"],
+# )
+
+pyproject_callback = conf_callback_factory(pyproject_loader)
 
 app = typer.Typer( )
 
