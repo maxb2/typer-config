@@ -4,9 +4,8 @@ Configuration File Loaders.
 These loaders must implement the interface:
     typer_config.types.Loader = Callable[[Any], Dict[str, Any]]
 """
-import sys
-
 import json
+import sys
 
 from .types import ConfDict
 

@@ -5,7 +5,6 @@ Typer Configuration Utilities
 import typer
 
 from .loaders import json_loader, toml_loader, yaml_loader
-
 from .types import ConfigParameterCallback, Loader, ParameterValue
 
 

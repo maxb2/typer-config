@@ -2,8 +2,17 @@
 Data and Function types.
 """
 
-from typing import Any, Callable, Dict, TypeAlias
-from typer import Context as typer_Context, CallbackParam as typer_CallbackParam
+import sys
+from typing import Any, Callable, Dict
+
+from typer import CallbackParam as typer_CallbackParam
+from typer import Context as typer_Context
+
+# Handle TypeAlias based on python version
+if sys.version_info < (3, 10):
+    from typing_extensions import TypeAlias
+else:
+    from typing import TypeAlias
 
 # Data types
 ConfDict: TypeAlias = Dict[str, Any]
