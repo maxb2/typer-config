@@ -32,5 +32,7 @@ jobs:
           poetry run pylint typer_config/
           poetry run mypy typer_config/
       
-      - name: Testing
-        run: poetry run pytest
+      - name: Testing and Coverage
+        run: |
+          poetry run coverage run --source typer_config --branch -m pytest
+          poetry run coverage report

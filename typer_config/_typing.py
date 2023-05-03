@@ -10,7 +10,7 @@ from typer import Context
 
 # Handle some imports based on python version
 if sys.version_info < (3, 10):
-    from typing_extensions import TypeAlias, ParamSpec
+    from typing_extensions import TypeAlias, ParamSpec  # pragma: no cover
 else:
     from typing import TypeAlias, ParamSpec
 

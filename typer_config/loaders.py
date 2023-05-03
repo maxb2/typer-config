@@ -14,12 +14,12 @@ TOML_MISSING = True
 YAML_MISSING = True
 
 
-if sys.version_info >= (3, 11):
+if sys.version_info >= (3, 11):  # pragma: no cover
     import tomllib  # type: ignore
 
     TOML_MISSING = False
     USING_TOMLLIB = True
-else:
+else:  # pragma: no cover
     try:
         # Third-party toml parsing library
         import toml
@@ -30,11 +30,11 @@ else:
         pass
 
 
-try:
+try:  # pragma: no cover
     import yaml
 
     YAML_MISSING = False
-except ImportError:
+except ImportError:  # pragma: no cover
     pass
 
 
@@ -108,7 +108,7 @@ def yaml_loader(param_value: str) -> ConfDict:
         dictionary loaded from file
     """
 
-    if YAML_MISSING:
+    if YAML_MISSING:  # pragma: no cover
         raise ModuleNotFoundError("Please install the pyyaml library.")
 
     with open(param_value, "r", encoding="utf-8") as _file:
@@ -151,15 +151,15 @@ def toml_loader(param_value: str) -> ConfDict:
         dictionary loaded from file
     """
 
-    if TOML_MISSING:
+    if TOML_MISSING:  # pragma: no cover
         raise ModuleNotFoundError("Please install the toml library.")
 
     conf: ConfDict = {}
 
-    if USING_TOMLLIB:
+    if USING_TOMLLIB:  # pragma: no cover
         with open(param_value, "rb") as _file:
             conf = tomllib.load(_file)  # type: ignore
-    else:
+    else:  # pragma: no cover
         with open(param_value, "r", encoding="utf-8") as _file:
             conf = toml.load(_file)  # type: ignore
 
