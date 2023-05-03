@@ -9,9 +9,9 @@ from typer import CallbackParam
 from typer import Context
 
 # Handle some imports based on python version
-if sys.version_info < (3, 10):
-    from typing_extensions import TypeAlias, ParamSpec  # pragma: no cover
-else:
+if sys.version_info < (3, 10):  # pragma: no cover
+    from typing_extensions import TypeAlias, ParamSpec
+else:  # pragma: no cover
     from typing import TypeAlias, ParamSpec
 
 # Data types
