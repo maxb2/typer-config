@@ -47,25 +47,28 @@ def test_simple_example(simple_app):
         _app = simple_app(callback)
 
         result = RUNNER.invoke(_app, ["--config", conf])
-
         assert result.exit_code == 0, f"Loading failed for {conf}\n\n{result.stdout}"
         assert (
             result.stdout.strip() == "things nothing stuff"
         ), f"Unexpected output for {conf}"
 
         result = RUNNER.invoke(_app, ["--config", conf, "others"])
-
         assert result.exit_code == 0, f"Loading failed for {conf}\n\n{result.stdout}"
         assert (
             result.stdout.strip() == "things nothing others"
         ), f"Unexpected output for {conf}"
 
         result = RUNNER.invoke(_app, ["--config", conf, "--opt1", "people"])
-
         assert result.exit_code == 0, f"Loading failed for {conf}\n\n{result.stdout}"
         assert (
             result.stdout.strip() == "people nothing stuff"
         ), f"Unexpected output for {conf}"
+
+        result = RUNNER.invoke(_app, ["--config", conf + ".non_existent"])
+        assert (
+            result.exit_code != 0
+        ), f"Should have failed for {conf}\n\n{result.stdout}"
+        assert "No such file" in result.stdout
 
 
 def test_pyproject_example(simple_app):
