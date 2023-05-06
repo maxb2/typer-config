@@ -31,6 +31,10 @@ types-toml = "^0.10.8.6"
 types-pyyaml = "^6.0.12.9"
 coverage = "^7.2.5"
 
+
+[tool.poetry.group.docs.dependencies]
+mkdocs-material = "^9.1.9"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
