@@ -1,3 +1,4 @@
 site_name: Typer Config
+repo_name: maxb2/typer-config
 theme:
   name: material
