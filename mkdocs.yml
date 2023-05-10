@@ -1,4 +1,12 @@
 site_name: Typer Config
 repo_name: maxb2/typer-config
+
 theme:
   name: material
+  features:
+    - navigation.sections
+
+markdown_extensions:
+  - pymdownx.highlight:
+      use_pygments: true
+  - pymdownx.superfences

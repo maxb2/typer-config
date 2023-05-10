@@ -1,17 +1,21 @@
-# Welcome to MkDocs
+# Introduction
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+This is a collection of utilities to use configuration files to set parameters for a [typer](https://github.com/tiangolo/typer) CLI.
+It is useful for typer commands with many options/arguments so you don't have to constantly rewrite long commands.
+This package was inspired by [phha/click_config_file](https://github.com/phha/click_config_file) and prototyped in [this issue](https://github.com/tiangolo/typer/issues/86#issuecomment-996374166). It allows you to set values for CLI parameters using a configuration file. 
 
-## Commands
+# Installation
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
+```bash
+$ pip install typer-config[all]
+```
 
-## Project layout
+> **Note**: that will include libraries for reading from YAML and TOML files as well.
+  Feel free to leave off the optional dependencies if you don't need YAML or TOML capabilities.
 
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+# How it works
+
+This works by mutating the default values in the [underlying click context](https://click.palletsprojects.com/en/8.1.x/api/#context) (`click.Context.default_map`) before the command is executed.
+It is essentially overwriting the default values that you specified in your source code.
+> **Note**: You _must_ use `is_eager=True` in the parameter definition because that will cause it to be processed first.
+  If you don't use `is_eager`, then your parameter values will depend on the order in which they were processed (read: unpredictably).
