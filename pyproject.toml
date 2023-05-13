@@ -30,6 +30,7 @@ mypy = "^1.2.0"
 types-toml = "^0.10.8.6"
 types-pyyaml = "^6.0.12.9"
 coverage = "^7.2.5"
+mkdocstrings = {extras = ["python"], version = "^0.21.2"}
 
 
 [tool.poetry.group.docs.dependencies]

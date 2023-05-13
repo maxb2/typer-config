@@ -5,8 +5,23 @@ theme:
   name: material
   features:
     - navigation.sections
+    - navigation.expand
+  #   - navigation.sections
 
 markdown_extensions:
   - pymdownx.highlight:
       use_pygments: true
   - pymdownx.superfences
+
+
+plugins:
+- search
+- mkdocstrings:
+    handlers:
+      python:
+        options:
+          show_submodules: true
+          enable_inventory: true
+          separate_signature: true
+          show_signature_annotations: true
+          signature_crossrefs: true

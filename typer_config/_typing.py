@@ -16,13 +16,20 @@ else:  # pragma: no cover
 
 # Data types
 ConfDict: TypeAlias = Dict[str, Any]
+"""Configuration dictionary."""
 ParameterValue: TypeAlias = Any
+"""Typer parameter value."""
 ConfDictPath: TypeAlias = Iterable[str]
+"""Accessor path for a configuration dictionary."""
 
 # Function(al) types
 Loader: TypeAlias = Callable[[Any], ConfDict]
+"""Configuration loader function."""
 ConfigParameterCallback: TypeAlias = Callable[
     [Context, CallbackParam, ParameterValue], ParameterValue
 ]
+"""Typer config parameter callback function."""
 ValueGetter: TypeAlias = Callable[[], Any]
+"""Value getter function."""
 LoaderCombinator: TypeAlias = Callable[[Loader, ParamSpec], Loader]
+"""Loader function combinator."""
