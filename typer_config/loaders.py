@@ -2,12 +2,18 @@
 Configuration File Loaders.
 
 These loaders must implement the interface:
-    typer_config.types.Loader = Callable[[Any], Dict[str, Any]]
+    typer_config.types.ConfLoader = Callable[[Any], Dict[str, Any]]
 """
 import json
 import sys
 
-from ._typing import ConfDict, Loader, ConfDictPath, ValueGetter
+from ._typing import (
+    ConfDict,
+    ConfLoader,
+    ConfDictAccessorPath,
+    NoArgCallable,
+    TyperParameterValue,
+)
 
 USING_TOMLLIB = False
 TOML_MISSING = True
@@ -38,19 +44,19 @@ except ImportError:  # pragma: no cover
     pass
 
 
-def subpath_loader(loader: Loader, dictpath: ConfDictPath) -> Loader:
+def subpath_loader(loader: ConfLoader, dictpath: ConfDictAccessorPath) -> ConfLoader:
     """Modify a loader to return a subpath of the dictionary from file.
 
     Parameters
     ----------
-    loader : Loader
+    loader : ConfLoader
         loader to modify
     dictpath : ConfDictPath
         path to the section of the dictionary to return
 
     Returns
     -------
-    Loader
+    ConfLoader
         sub dictionary loader
     """
 
@@ -66,19 +72,19 @@ def subpath_loader(loader: Loader, dictpath: ConfDictPath) -> Loader:
     return _loader
 
 
-def default_value_loader(loader: Loader, value_getter: ValueGetter) -> Loader:
+def default_value_loader(loader: ConfLoader, value_getter: NoArgCallable) -> ConfLoader:
     """Modify a loader to use a default value if the passed value is false-ish
 
     Parameters
     ----------
-    loader : Loader
+    loader : ConfLoader
         loader to modify
-    value_getter : ValueGetter
+    value_getter : NoArgCallable
         function that returns default value
 
     Returns
     -------
-    Loader
+    ConfLoader
         modified loader
     """
 
@@ -94,12 +100,12 @@ def default_value_loader(loader: Loader, value_getter: ValueGetter) -> Loader:
     return _loader
 
 
-def yaml_loader(param_value: str) -> ConfDict:
+def yaml_loader(param_value: TyperParameterValue) -> ConfDict:
     """YAML file loader
 
     Parameters
     ----------
-    param_value : str
+    param_value : TyperParameterValue
         path of YAML file
 
     Returns
@@ -117,12 +123,12 @@ def yaml_loader(param_value: str) -> ConfDict:
     return conf
 
 
-def json_loader(param_value: str) -> ConfDict:
+def json_loader(param_value: TyperParameterValue) -> ConfDict:
     """JSON file loader
 
     Parameters
     ----------
-    param_value : str
+    param_value : TyperParameterValue
         path of JSON file
 
     Returns
@@ -137,12 +143,12 @@ def json_loader(param_value: str) -> ConfDict:
     return conf
 
 
-def toml_loader(param_value: str) -> ConfDict:
+def toml_loader(param_value: TyperParameterValue) -> ConfDict:
     """TOML file loader
 
     Parameters
     ----------
-    param_value : str
+    param_value : TyperParameterValue
         path of TOML file
 
     Returns

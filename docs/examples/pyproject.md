@@ -1,65 +1,11 @@
-# Examples
-
-## Simple YAML
-
-An example typer app:
-```python
-# typer_config.py
-import typer
-from typer_config import yaml_conf_callback
-
-app = typer.Typer( )
-
-@app.command()
-def main(
-    arg1: str,
-    config: str = typer.Option(
-        "",
-        callback=yaml_conf_callback,
-        is_eager=True,  # THIS IS REALLY IMPORTANT
-    ),
-    opt1: str = typer.Option(...),
-    opt2: str = typer.Option("hello"),
-):
-    typer.echo(f"{opt1} {opt2} {arg1}")
-
-
-if __name__ == "__main__":
-    app()
-```
-
-With a config file:
-
-```yaml
-# config.yaml
-arg1: stuff
-opt1: things
-opt2: nothing
-```
-
-And invoked with python:
-
-```bash
-$ python typer_config.py --config config.yml
-things nothing stuff
-
-$ python typer_config.py --config config.yml others
-things nothing others
-
-$ python typer_config.py --config config.yml --opt1 people
-people nothing stuff
-```
-
-> **Note**: this package also provides `json_conf_callback` and `toml_conf_callback` for those file formats.
-
-## Pyproject TOML loader
+# Pyproject TOML loader
 
 If you use an unsupported file format or need to do extra processing of the file, you can make your own file loader and construct an appropriate callback.
 
 Suppose you want to specify parameters in a section of `pyproject.toml`:
 
-```toml
-[tools.my_tool.parameters]
+```toml title='pyproject.toml'
+[tool.my_tool.parameters]
 arg1 = "stuff"
 opt1 = "things"
 opt2 = "nothing"
@@ -67,8 +13,7 @@ opt2 = "nothing"
 
 Then, we can read the values in our typer CLI:
 
-```python
-# my_tool.py
+```python title="my_tool.py"
 from typing import Any, Dict
 
 import typer
@@ -81,7 +26,7 @@ def pyproject_loader(param_value: str) -> Dict[str, Any]:
         param_value = "pyproject.toml"
         
     pyproject = toml_loader("pyproject.toml")
-    conf = pyproject["tools"]["my_tool"]["parameters"]
+    conf = pyproject["tool"]["my_tool"]["parameters"]
     return conf
 
 ### You can define the same loader using some provided combinators:
@@ -90,7 +35,7 @@ def pyproject_loader(param_value: str) -> Dict[str, Any]:
 # 
 # pyproject_loader = subpath_loader(
 #     default_value_loader(toml_loader, lambda: "pyproject.toml"),
-#     ["tools", "my_tool", "parameters"],
+#     ["tool", "my_tool", "parameters"],
 # )
 
 pyproject_callback = conf_callback_factory(pyproject_loader)
@@ -103,7 +48,7 @@ def main(
     config: str = typer.Option(
         "",
         callback=pyproject_callback,
-        is_eager=True,  # THIS IS REALLY IMPORTANT
+        is_eager=True,  # THIS IS REALLY IMPORTANT (1)
     ),
     opt1: str = typer.Option(...),
     opt2: str = typer.Option("hello"),
@@ -115,6 +60,9 @@ if __name__ == "__main__":
     app()
 ```
 
+1. You _must_ use `is_eager=True` in the parameter definition because that will cause it to be processed first.
+   If you don't use `is_eager`, then your parameter values will depend on the order in which they were processed (read: unpredictably).
+
 And we get this behavior:
 
 ```bash
@@ -124,7 +72,7 @@ my_tool.py other.toml pyproject.toml
 $ python my_tool.py
 things nothing stuff
 
-$ python typer_config.py others
+$ python my_tool.py others
 things nothing others
 
 $ python my_tool.py --config other.toml

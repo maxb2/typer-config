@@ -2,36 +2,36 @@
 Typer Configuration Utilities
 """
 
-import typer
+from typer import Context, CallbackParam, BadParameter
 
-from ._typing import ConfigParameterCallback, Loader, ParameterValue
+from ._typing import ConfigParameterCallback, ConfLoader, TyperParameterValue
 from .loaders import json_loader, toml_loader, yaml_loader
 
 
-def conf_callback_factory(loader: Loader) -> ConfigParameterCallback:
+def conf_callback_factory(loader: ConfLoader) -> ConfigParameterCallback:
     """Configuration callback factory
 
     Parameters
     ----------
-    loader : Loader
-        Loader function that takes the value passed to the typer CLI and
+    loader : ConfLoader
+        Config loader function that takes the value passed to the typer CLI and
         returns a dictionary that is applied to the click context's default map.
 
     Returns
     -------
     ConfigParameterCallback
-        Configuration callback function.
+        Configuration parameter callback function.
     """
 
     def _callback(
-        ctx: typer.Context, param: typer.CallbackParam, param_value: ParameterValue
-    ) -> ParameterValue:
+        ctx: Context, param: CallbackParam, param_value: TyperParameterValue
+    ) -> TyperParameterValue:
         try:
             conf = loader(param_value)  # Load config file
             ctx.default_map = ctx.default_map or {}  # Initialize the default map
             ctx.default_map.update(conf)  # Merge the config Dict into default_map
         except Exception as ex:
-            raise typer.BadParameter(str(ex), ctx=ctx, param=param) from ex
+            raise BadParameter(str(ex), ctx=ctx, param=param) from ex
         return param_value
 
     return _callback

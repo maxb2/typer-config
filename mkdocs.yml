@@ -1,12 +1,38 @@
 site_name: Typer Config
 repo_name: maxb2/typer-config
+repo_url: https://github.com/maxb2/typer-config
 
 theme:
   name: material
+  palette:
+    # Palette toggle for light mode
+    - scheme: default
+      toggle:
+        icon: material/brightness-7 
+
+
+        name: Switch to dark mode
+    # Palette toggle for dark mode
+    - scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
   features:
     - navigation.sections
-    - navigation.expand
-  #   - navigation.sections
+    - content.code.copy
+    - content.code.annotate
+
+nav:
+  - Home: index.md
+  - Getting Started:
+    - install.md
+    - how.md
+  - Examples:
+    - 'examples/simple_yaml.md'
+    - 'examples/pyproject.md'
+  - API Reference: 
+    - api/module.md
+    - api/types.md
 
 markdown_extensions:
   - pymdownx.highlight:
@@ -25,3 +51,7 @@ plugins:
           separate_signature: true
           show_signature_annotations: true
           signature_crossrefs: true
+
+extra:
+  version:
+    provider: mike

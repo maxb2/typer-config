@@ -5,31 +5,35 @@ Data and Function types.
 import sys
 from typing import Any, Callable, Dict, Iterable
 
-from typer import CallbackParam
-from typer import Context
+from typer import CallbackParam, Context
 
 # Handle some imports based on python version
 if sys.version_info < (3, 10):  # pragma: no cover
-    from typing_extensions import TypeAlias, ParamSpec
+    from typing_extensions import TypeAlias
 else:  # pragma: no cover
-    from typing import TypeAlias, ParamSpec
+    from typing import TypeAlias
 
 # Data types
-ConfDict: TypeAlias = Dict[str, Any]
-"""Configuration dictionary."""
-ParameterValue: TypeAlias = Any
-"""Typer parameter value."""
-ConfDictPath: TypeAlias = Iterable[str]
-"""Accessor path for a configuration dictionary."""
+TyperParameterName: TypeAlias = str
+"""Typer CLI parameter name."""
 
-# Function(al) types
-Loader: TypeAlias = Callable[[Any], ConfDict]
+TyperParameterValue: TypeAlias = Any
+"""Typer CLI parameter value."""
+
+ConfDict: TypeAlias = Dict[TyperParameterName, Any]
+"""Configuration dictionary to be applied to the click context default map."""
+
+ConfDictAccessorPath: TypeAlias = Iterable[str]
+"""Configuration dictionary accessor path."""
+
+# Function types
+ConfLoader: TypeAlias = Callable[[TyperParameterValue], ConfDict]
 """Configuration loader function."""
+
 ConfigParameterCallback: TypeAlias = Callable[
-    [Context, CallbackParam, ParameterValue], ParameterValue
+    [Context, CallbackParam, TyperParameterValue], TyperParameterValue
 ]
 """Typer config parameter callback function."""
-ValueGetter: TypeAlias = Callable[[], Any]
-"""Value getter function."""
-LoaderCombinator: TypeAlias = Callable[[Loader, ParamSpec], Loader]
-"""Loader function combinator."""
+
+NoArgCallable: TypeAlias = Callable[[], Any]
+"""No argument callable."""
