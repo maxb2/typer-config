@@ -38,4 +38,7 @@ jobs:
       run: poetry publish --build
 
     - name: Publish Docs
+      env:
+        GIT_COMMITTER_NAME: ci-bot 
+        GIT_COMMITTER_EMAIL: ci-bot@example.com
       run: poetry run mike deploy --push --update-aliases ${{ github.ref_name }} latest
