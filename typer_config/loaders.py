@@ -1,13 +1,18 @@
 """
 Configuration File Loaders.
 
-These loaders must implement the interface:
-    typer_config.types.Loader = Callable[[Any], Dict[str, Any]]
+These loaders must implement the `typer_config.__typing.ConfigLoader` interface.
 """
 import json
 import sys
 
-from ._typing import ConfDict, Loader, ConfDictPath, ValueGetter
+from .__typing import (
+    ConfigDict,
+    ConfigLoader,
+    ConfigDictAccessorPath,
+    NoArgCallable,
+    TyperParameterValue,
+)
 
 USING_TOMLLIB = False
 TOML_MISSING = True
@@ -38,25 +43,27 @@ except ImportError:  # pragma: no cover
     pass
 
 
-def subpath_loader(loader: Loader, dictpath: ConfDictPath) -> Loader:
+def subpath_loader(
+    loader: ConfigLoader, dictpath: ConfigDictAccessorPath
+) -> ConfigLoader:
     """Modify a loader to return a subpath of the dictionary from file.
 
     Parameters
     ----------
-    loader : Loader
+    loader : ConfigLoader
         loader to modify
-    dictpath : ConfDictPath
+    dictpath : ConfigDictAccessorPath
         path to the section of the dictionary to return
 
     Returns
     -------
-    Loader
+    ConfigLoader
         sub dictionary loader
     """
 
-    def _loader(param_value: str) -> ConfDict:
-        # get original ConfDict
-        conf: ConfDict = loader(param_value)
+    def _loader(param_value: str) -> ConfigDict:
+        # get original ConfigDict
+        conf: ConfigDict = loader(param_value)
 
         # get subpath of dictionary
         for path in dictpath:
@@ -66,45 +73,47 @@ def subpath_loader(loader: Loader, dictpath: ConfDictPath) -> Loader:
     return _loader
 
 
-def default_value_loader(loader: Loader, value_getter: ValueGetter) -> Loader:
+def default_value_loader(
+    loader: ConfigLoader, value_getter: NoArgCallable
+) -> ConfigLoader:
     """Modify a loader to use a default value if the passed value is false-ish
 
     Parameters
     ----------
-    loader : Loader
+    loader : ConfigLoader
         loader to modify
-    value_getter : ValueGetter
+    value_getter : NoArgCallable
         function that returns default value
 
     Returns
     -------
-    Loader
+    ConfigLoader
         modified loader
     """
 
-    def _loader(param_value: str) -> ConfDict:
+    def _loader(param_value: str) -> ConfigDict:
         # parameter value was not specified by user
         if not param_value:
             param_value = value_getter()
 
-        conf: ConfDict = loader(param_value)
+        conf: ConfigDict = loader(param_value)
 
         return conf
 
     return _loader
 
 
-def yaml_loader(param_value: str) -> ConfDict:
+def yaml_loader(param_value: TyperParameterValue) -> ConfigDict:
     """YAML file loader
 
     Parameters
     ----------
-    param_value : str
+    param_value : TyperParameterValue
         path of YAML file
 
     Returns
     -------
-    ConfDict
+    ConfigDict
         dictionary loaded from file
     """
 
@@ -112,49 +121,49 @@ def yaml_loader(param_value: str) -> ConfDict:
         raise ModuleNotFoundError("Please install the pyyaml library.")
 
     with open(param_value, "r", encoding="utf-8") as _file:
-        conf: ConfDict = yaml.safe_load(_file)
+        conf: ConfigDict = yaml.safe_load(_file)
 
     return conf
 
 
-def json_loader(param_value: str) -> ConfDict:
+def json_loader(param_value: TyperParameterValue) -> ConfigDict:
     """JSON file loader
 
     Parameters
     ----------
-    param_value : str
+    param_value : TyperParameterValue
         path of JSON file
 
     Returns
     -------
-    ConfDict
+    ConfigDict
         dictionary loaded from file
     """
 
     with open(param_value, "r", encoding="utf-8") as _file:
-        conf: ConfDict = json.load(_file)
+        conf: ConfigDict = json.load(_file)
 
     return conf
 
 
-def toml_loader(param_value: str) -> ConfDict:
+def toml_loader(param_value: TyperParameterValue) -> ConfigDict:
     """TOML file loader
 
     Parameters
     ----------
-    param_value : str
+    param_value : TyperParameterValue
         path of TOML file
 
     Returns
     -------
-    ConfDict
+    ConfigDict
         dictionary loaded from file
     """
 
     if TOML_MISSING:  # pragma: no cover
         raise ModuleNotFoundError("Please install the toml library.")
 
-    conf: ConfDict = {}
+    conf: ConfigDict = {}
 
     if USING_TOMLLIB:  # pragma: no cover
         with open(param_value, "rb") as _file:

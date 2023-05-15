@@ -3,6 +3,10 @@ on:
   push:
   pull_request:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   ci:
     strategy:
@@ -25,7 +29,7 @@ jobs:
           poetry-version: ${{ matrix.poetry-version }}
       
       - name: Install Dependencies
-        run: poetry install --all-extras
+        run: poetry install -n --all-extras
       
       - name: Linting and Type checking
         run: |

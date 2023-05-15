@@ -76,7 +76,7 @@ def test_pyproject_example(simple_app):
 
     pyproject_loader = subpath_loader(
         default_value_loader(toml_loader, lambda: str(HERE.joinpath("pyproject.toml"))),
-        ["tools", "my_tool", "parameters"],
+        ["tool", "my_tool", "parameters"],
     )
 
     pyproject_callback = typer_config.conf_callback_factory(pyproject_loader)
