@@ -1,17 +1,24 @@
 import os
+import sys
 
 from duty import duty
-from duty.context import Context
 from duty.callables import mkdocs
+from duty.context import Context
 from git_changelog import Changelog
 from git_changelog.cli import build_and_render
+
+# Handle some imports based on python version
+if sys.version_info < (3, 10):  # pragma: no cover
+    from typing_extensions import Tuple
+else:  # pragma: no cover
+    from typing import Tuple
 
 CI = os.environ.get("CI", "0") in {"1", "true", "yes", ""}
 WINDOWS = os.name == "nt"
 PTY = not WINDOWS and not CI
 
 
-def _changelog() -> tuple[Changelog, str]:
+def _changelog() -> Tuple[Changelog, str]:
     """Update changelog in-place.
 
     Returns
@@ -65,7 +72,7 @@ def check_types(ctx: Context):
     ctx: Context
         The context instance (passed automatically).
     """
-    ctx.run("mypy typer_config", title="Type checking")
+    ctx.run("mypy typer_config", title="Type checking", pty=PTY)
 
 
 @duty
@@ -165,7 +172,7 @@ def release(ctx: Context, version: str = None):
         The new version number to use.
     """
     if version is not None:
-        res: tuple[Changelog, str] = _changelog()
+        res: Tuple[Changelog, str] = _changelog()
         version: str = res[0].versions_list[0].planned_tag
     ctx.run(f"poetry version {version}", title="Bumping version")
     ctx.run("git add pyproject.toml CHANGELOG.md", title="Staging files")
