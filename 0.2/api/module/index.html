@@ -1,0 +1,1500 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../../examples/pyproject/">
+      
+      
+        <link rel="next" href="../types/">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.12">
+    
+    
+      
+        <title>Module - Typer Config</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.85bb2934.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.a6bdf11c.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#module" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Typer Config" class="md-header__button md-logo" aria-label="Typer Config" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Typer Config
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Module
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+          
+            
+            
+            
+            <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+            
+              <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+              </label>
+            
+          
+            
+            
+            
+            <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+            
+              <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+              </label>
+            
+          
+        </form>
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/maxb2/typer-config" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    maxb2/typer-config
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Typer Config" class="md-nav__button md-logo" aria-label="Typer Config" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Typer Config
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/maxb2/typer-config" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    maxb2/typer-config
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          Getting Started
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Getting Started
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../install/" class="md-nav__link">
+        Installation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../how/" class="md-nav__link">
+        How it works
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          Examples
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Examples
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/simple_yaml/" class="md-nav__link">
+        Simple YAML Example
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/pyproject/" class="md-nav__link">
+        Pyproject TOML loader
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          API Reference
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          API Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Module
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Module
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#typer_config" class="md-nav__link">
+    typer_config
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#typer_config.conf_callback_factory" class="md-nav__link">
+    conf_callback_factory()
+  </a>
+  
+    <nav class="md-nav" aria-label="conf_callback_factory()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#typer_config.conf_callback_factory--parameters" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#typer_config.conf_callback_factory--returns" class="md-nav__link">
+    Returns
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#typer_config.loaders" class="md-nav__link">
+    loaders
+  </a>
+  
+    <nav class="md-nav" aria-label="loaders">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#typer_config.loaders.default_value_loader" class="md-nav__link">
+    default_value_loader()
+  </a>
+  
+    <nav class="md-nav" aria-label="default_value_loader()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#typer_config.loaders.default_value_loader--parameters" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#typer_config.loaders.default_value_loader--returns" class="md-nav__link">
+    Returns
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#typer_config.loaders.json_loader" class="md-nav__link">
+    json_loader()
+  </a>
+  
+    <nav class="md-nav" aria-label="json_loader()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#typer_config.loaders.json_loader--parameters" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#typer_config.loaders.json_loader--returns" class="md-nav__link">
+    Returns
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#typer_config.loaders.subpath_loader" class="md-nav__link">
+    subpath_loader()
+  </a>
+  
+    <nav class="md-nav" aria-label="subpath_loader()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#typer_config.loaders.subpath_loader--parameters" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#typer_config.loaders.subpath_loader--returns" class="md-nav__link">
+    Returns
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#typer_config.loaders.toml_loader" class="md-nav__link">
+    toml_loader()
+  </a>
+  
+    <nav class="md-nav" aria-label="toml_loader()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#typer_config.loaders.toml_loader--parameters" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#typer_config.loaders.toml_loader--returns" class="md-nav__link">
+    Returns
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#typer_config.loaders.yaml_loader" class="md-nav__link">
+    yaml_loader()
+  </a>
+  
+    <nav class="md-nav" aria-label="yaml_loader()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#typer_config.loaders.yaml_loader--parameters" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#typer_config.loaders.yaml_loader--returns" class="md-nav__link">
+    Returns
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../types/" class="md-nav__link">
+        Types
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#typer_config" class="md-nav__link">
+    typer_config
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#typer_config.conf_callback_factory" class="md-nav__link">
+    conf_callback_factory()
+  </a>
+  
+    <nav class="md-nav" aria-label="conf_callback_factory()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#typer_config.conf_callback_factory--parameters" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#typer_config.conf_callback_factory--returns" class="md-nav__link">
+    Returns
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#typer_config.loaders" class="md-nav__link">
+    loaders
+  </a>
+  
+    <nav class="md-nav" aria-label="loaders">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#typer_config.loaders.default_value_loader" class="md-nav__link">
+    default_value_loader()
+  </a>
+  
+    <nav class="md-nav" aria-label="default_value_loader()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#typer_config.loaders.default_value_loader--parameters" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#typer_config.loaders.default_value_loader--returns" class="md-nav__link">
+    Returns
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#typer_config.loaders.json_loader" class="md-nav__link">
+    json_loader()
+  </a>
+  
+    <nav class="md-nav" aria-label="json_loader()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#typer_config.loaders.json_loader--parameters" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#typer_config.loaders.json_loader--returns" class="md-nav__link">
+    Returns
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#typer_config.loaders.subpath_loader" class="md-nav__link">
+    subpath_loader()
+  </a>
+  
+    <nav class="md-nav" aria-label="subpath_loader()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#typer_config.loaders.subpath_loader--parameters" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#typer_config.loaders.subpath_loader--returns" class="md-nav__link">
+    Returns
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#typer_config.loaders.toml_loader" class="md-nav__link">
+    toml_loader()
+  </a>
+  
+    <nav class="md-nav" aria-label="toml_loader()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#typer_config.loaders.toml_loader--parameters" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#typer_config.loaders.toml_loader--returns" class="md-nav__link">
+    Returns
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#typer_config.loaders.yaml_loader" class="md-nav__link">
+    yaml_loader()
+  </a>
+  
+    <nav class="md-nav" aria-label="yaml_loader()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#typer_config.loaders.yaml_loader--parameters" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#typer_config.loaders.yaml_loader--returns" class="md-nav__link">
+    Returns
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="module">Module</h1>
+
+
+<div class="doc doc-object doc-module">
+
+
+<a id="typer_config"></a>
+  <div class="doc doc-contents first">
+  
+      <p>Typer Configuration Utilities</p>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="typer_config.conf_callback_factory" class="doc doc-heading">
+        <span class="doc doc-object-name doc-function-name">conf_callback_factory</span>
+
+
+</h2>
+<div class="highlight"><pre><span></span><code><span class="n">conf_callback_factory</span><span class="p">(</span>
+    <span class="n">loader</span><span class="p">:</span> <span class="n">ConfLoader</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ConfigParameterCallback</span>
+</code></pre></div>
+
+  <div class="doc doc-contents ">
+  
+      <p>Configuration callback factory</p>
+<h4 id="typer_config.conf_callback_factory--parameters">Parameters</h4>
+
+<details class="loader-" open>
+  <summary>ConfLoader</summary>
+  <p>Config loader function that takes the value passed to the typer CLI and
+returns a dictionary that is applied to the click context's default map.</p>
+</details>      <h4 id="typer_config.conf_callback_factory--returns">Returns</h4>
+<p>ConfigParameterCallback
+    Configuration parameter callback function.</p>
+
+      <details class="quote">
+        <summary>Source code in <code>typer_config/__init__.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">conf_callback_factory</span><span class="p">(</span><span class="n">loader</span><span class="p">:</span> <span class="n">ConfLoader</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ConfigParameterCallback</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Configuration callback factory</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    loader : ConfLoader</span>
+<span class="sd">        Config loader function that takes the value passed to the typer CLI and</span>
+<span class="sd">        returns a dictionary that is applied to the click context&#39;s default map.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    ConfigParameterCallback</span>
+<span class="sd">        Configuration parameter callback function.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">_callback</span><span class="p">(</span>
+        <span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span> <span class="n">param</span><span class="p">:</span> <span class="n">CallbackParam</span><span class="p">,</span> <span class="n">param_value</span><span class="p">:</span> <span class="n">TyperParameterValue</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TyperParameterValue</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">conf</span> <span class="o">=</span> <span class="n">loader</span><span class="p">(</span><span class="n">param_value</span><span class="p">)</span>  <span class="c1"># Load config file</span>
+            <span class="n">ctx</span><span class="o">.</span><span class="n">default_map</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">default_map</span> <span class="ow">or</span> <span class="p">{}</span>  <span class="c1"># Initialize the default map</span>
+            <span class="n">ctx</span><span class="o">.</span><span class="n">default_map</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">conf</span><span class="p">)</span>  <span class="c1"># Merge the config Dict into default_map</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">BadParameter</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">ex</span><span class="p">),</span> <span class="n">ctx</span><span class="o">=</span><span class="n">ctx</span><span class="p">,</span> <span class="n">param</span><span class="o">=</span><span class="n">param</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">ex</span>
+        <span class="k">return</span> <span class="n">param_value</span>
+
+    <span class="k">return</span> <span class="n">_callback</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="typer_config.loaders" class="doc doc-heading">
+          <span class="doc doc-object-name doc-module-name">loaders</span>
+
+
+</h2>
+
+  <div class="doc doc-contents ">
+  
+      <p>Configuration File Loaders.</p>
+
+<details class="these-loaders-must-implement-the-interface" open>
+  <summary>These loaders must implement the interface</summary>
+  <p>typer_config.types.ConfLoader = Callable[[Any], Dict[str, Any]]</p>
+</details>
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="typer_config.loaders.default_value_loader" class="doc doc-heading">
+        <span class="doc doc-object-name doc-function-name">default_value_loader</span>
+
+
+</h3>
+<div class="highlight"><pre><span></span><code><span class="n">default_value_loader</span><span class="p">(</span>
+    <span class="n">loader</span><span class="p">:</span> <span class="n">ConfLoader</span><span class="p">,</span> <span class="n">value_getter</span><span class="p">:</span> <span class="n">NoArgCallable</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ConfLoader</span>
+</code></pre></div>
+
+  <div class="doc doc-contents ">
+  
+      <p>Modify a loader to use a default value if the passed value is false-ish</p>
+<h5 id="typer_config.loaders.default_value_loader--parameters">Parameters</h5>
+
+<details class="loader-" open>
+  <summary>ConfLoader</summary>
+  <p>loader to modify</p>
+</details>
+<details class="value_getter-" open>
+  <summary>NoArgCallable</summary>
+  <p>function that returns default value</p>
+</details>      <h5 id="typer_config.loaders.default_value_loader--returns">Returns</h5>
+<p>ConfLoader
+    modified loader</p>
+
+      <details class="quote">
+        <summary>Source code in <code>typer_config/loaders.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">default_value_loader</span><span class="p">(</span><span class="n">loader</span><span class="p">:</span> <span class="n">ConfLoader</span><span class="p">,</span> <span class="n">value_getter</span><span class="p">:</span> <span class="n">NoArgCallable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ConfLoader</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Modify a loader to use a default value if the passed value is false-ish</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    loader : ConfLoader</span>
+<span class="sd">        loader to modify</span>
+<span class="sd">    value_getter : NoArgCallable</span>
+<span class="sd">        function that returns default value</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    ConfLoader</span>
+<span class="sd">        modified loader</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">_loader</span><span class="p">(</span><span class="n">param_value</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ConfDict</span><span class="p">:</span>
+        <span class="c1"># parameter value was not specified by user</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">param_value</span><span class="p">:</span>
+            <span class="n">param_value</span> <span class="o">=</span> <span class="n">value_getter</span><span class="p">()</span>
+
+        <span class="n">conf</span><span class="p">:</span> <span class="n">ConfDict</span> <span class="o">=</span> <span class="n">loader</span><span class="p">(</span><span class="n">param_value</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">conf</span>
+
+    <span class="k">return</span> <span class="n">_loader</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="typer_config.loaders.json_loader" class="doc doc-heading">
+        <span class="doc doc-object-name doc-function-name">json_loader</span>
+
+
+</h3>
+<div class="highlight"><pre><span></span><code><span class="n">json_loader</span><span class="p">(</span><span class="n">param_value</span><span class="p">:</span> <span class="n">TyperParameterValue</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ConfDict</span>
+</code></pre></div>
+
+  <div class="doc doc-contents ">
+  
+      <p>JSON file loader</p>
+<h5 id="typer_config.loaders.json_loader--parameters">Parameters</h5>
+
+<details class="param_value-" open>
+  <summary>TyperParameterValue</summary>
+  <p>path of JSON file</p>
+</details>      <h5 id="typer_config.loaders.json_loader--returns">Returns</h5>
+<p>ConfDict
+    dictionary loaded from file</p>
+
+      <details class="quote">
+        <summary>Source code in <code>typer_config/loaders.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">json_loader</span><span class="p">(</span><span class="n">param_value</span><span class="p">:</span> <span class="n">TyperParameterValue</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ConfDict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;JSON file loader</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    param_value : TyperParameterValue</span>
+<span class="sd">        path of JSON file</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    ConfDict</span>
+<span class="sd">        dictionary loaded from file</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">param_value</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">_file</span><span class="p">:</span>
+        <span class="n">conf</span><span class="p">:</span> <span class="n">ConfDict</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">_file</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">conf</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="typer_config.loaders.subpath_loader" class="doc doc-heading">
+        <span class="doc doc-object-name doc-function-name">subpath_loader</span>
+
+
+</h3>
+<div class="highlight"><pre><span></span><code><span class="n">subpath_loader</span><span class="p">(</span>
+    <span class="n">loader</span><span class="p">:</span> <span class="n">ConfLoader</span><span class="p">,</span> <span class="n">dictpath</span><span class="p">:</span> <span class="n">ConfDictAccessorPath</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ConfLoader</span>
+</code></pre></div>
+
+  <div class="doc doc-contents ">
+  
+      <p>Modify a loader to return a subpath of the dictionary from file.</p>
+<h5 id="typer_config.loaders.subpath_loader--parameters">Parameters</h5>
+
+<details class="loader-" open>
+  <summary>ConfLoader</summary>
+  <p>loader to modify</p>
+</details>
+<details class="dictpath-" open>
+  <summary>ConfDictPath</summary>
+  <p>path to the section of the dictionary to return</p>
+</details>      <h5 id="typer_config.loaders.subpath_loader--returns">Returns</h5>
+<p>ConfLoader
+    sub dictionary loader</p>
+
+      <details class="quote">
+        <summary>Source code in <code>typer_config/loaders.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">subpath_loader</span><span class="p">(</span><span class="n">loader</span><span class="p">:</span> <span class="n">ConfLoader</span><span class="p">,</span> <span class="n">dictpath</span><span class="p">:</span> <span class="n">ConfDictAccessorPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ConfLoader</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Modify a loader to return a subpath of the dictionary from file.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    loader : ConfLoader</span>
+<span class="sd">        loader to modify</span>
+<span class="sd">    dictpath : ConfDictPath</span>
+<span class="sd">        path to the section of the dictionary to return</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    ConfLoader</span>
+<span class="sd">        sub dictionary loader</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">_loader</span><span class="p">(</span><span class="n">param_value</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ConfDict</span><span class="p">:</span>
+        <span class="c1"># get original ConfDict</span>
+        <span class="n">conf</span><span class="p">:</span> <span class="n">ConfDict</span> <span class="o">=</span> <span class="n">loader</span><span class="p">(</span><span class="n">param_value</span><span class="p">)</span>
+
+        <span class="c1"># get subpath of dictionary</span>
+        <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">dictpath</span><span class="p">:</span>
+            <span class="n">conf</span> <span class="o">=</span> <span class="n">conf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="p">{})</span>
+        <span class="k">return</span> <span class="n">conf</span>
+
+    <span class="k">return</span> <span class="n">_loader</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="typer_config.loaders.toml_loader" class="doc doc-heading">
+        <span class="doc doc-object-name doc-function-name">toml_loader</span>
+
+
+</h3>
+<div class="highlight"><pre><span></span><code><span class="n">toml_loader</span><span class="p">(</span><span class="n">param_value</span><span class="p">:</span> <span class="n">TyperParameterValue</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ConfDict</span>
+</code></pre></div>
+
+  <div class="doc doc-contents ">
+  
+      <p>TOML file loader</p>
+<h5 id="typer_config.loaders.toml_loader--parameters">Parameters</h5>
+
+<details class="param_value-" open>
+  <summary>TyperParameterValue</summary>
+  <p>path of TOML file</p>
+</details>      <h5 id="typer_config.loaders.toml_loader--returns">Returns</h5>
+<p>ConfDict
+    dictionary loaded from file</p>
+
+      <details class="quote">
+        <summary>Source code in <code>typer_config/loaders.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">toml_loader</span><span class="p">(</span><span class="n">param_value</span><span class="p">:</span> <span class="n">TyperParameterValue</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ConfDict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;TOML file loader</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    param_value : TyperParameterValue</span>
+<span class="sd">        path of TOML file</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    ConfDict</span>
+<span class="sd">        dictionary loaded from file</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">TOML_MISSING</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+        <span class="k">raise</span> <span class="ne">ModuleNotFoundError</span><span class="p">(</span><span class="s2">&quot;Please install the toml library.&quot;</span><span class="p">)</span>
+
+    <span class="n">conf</span><span class="p">:</span> <span class="n">ConfDict</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">if</span> <span class="n">USING_TOMLLIB</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">param_value</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">_file</span><span class="p">:</span>
+            <span class="n">conf</span> <span class="o">=</span> <span class="n">tomllib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">_file</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
+    <span class="k">else</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">param_value</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">_file</span><span class="p">:</span>
+            <span class="n">conf</span> <span class="o">=</span> <span class="n">toml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">_file</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
+
+    <span class="k">return</span> <span class="n">conf</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="typer_config.loaders.yaml_loader" class="doc doc-heading">
+        <span class="doc doc-object-name doc-function-name">yaml_loader</span>
+
+
+</h3>
+<div class="highlight"><pre><span></span><code><span class="n">yaml_loader</span><span class="p">(</span><span class="n">param_value</span><span class="p">:</span> <span class="n">TyperParameterValue</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ConfDict</span>
+</code></pre></div>
+
+  <div class="doc doc-contents ">
+  
+      <p>YAML file loader</p>
+<h5 id="typer_config.loaders.yaml_loader--parameters">Parameters</h5>
+
+<details class="param_value-" open>
+  <summary>TyperParameterValue</summary>
+  <p>path of YAML file</p>
+</details>      <h5 id="typer_config.loaders.yaml_loader--returns">Returns</h5>
+<p>ConfDict
+    dictionary loaded from file</p>
+
+      <details class="quote">
+        <summary>Source code in <code>typer_config/loaders.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">yaml_loader</span><span class="p">(</span><span class="n">param_value</span><span class="p">:</span> <span class="n">TyperParameterValue</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ConfDict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;YAML file loader</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    param_value : TyperParameterValue</span>
+<span class="sd">        path of YAML file</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    ConfDict</span>
+<span class="sd">        dictionary loaded from file</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">YAML_MISSING</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+        <span class="k">raise</span> <span class="ne">ModuleNotFoundError</span><span class="p">(</span><span class="s2">&quot;Please install the pyyaml library.&quot;</span><span class="p">)</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">param_value</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">_file</span><span class="p">:</span>
+        <span class="n">conf</span><span class="p">:</span> <span class="n">ConfDict</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">_file</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">conf</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.c2be25ad.min.js"></script>
+      
+    
+  </body>
+</html>
