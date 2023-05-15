@@ -1672,4 +1672,4 @@ yaml = ["pyyaml"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "2d1ce66c68ef95fd0b3f6fcbfdfc052fdaba7789d7e45af80033c2799e199a5d"
+content-hash = "3478c0409aa4b3030072d72f1a3bd4b0cb8c998854470393ccc598684b78bf66"
