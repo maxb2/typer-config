@@ -2,9 +2,9 @@
 Typer Configuration Utilities
 """
 
-from typer import Context, CallbackParam, BadParameter
+from typer import BadParameter, CallbackParam, Context
 
-from .__typing import ConfigParameterCallback, ConfigLoader, TyperParameterValue
+from .__typing import ConfigLoader, ConfigParameterCallback, TyperParameterValue
 from .loaders import json_loader, toml_loader, yaml_loader
 
 

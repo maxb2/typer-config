@@ -8,8 +8,8 @@ import sys
 
 from .__typing import (
     ConfigDict,
-    ConfigLoader,
     ConfigDictAccessorPath,
+    ConfigLoader,
     NoArgCallable,
     TyperParameterValue,
 )
