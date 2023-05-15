@@ -7,6 +7,12 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  LANG: en_US.utf-8
+  LC_ALL: en_US.utf-8
+  PYTHONIOENCODING: UTF-8
+  CI: true
+
 jobs:
   ci:
     strategy:
@@ -33,10 +39,11 @@ jobs:
       
       - name: Linting and Type checking
         run: |
-          poetry run pylint typer_config/
-          poetry run mypy typer_config/
+          poetry run duty check
       
-      - name: Testing and Coverage
+      - name: Testing
         run: |
-          poetry run coverage run --source typer_config --branch -m pytest
-          poetry run coverage report
+          poetry run duty test
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3

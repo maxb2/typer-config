@@ -59,12 +59,22 @@ pytest = "^7.3.1"
 mypy = "^1.2.0"
 types-toml = "^0.10.8.6"
 types-pyyaml = "^6.0.12.9"
-coverage = "^7.2.5"
+git-changelog = "^1.0.1"
+duty = "^0.11.0"
+pytest-cov = "^4.0.0"
+safety = "^2.3.5"
+griffe = "^0.27.5"
 
 [tool.poetry.group.docs.dependencies]
 mkdocs-material = "^9.1.9"
 mkdocstrings = {extras = ["python"], version = "^0.21.2"}
 mike = "^1.1.2"
+
+[tool.isort]
+profile = "black"
+
+[tool.pylint.format]
+max-line-length = "88"
 
 [build-system]
 requires = ["poetry-core"]
