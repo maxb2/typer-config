@@ -55,7 +55,9 @@ def check_dependencies(ctx: Context):
     ctx: Context
         The context instance (passed automatically).
     """
-    ctx.run("safety check", title="Dependency checking")
+    ctx.run(
+        "poetry export --only main | safety check --stdin", title="Dependency checking"
+    )
 
 
 @duty
