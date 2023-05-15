@@ -13,7 +13,8 @@ jobs:
     steps:
     
     - uses: actions/checkout@v3
-      fetch-depth: 0
+      with:
+        fetch-depth: 0
     
     - name: Set up Python
       uses: actions/setup-python@v3
@@ -37,4 +38,4 @@ jobs:
       run: poetry publish --build
 
     - name: Publish Docs
-      run: poetry run mike deploy --push --update-aliases ${{ release.tag_name }} latest
+      run: poetry run mike deploy --push --update-aliases ${{ github.ref_name }} latest
