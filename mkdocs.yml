@@ -35,7 +35,6 @@ markdown_extensions:
       use_pygments: true
   - pymdownx.superfences
 
-
 plugins:
   - search
   - mkdocstrings:
