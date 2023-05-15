@@ -7,7 +7,37 @@ readme = "README.md"
 license = "MIT"
 packages = [{include = "typer_config"}]
 repository = "https://github.com/maxb2/typer-config"
-keywords = ["typer"]
+documentation = "https://maxb2.github.io/typer-config/"
+homepage = "https://maxb2.github.io/typer-config/"
+keywords = [
+        "typer",
+        "config",
+        "configuration",
+        "configuration-file",
+        "yaml",
+        "toml",
+        "json",
+        "cli"
+    ]
+classifiers = [
+        "Intended Audience :: Information Technology",
+        "Intended Audience :: System Administrators",
+        "Operating System :: OS Independent",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python",
+        "Topic :: Software Development :: Libraries :: Application Frameworks",
+        "Topic :: Software Development :: Libraries :: Python Modules",
+        "Topic :: Software Development :: Libraries",
+        "Topic :: Software Development",
+        "Typing :: Typed",
+        "Intended Audience :: Developers",
+        "Programming Language :: Python :: 3 :: Only",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "License :: OSI Approved :: MIT License"
+    ]
 
 [tool.poetry.dependencies]
 python = "^3.8"
