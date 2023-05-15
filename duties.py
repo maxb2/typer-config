@@ -1,17 +1,12 @@
 import os
 import sys
+from typing import Tuple
 
 from duty import duty
 from duty.callables import mkdocs
 from duty.context import Context
 from git_changelog import Changelog
 from git_changelog.cli import build_and_render
-
-# Handle some imports based on python version
-if sys.version_info < (3, 10):  # pragma: no cover
-    from typing_extensions import Tuple
-else:  # pragma: no cover
-    from typing import Tuple
 
 CI = os.environ.get("CI", "0") in {"1", "true", "yes", ""}
 WINDOWS = os.name == "nt"
