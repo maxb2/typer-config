@@ -5,7 +5,7 @@ on:
     types: [published]
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   deploy:
@@ -13,6 +13,7 @@ jobs:
     steps:
     
     - uses: actions/checkout@v3
+      fetch-depth: 0
     
     - name: Set up Python
       uses: actions/setup-python@v3
@@ -30,7 +31,10 @@ jobs:
       run: poetry config pypi-token.pypi "$PYPI_TOKEN"
     
     - name: Install Dependencies
-      run: poetry install --extras all
+      run: poetry install -n --all-extras
     
     - name: Build package
       run: poetry publish --build
+
+    - name: Publish Docs
+      run: poetry run mike deploy --push --update-aliases ${{ release.tag_name }} latest
