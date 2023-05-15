@@ -20,14 +20,14 @@ TyperParameterName: TypeAlias = str
 TyperParameterValue: TypeAlias = Any
 """Typer CLI parameter value."""
 
-ConfDict: TypeAlias = Dict[TyperParameterName, Any]
+ConfigDict: TypeAlias = Dict[TyperParameterName, Any]
 """Configuration dictionary to be applied to the click context default map."""
 
-ConfDictAccessorPath: TypeAlias = Iterable[str]
+ConfigDictAccessorPath: TypeAlias = Iterable[str]
 """Configuration dictionary accessor path."""
 
 # Function types
-ConfLoader: TypeAlias = Callable[[TyperParameterValue], ConfDict]
+ConfigLoader: TypeAlias = Callable[[TyperParameterValue], ConfigDict]
 """Configuration loader function."""
 
 ConfigParameterCallback: TypeAlias = Callable[

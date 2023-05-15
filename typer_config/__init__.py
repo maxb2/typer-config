@@ -4,16 +4,16 @@ Typer Configuration Utilities
 
 from typer import Context, CallbackParam, BadParameter
 
-from ._typing import ConfigParameterCallback, ConfLoader, TyperParameterValue
+from .__typing import ConfigParameterCallback, ConfigLoader, TyperParameterValue
 from .loaders import json_loader, toml_loader, yaml_loader
 
 
-def conf_callback_factory(loader: ConfLoader) -> ConfigParameterCallback:
-    """Configuration callback factory
+def conf_callback_factory(loader: ConfigLoader) -> ConfigParameterCallback:
+    """Typer configuration callback factory.
 
     Parameters
     ----------
-    loader : ConfLoader
+    loader : ConfigLoader
         Config loader function that takes the value passed to the typer CLI and
         returns a dictionary that is applied to the click context's default map.
 
@@ -38,5 +38,10 @@ def conf_callback_factory(loader: ConfLoader) -> ConfigParameterCallback:
 
 
 yaml_conf_callback: ConfigParameterCallback = conf_callback_factory(yaml_loader)
+"""YAML configuration callback for a typer parameter."""
+
 json_conf_callback: ConfigParameterCallback = conf_callback_factory(json_loader)
+"""JSON configuration callback for a typer parameter."""
+
 toml_conf_callback: ConfigParameterCallback = conf_callback_factory(toml_loader)
+"""TOML configuration callback for a typer parameter."""

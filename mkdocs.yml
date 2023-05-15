@@ -30,9 +30,7 @@ nav:
   - Examples:
     - 'examples/simple_yaml.md'
     - 'examples/pyproject.md'
-  - API Reference: 
-    - api/module.md
-    - api/types.md
+  - API Reference: api.md
 
 markdown_extensions:
   - pymdownx.highlight:
@@ -45,7 +43,11 @@ plugins:
   - mkdocstrings:
       handlers:
         python:
+          import:
+            - https://docs.python.org/3/objects.inv
           options:
+            # docstring_section_style: list
+            docstring_style: numpy
             show_submodules: true
             enable_inventory: true
             separate_signature: true

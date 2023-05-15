@@ -1,3 +1,0 @@
-# Module
-
-::: typer_config
