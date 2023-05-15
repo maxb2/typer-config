@@ -120,7 +120,7 @@ def test(ctx: Context):
     ctx: Context
         The context instance (passed automatically).
     """
-    ctx.run("pytest --cov", title="Testing")
+    ctx.run("pytest --cov --cov-report=xml", title="Testing")
 
 
 @duty
