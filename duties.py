@@ -3,7 +3,7 @@ import sys
 from typing import Tuple
 
 from duty import duty
-from duty.callables import mkdocs
+from duty.callables import mkdocs, mypy
 from duty.context import Context
 from git_changelog import Changelog
 from git_changelog.cli import build_and_render
@@ -67,7 +67,7 @@ def check_types(ctx: Context):
     ctx: Context
         The context instance (passed automatically).
     """
-    ctx.run("mypy typer_config", title="Type checking", pty=PTY)
+    ctx.run(mypy.run("typer_config"), title="Type checking", pty=PTY)
 
 
 @duty
