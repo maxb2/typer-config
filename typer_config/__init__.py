@@ -127,4 +127,3 @@ Raises
 typer.BadParameter
     bad parameter value
 """
-
