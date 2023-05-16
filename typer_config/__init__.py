@@ -26,6 +26,27 @@ def conf_callback_factory(loader: ConfigLoader) -> ConfigParameterCallback:
     def _callback(
         ctx: Context, param: CallbackParam, param_value: TyperParameterValue
     ) -> TyperParameterValue:
+        """Generated typer config parameter callback.
+
+        Parameters
+        ----------
+        ctx : typer.Context
+            typer context (automatically passed)
+        param : typer.CallbackParam
+            typer callback parameter (automatically passed)
+        param_value : TyperParameterValue
+            parameter value passed to typer (automatically passed)
+
+        Returns
+        -------
+        TyperParameterValue
+            must return back the given parameter
+
+        Raises
+        ------
+        typer.BadParameter
+            bad parameter value
+        """
         try:
             conf = loader(param_value)  # Load config file
             ctx.default_map = ctx.default_map or {}  # Initialize the default map
@@ -38,10 +59,72 @@ def conf_callback_factory(loader: ConfigLoader) -> ConfigParameterCallback:
 
 
 yaml_conf_callback: ConfigParameterCallback = conf_callback_factory(yaml_loader)
-"""YAML configuration callback for a typer parameter."""
+"""YAML configuration callback for a typer parameter.
+
+Parameters
+----------
+ctx : typer.Context
+    typer context (automatically passed)
+param : typer.CallbackParam
+    typer callback parameter (automatically passed)
+param_value : TyperParameterValue
+    parameter value passed to typer (automatically passed)
+
+Returns
+-------
+TyperParameterValue
+    must return back the given parameter
+
+Raises
+------
+typer.BadParameter
+    bad parameter value
+"""
 
 json_conf_callback: ConfigParameterCallback = conf_callback_factory(json_loader)
-"""JSON configuration callback for a typer parameter."""
+"""JSON configuration callback for a typer parameter.
+
+Parameters
+----------
+ctx : typer.Context
+    typer context (automatically passed)
+param : typer.CallbackParam
+    typer callback parameter (automatically passed)
+param_value : TyperParameterValue
+    parameter value passed to typer (automatically passed)
+
+Returns
+-------
+TyperParameterValue
+    must return back the given parameter
+
+Raises
+------
+typer.BadParameter
+    bad parameter value
+"""
+
 
 toml_conf_callback: ConfigParameterCallback = conf_callback_factory(toml_loader)
-"""TOML configuration callback for a typer parameter."""
+"""TOML configuration callback for a typer parameter.
+
+Parameters
+----------
+ctx : typer.Context
+    typer context (automatically passed)
+param : typer.CallbackParam
+    typer callback parameter (automatically passed)
+param_value : TyperParameterValue
+    parameter value passed to typer (automatically passed)
+
+Returns
+-------
+TyperParameterValue
+    must return back the given parameter
+
+Raises
+------
+typer.BadParameter
+    bad parameter value
+"""
+
