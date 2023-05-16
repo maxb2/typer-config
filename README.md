@@ -29,4 +29,4 @@ $ my-typer-app --opt1 foo --opt2 bar arg1 arg2
 $ my-typer-app --config config.yml
 ```
 
-See the [documentation](https://maxb2.github.io/typer-config/examples/) for more examples using typer-config.
+See the [documentation](https://maxb2.github.io/typer-config/latest/examples/simple_yaml/) for more examples using typer-config.
