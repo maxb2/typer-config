@@ -139,7 +139,10 @@ def docs(ctx: Context, host: str = "127.0.0.1", port: int = 8000) -> None:
         The port to serve the docs on.
     """
     ctx.run(
-        mkdocs.serve(dev_addr=f"{host}:{port}", watch=["docs", "typer_config"]),
+        mkdocs.serve(
+            dev_addr=f"{host}:{port}",
+            watch=["docs", "typer_config", "docs_gen_files.py"],
+        ),
         title="Serving documentation",
         capture=False,
     )

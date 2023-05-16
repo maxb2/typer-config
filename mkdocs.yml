@@ -29,6 +29,7 @@ nav:
     - 'examples/simple_yaml.md'
     - 'examples/pyproject.md'
   - API Reference: api.md
+  - Changelog: changelog.md
 
 markdown_extensions:
   - pymdownx.highlight:
@@ -37,6 +38,9 @@ markdown_extensions:
 
 plugins:
   - search
+  - gen-files:
+      scripts:
+        - docs_gen_files.py
   - mkdocstrings:
       handlers:
         python:
