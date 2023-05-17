@@ -5,7 +5,7 @@ Typer Configuration Utilities
 from typer import BadParameter, CallbackParam, Context
 
 from .__typing import ConfigLoader, ConfigParameterCallback, TyperParameterValue
-from .loaders import json_loader, toml_loader, yaml_loader
+from .loaders import dotenv_loader, json_loader, toml_loader, yaml_loader
 
 
 def conf_callback_factory(loader: ConfigLoader) -> ConfigParameterCallback:
@@ -107,6 +107,29 @@ typer.BadParameter
 
 toml_conf_callback: ConfigParameterCallback = conf_callback_factory(toml_loader)
 """TOML configuration callback for a typer parameter.
+
+Parameters
+----------
+ctx : typer.Context
+    typer context (automatically passed)
+param : typer.CallbackParam
+    typer callback parameter (automatically passed)
+param_value : TyperParameterValue
+    parameter value passed to typer (automatically passed)
+
+Returns
+-------
+TyperParameterValue
+    must return back the given parameter
+
+Raises
+------
+typer.BadParameter
+    bad parameter value
+"""
+
+dotenv_conf_callback: ConfigParameterCallback = conf_callback_factory(dotenv_loader)
+"""Dotenv configuration callback for a typer parameter.
 
 Parameters
 ----------

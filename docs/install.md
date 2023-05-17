@@ -15,5 +15,7 @@ $ pip install typer-config[yaml] # includes pyyaml
 
 $ pip install typer-config[toml] # includes toml
 
+$ pip install typer-config[python-dotenv] # includes python-dotenv
+
 $ pip install typer-config[all] # includes all optional dependencies
 ```

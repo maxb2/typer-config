@@ -40,6 +40,7 @@ def test_simple_example(simple_app):
         (str(HERE.joinpath("config.yml")), typer_config.yaml_conf_callback),
         (str(HERE.joinpath("config.json")), typer_config.json_conf_callback),
         (str(HERE.joinpath("config.toml")), typer_config.toml_conf_callback),
+        (str(HERE.joinpath("config.env")), typer_config.dotenv_conf_callback),
     ]
 
     # Test all the combinations of formats and extra parameters
@@ -68,7 +69,7 @@ def test_simple_example(simple_app):
         assert (
             result.exit_code != 0
         ), f"Should have failed for {conf}\n\n{result.stdout}"
-        assert "No such file" in result.stdout
+        assert "No such file" in result.stdout, f"Wrong error message for {conf}"
 
 
 def test_pyproject_example(simple_app):

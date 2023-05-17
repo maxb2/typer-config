@@ -17,6 +17,7 @@ from .__typing import (
 USING_TOMLLIB = False
 TOML_MISSING = True
 YAML_MISSING = True
+DOTENV_MISSING = True
 
 
 if sys.version_info >= (3, 11):  # pragma: no cover
@@ -39,6 +40,13 @@ try:  # pragma: no cover
     import yaml
 
     YAML_MISSING = False
+except ImportError:  # pragma: no cover
+    pass
+
+try:  # pragma: no cover
+    import dotenv
+
+    DOTENV_MISSING = False
 except ImportError:  # pragma: no cover
     pass
 
@@ -171,5 +179,30 @@ def toml_loader(param_value: TyperParameterValue) -> ConfigDict:
     else:  # pragma: no cover
         with open(param_value, "r", encoding="utf-8") as _file:
             conf = toml.load(_file)  # type: ignore
+
+    return conf
+
+
+def dotenv_loader(param_value: TyperParameterValue) -> ConfigDict:
+    """Dotenv file loader
+
+    Parameters
+    ----------
+    param_value : TyperParameterValue
+        path of YAML file
+
+    Returns
+    -------
+    ConfigDict
+        dictionary loaded from file
+    """
+
+    if DOTENV_MISSING:  # pragma: no cover
+        raise ModuleNotFoundError("Please install the python-dotenv library.")
+
+    with open(param_value, "r", encoding="utf-8") as _file:
+        # NOTE: I'm using a stream here so that the loader
+        # will raise an exception when the file doesn't exist.
+        conf: ConfigDict = dotenv.dotenv_values(stream=_file)
 
     return conf

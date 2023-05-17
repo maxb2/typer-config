@@ -51,4 +51,4 @@ $ python simple_app.py --config config.yml --opt1 people
 people nothing stuff
 ```
 
-> **Note**: this package also provides `json_conf_callback` and `toml_conf_callback` for those file formats.
+> **Note**: this package also provides `json_conf_callback`, `toml_conf_callback`, and `dotenv_conf_callback` for those file formats.
