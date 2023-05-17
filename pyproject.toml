@@ -17,6 +17,7 @@ keywords = [
         "yaml",
         "toml",
         "json",
+        "dotenv",
         "cli"
     ]
 classifiers = [
