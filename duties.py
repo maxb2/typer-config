@@ -171,7 +171,7 @@ def release(ctx: Context, version: str = None):
     version: str
         The new version number to use.
     """
-    if version is not None:
+    if version is None:
         res: Tuple[Changelog, str] = _changelog()
         version: str = res[0].versions_list[0].planned_tag
     ctx.run(f"poetry version {version}", title="Bumping version")
