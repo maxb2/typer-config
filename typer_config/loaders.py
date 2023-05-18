@@ -5,6 +5,7 @@ These loaders must implement the `typer_config.__typing.ConfigLoader` interface.
 """
 import json
 import sys
+from configparser import ConfigParser
 
 from .__typing import (
     ConfigDict,
@@ -210,5 +211,34 @@ def dotenv_loader(param_value: TyperParameterValue) -> ConfigDict:
         # NOTE: I'm using a stream here so that the loader
         # will raise an exception when the file doesn't exist.
         conf: ConfigDict = dotenv.dotenv_values(stream=_file)
+
+    return conf
+
+
+def ini_loader(param_value: TyperParameterValue) -> ConfigDict:
+    """INI file loader
+
+    Note:
+        INI files must have sections at the top level.
+        You probably want to combine this with `subpath_loader`.
+        For example:
+        ```py
+        ini_section_loader = subpath_loader(ini_loader, ["section"])
+        ```
+
+    Args:
+        param_value (TyperParameterValue): path of INI file
+
+    Returns:
+        ConfigDict: dictionary loaded from file
+    """
+
+    ini_parser = ConfigParser()
+    with open(param_value, "r", encoding="utf-8") as _file:
+        ini_parser.read_file(_file)
+
+    conf: ConfigDict = {
+        sect: dict(ini_parser.items(sect)) for sect in ini_parser.sections()
+    }
 
     return conf

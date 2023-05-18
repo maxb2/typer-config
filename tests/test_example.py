@@ -41,6 +41,14 @@ def test_simple_example(simple_app):
         (str(HERE.joinpath("config.json")), typer_config.json_conf_callback),
         (str(HERE.joinpath("config.toml")), typer_config.toml_conf_callback),
         (str(HERE.joinpath("config.env")), typer_config.dotenv_conf_callback),
+        (
+            str(HERE.joinpath("config.ini")),
+            typer_config.conf_callback_factory(
+                typer_config.loaders.subpath_loader(
+                    typer_config.loaders.ini_loader, ["simple_app"]
+                )
+            ),
+        ),
     ]
 
     # Test all the combinations of formats and extra parameters
