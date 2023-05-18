@@ -65,7 +65,7 @@ def subpath_loader(
             my_app:
                 ... # use these values
             others: # ignore
-        stuf: # ignore
+        stuff: # ignore
         ```
 
         ```py
