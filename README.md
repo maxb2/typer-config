@@ -16,8 +16,8 @@ This package was inspired by [phha/click_config_file](https://github.com/phha/cl
 $ pip install typer-config[all]
 ```
 
-> **Note**: that will include libraries for reading from YAML and TOML files as well.
-  Feel free to leave off the optional dependencies if you don't need YAML or TOML capabilities.
+> **Note**: that will include libraries for reading from YAML, TOML, and Dotenv files as well.
+  Feel free to leave off the optional dependencies if you don't need those capabilities.
 
 ## Usage
 

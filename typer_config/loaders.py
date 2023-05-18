@@ -189,7 +189,7 @@ def dotenv_loader(param_value: TyperParameterValue) -> ConfigDict:
     Parameters
     ----------
     param_value : TyperParameterValue
-        path of YAML file
+        path of dotenv file
 
     Returns
     -------
