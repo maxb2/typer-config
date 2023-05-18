@@ -56,17 +56,27 @@ def subpath_loader(
 ) -> ConfigLoader:
     """Modify a loader to return a subpath of the dictionary from file.
 
-    Parameters
-    ----------
-    loader : ConfigLoader
-        loader to modify
-    dictpath : ConfigDictAccessorPath
-        path to the section of the dictionary to return
+    Examples:
+        The following example reads the values from the `my_app` section in
+        a YAML file structured like this:
+        ```yaml
+        tools:
+            my_app:
+                ... # use these values
+            others: # ignore
+        stuf: # ignore
+        ```
 
-    Returns
-    -------
-    ConfigLoader
-        sub dictionary loader
+        ```py
+        my_loader = subpath_loader(yaml_loader, ["tools", "my_app"])
+        ```
+
+    Args:
+        loader (ConfigLoader): loader to modify
+        dictpath (ConfigDictAccessorPath): path to the section of dictionary
+
+    Returns:
+        ConfigLoader: sub dictionary loader
     """
 
     def _loader(param_value: str) -> ConfigDict:
@@ -84,19 +94,22 @@ def subpath_loader(
 def default_value_loader(
     loader: ConfigLoader, value_getter: NoArgCallable
 ) -> ConfigLoader:
-    """Modify a loader to use a default value if the passed value is false-ish
+    """Modify a loader to use a default value if the passed value is false-ish.
 
-    Parameters
-    ----------
-    loader : ConfigLoader
-        loader to modify
-    value_getter : NoArgCallable
-        function that returns default value
+    Examples:
+        The following example lets a user specify a config file, but will load
+        the `pyproject.toml` if they don't.
 
-    Returns
-    -------
-    ConfigLoader
-        modified loader
+        ```py
+        pyproject_loader = default_value_loader(toml_loader, lambda: "pyproject.toml")
+        ```
+
+    Args:
+        loader (ConfigLoader): loader to modify
+        value_getter (NoArgCallable): function that returns default value
+
+    Returns:
+        ConfigLoader: modified loader
     """
 
     def _loader(param_value: str) -> ConfigDict:
@@ -112,17 +125,16 @@ def default_value_loader(
 
 
 def yaml_loader(param_value: TyperParameterValue) -> ConfigDict:
-    """YAML file loader
+    """YAML file loader.
 
-    Parameters
-    ----------
-    param_value : TyperParameterValue
-        path of YAML file
+    Args:
+        param_value (TyperParameterValue): path of YAML file
 
-    Returns
-    -------
-    ConfigDict
-        dictionary loaded from file
+    Raises:
+        ModuleNotFoundError: pyyaml library is not installed
+
+    Returns:
+        ConfigDict: dictionary loaded from file
     """
 
     if YAML_MISSING:  # pragma: no cover
@@ -135,17 +147,13 @@ def yaml_loader(param_value: TyperParameterValue) -> ConfigDict:
 
 
 def json_loader(param_value: TyperParameterValue) -> ConfigDict:
-    """JSON file loader
+    """JSON file loader.
 
-    Parameters
-    ----------
-    param_value : TyperParameterValue
-        path of JSON file
+    Args:
+        param_value (TyperParameterValue): path of JSON file
 
-    Returns
-    -------
-    ConfigDict
-        dictionary loaded from file
+    Returns:
+        ConfigDict: dictionary loaded from file
     """
 
     with open(param_value, "r", encoding="utf-8") as _file:
@@ -155,17 +163,16 @@ def json_loader(param_value: TyperParameterValue) -> ConfigDict:
 
 
 def toml_loader(param_value: TyperParameterValue) -> ConfigDict:
-    """TOML file loader
+    """TOML file loader.
 
-    Parameters
-    ----------
-    param_value : TyperParameterValue
-        path of TOML file
+    Args:
+        param_value (TyperParameterValue): path of TOML file
 
-    Returns
-    -------
-    ConfigDict
-        dictionary loaded from file
+    Raises:
+        ModuleNotFoundError: toml library is not installed
+
+    Returns:
+        ConfigDict: dictionary loaded from file
     """
 
     if TOML_MISSING:  # pragma: no cover
@@ -184,17 +191,16 @@ def toml_loader(param_value: TyperParameterValue) -> ConfigDict:
 
 
 def dotenv_loader(param_value: TyperParameterValue) -> ConfigDict:
-    """Dotenv file loader
+    """Dotenv file loader.
 
-    Parameters
-    ----------
-    param_value : TyperParameterValue
-        path of dotenv file
+    Args:
+        param_value (TyperParameterValue): path of Dotenv file
 
-    Returns
-    -------
-    ConfigDict
-        dictionary loaded from file
+    Raises:
+        ModuleNotFoundError: python-dotenv library is not installed
+
+    Returns:
+        ConfigDict: dictionary loaded from file
     """
 
     if DOTENV_MISSING:  # pragma: no cover

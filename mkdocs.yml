@@ -47,7 +47,7 @@ plugins:
           import:
             - https://docs.python.org/3/objects.inv
           options:
-            docstring_style: numpy
+            docstring_style: google
             show_submodules: true
             enable_inventory: true
             separate_signature: true
