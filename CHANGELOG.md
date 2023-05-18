@@ -6,6 +6,18 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [0.3.0](https://github.com/maxb2/typer-config/releases/tag/0.3.0) - 2023-05-17
+
+<small>[Compare with 0.2.0](https://github.com/maxb2/typer-config/compare/0.2.0...0.3.0)</small>
+
+### Features
+
+- INI support (#17) ([2ec9aa5](https://github.com/maxb2/typer-config/commit/2ec9aa5dbacb5d4f08ccaffb0b2d80d492355fef) by Matthew Anderson).
+
+### Code Refactoring
+
+- reorder release steps ([6f83ed0](https://github.com/maxb2/typer-config/commit/6f83ed0192447fb2c477d31f6006c1ce71b6da25) by Matthew Anderson).
+
 ## [0.2.0](https://github.com/maxb2/typer-config/releases/tag/0.2.0) - 2023-05-17
 
 <small>[Compare with 0.1.3](https://github.com/maxb2/typer-config/compare/0.1.3...0.2.0)</small>
