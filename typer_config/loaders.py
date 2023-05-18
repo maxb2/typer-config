@@ -214,27 +214,45 @@ def dotenv_loader(param_value: TyperParameterValue) -> ConfigDict:
 
     return conf
 
+    # """INI file loader
+
+    # Notes
+    # -----
+    # INI files must have sections at the top level.
+    # You probably want to combine this with `subpath_loader`.
+    # For example:
+    # ```py
+    # ini_section_loader = subpath_loader(ini_loader, ["section"])
+    # ```
+
+    # Parameters
+    # ----------
+    # param_value : TyperParameterValue
+    #     path of INI file
+
+    # Returns
+    # -------
+    # ConfigDict
+    #     dictionary loaded from file
+    # """
+
 
 def ini_loader(param_value: TyperParameterValue) -> ConfigDict:
     """INI file loader
 
-    NOTE: INI files must have sections at the top level.
-    You probably want to combine this with `subpath_loader`.
-    For example:
-    ```
-    ini_section_loader = subpath_loader(ini_loader, ["section"])
-    ```
+    Note:
+        INI files must have sections at the top level.
+        You probably want to combine this with `subpath_loader`.
+        For example:
+        ```py
+        ini_section_loader = subpath_loader(ini_loader, ["section"])
+        ```
 
+    Args:
+        param_value (TyperParameterValue): path of INI file
 
-    Parameters
-    ----------
-    param_value : TyperParameterValue
-        path of INI file
-
-    Returns
-    -------
-    ConfigDict
-        dictionary loaded from file
+    Returns:
+        ConfigDict: dictionary loaded from file
     """
 
     ini_parser = ConfigParser()
