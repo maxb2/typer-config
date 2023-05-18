@@ -28,7 +28,8 @@ def conf_callback_factory(loader: ConfigLoader) -> ConfigParameterCallback:
         Args:
             ctx (typer.Context): typer context (automatically passed)
             param (typer.CallbackParam): typer callback parameter (automatically passed)
-            param_value (TyperParameterValue): parameter value passed to typer (automatically passed)
+            param_value (TyperParameterValue): parameter value passed to typer
+                (automatically passed)
 
         Raises:
             BadParameter: bad parameter value
@@ -53,7 +54,8 @@ yaml_conf_callback: ConfigParameterCallback = conf_callback_factory(yaml_loader)
 Args:
     ctx (typer.Context): typer context (automatically passed)
     param (typer.CallbackParam): typer callback parameter (automatically passed)
-    param_value (TyperParameterValue): parameter value passed to typer (automatically passed)
+    param_value (TyperParameterValue): parameter value passed to typer (automatically
+        passed)
 
 Raises:
     BadParameter: bad parameter value
@@ -68,7 +70,8 @@ json_conf_callback: ConfigParameterCallback = conf_callback_factory(json_loader)
 Args:
     ctx (typer.Context): typer context (automatically passed)
     param (typer.CallbackParam): typer callback parameter (automatically passed)
-    param_value (TyperParameterValue): parameter value passed to typer (automatically passed)
+    param_value (TyperParameterValue): parameter value passed to typer (automatically
+        passed)
 
 Raises:
     BadParameter: bad parameter value
@@ -84,7 +87,8 @@ toml_conf_callback: ConfigParameterCallback = conf_callback_factory(toml_loader)
 Args:
     ctx (typer.Context): typer context (automatically passed)
     param (typer.CallbackParam): typer callback parameter (automatically passed)
-    param_value (TyperParameterValue): parameter value passed to typer (automatically passed)
+    param_value (TyperParameterValue): parameter value passed to typer (automatically
+        passed)
 
 Raises:
     BadParameter: bad parameter value
@@ -99,7 +103,8 @@ dotenv_conf_callback: ConfigParameterCallback = conf_callback_factory(dotenv_loa
 Args:
     ctx (typer.Context): typer context (automatically passed)
     param (typer.CallbackParam): typer callback parameter (automatically passed)
-    param_value (TyperParameterValue): parameter value passed to typer (automatically passed)
+    param_value (TyperParameterValue): parameter value passed to typer (automatically
+        passed)
 
 Raises:
     BadParameter: bad parameter value
