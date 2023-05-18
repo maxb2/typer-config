@@ -6,6 +6,18 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [0.2.0](https://github.com/maxb2/typer-config/releases/tag/0.2.0) - 2023-05-17
+
+<small>[Compare with 0.1.3](https://github.com/maxb2/typer-config/compare/0.1.3...0.2.0)</small>
+
+### Features
+
+- dotenv (#15) ([28f5e61](https://github.com/maxb2/typer-config/commit/28f5e611a9885693ac3c7c156095b5f6fd3ac7e7) by Matthew Anderson). * feat: dotenv support
+
+### Bug Fixes
+
+- tooling ([ae24220](https://github.com/maxb2/typer-config/commit/ae242202635cc02e1a4aa7e7258ee2e78886c22b) by maxb2).
+
 ## [0.1.3](https://github.com/maxb2/typer-config/releases/tag/0.1.3) - 2023-05-15
 
 <small>[Compare with 0.1.2](https://github.com/maxb2/typer-config/compare/0.1.2...0.1.3)</small>
@@ -33,4 +45,3 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - linter ([8bfeb82](https://github.com/maxb2/typer-config/commit/8bfeb822906302c1021d5979404ed644284a87be) by maxb2).
 - tomllib ([15f53a5](https://github.com/maxb2/typer-config/commit/15f53a5c6d9a90d99a7c17f020269177bd799ac3) by maxb2).
 - typer BadParameter ([64868a3](https://github.com/maxb2/typer-config/commit/64868a33a6bb6a5833c40a02c6e2771b10a16cbc) by maxb2).
-
