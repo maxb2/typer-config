@@ -16,10 +16,8 @@ PTY = not WINDOWS and not CI
 def _changelog() -> Tuple[Changelog, str]:
     """Update changelog in-place.
 
-    Returns
-    -------
-    tuple[Changelog, str]
-        changelog object and contents
+    Returns:
+        Tuple[Changelog, str]: changelog object and contents
     """
     return build_and_render(
         repository=".",
@@ -37,10 +35,8 @@ def _changelog() -> Tuple[Changelog, str]:
 def fmt(ctx: Context):
     """Format source code.
 
-    Parameters
-    ----------
-    ctx: Context
-        The context instance (passed automatically).
+    Args:
+        ctx (Context): the context instance (passed automatically).
     """
     ctx.run("isort .", title="Sorting imports")
     ctx.run("black .", title="Code formatting")
@@ -50,10 +46,8 @@ def fmt(ctx: Context):
 def check_dependencies(ctx: Context):
     """Check for vulnerabilities in dependencies.
 
-    Parameters
-    ----------
-    ctx: Context
-        The context instance (passed automatically).
+    Args:
+        ctx (Context): the context instance (passed automatically).
     """
     ctx.run(
         "poetry export --only main | safety check --stdin", title="Dependency checking"
@@ -64,10 +58,8 @@ def check_dependencies(ctx: Context):
 def check_types(ctx: Context):
     """Check that the code is correctly typed.
 
-    Parameters
-    ----------
-    ctx: Context
-        The context instance (passed automatically).
+    Args:
+        ctx (Context): the context instance (passed automatically).
     """
     ctx.run(mypy.run("typer_config"), title="Type checking", pty=PTY)
 
@@ -76,10 +68,8 @@ def check_types(ctx: Context):
 def check_quality(ctx: Context):
     """Check the code quality.
 
-    Parameters
-    ----------
-    ctx: Context
-        The context instance (passed automatically).
+    Args:
+        ctx (Context): the context instance (passed automatically).
     """
     ctx.run("pylint typer_config", title="Linting")
 
@@ -88,10 +78,8 @@ def check_quality(ctx: Context):
 def check_api(ctx: Context) -> None:
     """Check for API breaking changes.
 
-    Parameters
-    ----------
-    ctx: Context
-        The context instance (passed automatically).
+    Args:
+        ctx (Context): the context instance (passed automatically).
     """
     from griffe.cli import check as g_check
 
@@ -106,10 +94,8 @@ def check_api(ctx: Context) -> None:
 def check(ctx: Context):
     """Check it all!
 
-    Parameters
-    ----------
-    ctx: Context
-        The context instance (passed automatically).
+    Args:
+        ctx (Context): the context instance (passed automatically).
     """
 
 
@@ -117,10 +103,8 @@ def check(ctx: Context):
 def test(ctx: Context):
     """Run the test suite.
 
-    Parameters
-    ----------
-    ctx: Context
-        The context instance (passed automatically).
+    Args:
+        ctx (Context): the context instance (passed automatically).
     """
     ctx.run("pytest --cov --cov-report=xml", title="Testing")
 
@@ -129,14 +113,10 @@ def test(ctx: Context):
 def docs(ctx: Context, host: str = "127.0.0.1", port: int = 8000) -> None:
     """Serve the documentation (localhost:8000).
 
-    Parameters
-    ----------
-    ctx: Context
-        The context instance (passed automatically).
-    host: str
-        The host to serve the docs from.
-    port: int
-        The port to serve the docs on.
+    Args:
+        ctx (Context): The context instance (passed automatically).
+        host (str, optional): The host to serve the docs from. Defaults to "127.0.0.1".
+        port (int, optional): The port to serve the docs on. Defaults to 8000.
     """
     ctx.run(
         mkdocs.serve(
@@ -152,10 +132,8 @@ def docs(ctx: Context, host: str = "127.0.0.1", port: int = 8000) -> None:
 def changelog(ctx: Context):
     """Update the changelog in-place with latest commits.
 
-    Parameters
-    ----------
-    ctx: Context
-        The context instance (passed automatically).
+    Args:
+        ctx (Context): the context instance (passed automatically).
     """
     ctx.run(_changelog, title="Generating changelog")
 
@@ -164,12 +142,10 @@ def changelog(ctx: Context):
 def release(ctx: Context, version: str = None):
     """Release a new Python package.
 
-    Parameters
-    ----------
-    ctx: Context
-        The context instance (passed automatically).
-    version: str
-        The new version number to use.
+
+    Args:
+        ctx (Context): The context instance (passed automatically).
+        version (str, optional): The new version number to use. Defaults to None.
     """
     if version is None:
         res: Tuple[Changelog, str] = _changelog()
