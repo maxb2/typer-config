@@ -69,17 +69,6 @@ def register_executor(lang, executor):
     _executors[lang] = executor
 
 
-def options_from_str(raw: str) -> Dict[str, Any]:
-    options = {}
-    while raw:
-        match = RE_OPTIONS.match(raw)
-        if match is None:
-            break
-        options[match.groupdict()["key"]] = match.groupdict()["value"]
-        raw = raw[match.span()[1] :]
-    return options
-
-
 @dataclass
 class Fence:
     fence: str = ""
@@ -89,18 +78,69 @@ class Fence:
     contents: str = ""
     _raw: Optional[str] = None
 
+    def options_from_str(raw: str) -> Dict[str, Any]:
+        """Markdown fence options dict from string
+
+        Args:
+            raw (str): string of options
+
+        Returns:
+            Dict[str, Any]: dict of options
+        """
+        options = {}
+        while raw:
+            match = RE_OPTIONS.match(raw)
+            if match is None:
+                break
+            options[match.groupdict()["key"]] = match.groupdict()["value"]
+            raw = raw[match.span()[1] :]
+        return options
+
+    def attrs_from_str(raw: str) -> Dict[str, Any]:
+        """Markdown fence attributes from string.
+
+        Args:
+            raw (str): string of attributes
+
+        Returns:
+            Dict[str, Any]: dict of attrs
+        """
+        # TODO: actually implement this
+        return {"_raw": raw}
+
     def from_re_groups(groups: Tuple[str]) -> "Fence":
-        # NOTE: tightly coupled to `FENCED_BLOCK_RE`
+        """Make Fence from regex groups
+
+        Notes:
+            This is tightly coupled to `FENCED_BLOCK_RE`.
+
+        Args:
+            groups (Tuple[str]): regex match groups
+
+        Returns:
+            Fence: markdown fence
+        """
         return Fence(
             fence=groups[1],
             lang=groups[6],
-            attrs=groups[4],
-            options=options_from_str(groups[7]),
+            attrs=Fence.attrs_from_str(groups[4]),
+            options=Fence.options_from_str(groups[7]),
             contents=groups[12],
             _raw=groups[0],
         )
 
     def from_str(raw: str) -> "Fence":
+        """Fence from markdown string
+
+        Args:
+            raw (str): markdown string
+
+        Raises:
+            Exception: couldn't find a markdown fence
+
+        Returns:
+            Fence: markdown fence
+        """
         lines = raw.strip().splitlines()
 
         match = RE_FENCE_START.match(lines[0])
@@ -119,7 +159,7 @@ class Fence:
 
         _options = groupdict.get("options", None)
         if _options:
-            options = options_from_str(_options)
+            options = Fence.options_from_str(_options)
 
         # NOTE: this assumes the last line is just the fence
         contents = "\n".join(lines[1:-1])
@@ -134,11 +174,24 @@ class Fence:
         )
 
 
-def grab_fences(source: str):
+def grab_fences(source: str) -> List[Fence]:
+    """Grab fences in  markdown
+
+    Args:
+        source (str): markdown string
+
+    Returns:
+        List[Fence]: list of fences in markdown
+    """
     return [Fence.from_re_groups(groups) for groups in FENCED_BLOCK_RE.findall(source)]
 
 
 def exec_file_fence(fence: Fence, **kwargs):
+    """Executor that writes out file
+
+    Args:
+        fence (Fence): markdown fence
+    """
     fname = fence.options["title"]
     with open(fname, "w") as f:
         f.write(fence.contents)
@@ -150,6 +203,12 @@ register_executor("toml", exec_file_fence)
 
 
 def exec_python_fence(fence: Fence, globals: Dict = {}):
+    """Python fence executor
+
+    Args:
+        fence (Fence): markdown fence
+        globals (Dict, optional): python globals to pass to exec. Defaults to {}.
+    """
     if fence.options.get("title", False):
         exec_file_fence(fence)
     try:
@@ -166,7 +225,12 @@ register_executor("python", exec_file_fence)
 register_executor("py", exec_file_fence)
 
 
-def exec_bash_fence(fence: Fence, globals: Dict = {}, **kwargs):
+def exec_bash_fence(fence: Fence, **kwargs):
+    """Bash fence executor
+
+    Args:
+        fence (Fence): markdown fence
+    """
     _cmds = fence.contents.split("$ ")
     commands: List[Dict] = []
     for _cmd in _cmds:
@@ -184,6 +248,11 @@ register_executor("bash", exec_bash_fence)
 
 
 def check_typer_md_file(fpath: Path):
+    """Check a markdown file with typer apps defined in it
+
+    Args:
+        fpath (Path): path to markdown file
+    """
     with open(fpath, "r") as f:
         source = f.read()
     fences = grab_fences(source)

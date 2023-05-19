@@ -1,11 +1,26 @@
-# Simple YAML Example
+# Schema Validation Example
 
-This simple example uses a `--config` option to load a configuration from a YAML file.
+This simple example uses a `--config` option to load a configuration from a YAML file and uses [schema](https://github.com/keleshev/schema) to validate the file before continuing.
 
 An example typer app:
 ```python title="simple_app.py"
+from typing import Any, Dict
+
+from schema import Schema
 import typer
-from typer_config import yaml_conf_callback
+from typer_config import yaml_loader, conf_callback_factory
+
+
+schema = Schema({"arg1": str, "opt1": str, "opt2": str})
+
+
+def validator_loader(param_value: str) -> Dict[str, Any]:
+    conf = yaml_loader(param_value)
+    conf = schema.validate(conf)  # raises an exception if not valid
+    return conf
+
+
+validator_callback = conf_callback_factory(validator_loader)
 
 app = typer.Typer()
 
@@ -15,7 +30,7 @@ def main(
     arg1: str,
     config: str = typer.Option(
         "",
-        callback=yaml_conf_callback,
+        callback=validator_callback,
         is_eager=True,  # THIS IS REALLY IMPORTANT (1)
     ),
     opt1: str = typer.Option(...),
