@@ -32,7 +32,7 @@ if __name__ == "__main__":
 
 With a config file:
 
-```yaml title="config.yaml"
+```yaml title="config.yml"
 arg1: stuff
 opt1: things
 opt2: nothing
