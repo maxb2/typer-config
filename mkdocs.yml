@@ -48,6 +48,7 @@ plugins:
             - https://docs.python.org/3/objects.inv
           options:
             docstring_style: google
+            show_docstring_warns: true
             show_submodules: true
             enable_inventory: true
             separate_signature: true

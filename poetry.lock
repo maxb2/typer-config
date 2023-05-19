@@ -399,18 +399,22 @@ semver = ">=2.13,<3.0"
 
 [[package]]
 name = "griffe"
-version = "0.27.5"
+version = "0.28.1.dev1+gf9418f1"
 description = "Signatures for entire Python programs. Extract the structure, the frame, the skeleton of your project, to generate API documentation or find breaking changes in your API."
 category = "dev"
 optional = false
 python-versions = ">=3.7"
-files = [
-    {file = "griffe-0.27.5-py3-none-any.whl", hash = "sha256:15b48fc3cebfc1c1a1a2f6e8177f6644a4a54517322e08e224fdf671454b34d7"},
-    {file = "griffe-0.27.5.tar.gz", hash = "sha256:96fbc7a264bdb32b4da227bed6a16f2509e028a12d7471dbb48c2785bb01817f"},
-]
+files = []
+develop = false
 
 [package.dependencies]
 colorama = ">=0.4"
+
+[package.source]
+type = "git"
+url = "https://github.com/maxb2/griffe.git"
+reference = "master"
+resolved_reference = "f9418f17ca251555b4f5f4554cec9bb59dfaff08"
 
 [[package]]
 name = "idna"
@@ -1703,4 +1707,4 @@ yaml = ["pyyaml"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "56eb6e479a795627978a1eb508e728f9614d9b412e87e06d264f71021fccf541"
+content-hash = "df411be9e6595f8c9dd14eded7dc175d6b1fd695d8fdf8d0e7890b5f076f1925"

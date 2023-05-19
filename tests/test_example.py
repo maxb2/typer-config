@@ -80,12 +80,48 @@ def test_simple_example(simple_app):
         assert "No such file" in result.stdout, f"Wrong error message for {conf}"
 
 
-def test_pyproject_example(simple_app):
+def test_pyproject_example_deprecated(simple_app):
     from typer_config.loaders import default_value_loader, subpath_loader, toml_loader
 
     pyproject_loader = subpath_loader(
         default_value_loader(toml_loader, lambda: str(HERE.joinpath("pyproject.toml"))),
         ["tool", "my_tool", "parameters"],
+    )
+
+    pyproject_callback = typer_config.conf_callback_factory(pyproject_loader)
+
+    _app = simple_app(pyproject_callback)
+
+    result = RUNNER.invoke(_app)
+
+    assert result.exit_code == 0, f"{result.stdout}"
+    assert result.stdout.strip() == "things nothing stuff"
+
+    result = RUNNER.invoke(_app, ["others"])
+
+    assert result.exit_code == 0, f"{result.stdout}"
+    assert result.stdout.strip() == "things nothing others"
+
+    result = RUNNER.invoke(_app, ["--opt1", "people"])
+
+    assert result.exit_code == 0, f"{result.stdout}"
+    assert result.stdout.strip() == "people nothing stuff"
+
+    result = RUNNER.invoke(_app, ["--config", str(HERE.joinpath("other.toml"))])
+
+    assert result.exit_code == 0, f"{result.stdout}"
+    assert result.stdout.strip() == "something else entirely"
+
+
+def test_pyproject_example(simple_app):
+    from typer_config.loaders import loader_transformer, toml_loader
+
+    pyproject_loader = loader_transformer(
+        toml_loader,
+        param_transformer=lambda param: param
+        if param
+        else str(HERE.joinpath("pyproject.toml")),
+        config_transformer=lambda config: config["tool"]["my_tool"]["parameters"],
     )
 
     pyproject_callback = typer_config.conf_callback_factory(pyproject_loader)
