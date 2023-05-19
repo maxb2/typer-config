@@ -11,6 +11,15 @@ opt1 = "things"
 opt2 = "nothing"
 ```
 
+<!--- This is here for the doc tests to pass.
+```toml title='other.toml'
+[tool.my_tool.parameters]
+arg1 = "entirely"
+opt1 = "something"
+opt2 = "else"
+```
+--->
+
 Then, we can read the values in our typer CLI:
 
 ```python title="my_tool.py"
@@ -25,7 +34,7 @@ def pyproject_loader(param_value: str) -> Dict[str, Any]:
     if not param_value: # set a default path to read from
         param_value = "pyproject.toml"
         
-    pyproject = toml_loader("pyproject.toml")
+    pyproject = toml_loader(param_value)
     conf = pyproject["tool"]["my_tool"]["parameters"]
     return conf
 
@@ -67,7 +76,9 @@ And we get this behavior:
 
 ```bash
 $ ls .
-my_tool.py other.toml pyproject.toml
+my_tool.py
+other.toml
+pyproject.toml
 
 $ python my_tool.py
 things nothing stuff
