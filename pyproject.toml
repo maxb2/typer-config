@@ -66,7 +66,7 @@ git-changelog = "^1.0.1"
 duty = "^0.11.0"
 pytest-cov = "^4.0.0"
 safety = "^2.3.5"
-griffe = { git = "https://github.com/mkdocstrings/griffe.git", rev = "5ffdd7861a828794edf569bcfaeb8e26601df88c" }
+griffe = "^0.28.1"
 
 [tool.poetry.group.docs.dependencies]
 mkdocs-material = "^9.1.9"
