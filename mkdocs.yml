@@ -28,6 +28,8 @@ nav:
   - Examples:
     - 'examples/simple_yaml.md'
     - 'examples/pyproject.md'
+    - 'examples/pydantic.md'
+    - 'examples/schema.md'
   - API Reference: api.md
   - Changelog: changelog.md
 

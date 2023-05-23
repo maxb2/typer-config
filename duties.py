@@ -1,9 +1,8 @@
 import os
-import sys
 from typing import Tuple
 
 from duty import duty
-from duty.callables import mkdocs, mypy
+from duty.callables import blacken_docs, mkdocs, mypy
 from duty.context import Context
 from git_changelog import Changelog
 from git_changelog.cli import build_and_render
@@ -31,7 +30,21 @@ def _changelog() -> Tuple[Changelog, str]:
     )
 
 
-@duty(aliases=["format", "black"])
+@duty(aliases=["format_docs"])
+def fmt_docs(ctx: Context):
+    """Format code in docs.
+
+    Args:
+        ctx (Context): the context instance (passed automatically).
+    """
+    ctx.run(
+        blacken_docs.run("docs/", exts=[".md"]),
+        nofail=True,
+        title="Formatting docs",
+    )
+
+
+@duty(aliases=["format"], pre=["fmt_docs"])
 def fmt(ctx: Context):
     """Format source code.
 
@@ -39,7 +52,7 @@ def fmt(ctx: Context):
         ctx (Context): the context instance (passed automatically).
     """
     ctx.run("isort .", title="Sorting imports")
-    ctx.run("black .", title="Code formatting")
+    ctx.run("black .", title="Formatting code")
 
 
 @duty(aliases=["check_deps"])
@@ -71,7 +84,7 @@ def check_quality(ctx: Context):
     Args:
         ctx (Context): the context instance (passed automatically).
     """
-    ctx.run("pylint typer_config", title="Linting")
+    ctx.run("pylint typer_config", title="Code Linting")
 
 
 @duty

@@ -34,7 +34,7 @@ def simple_app():
     return _app
 
 
-confs = [
+CONFS = [
     (str(HERE.joinpath("config.yml")), typer_config.yaml_conf_callback),
     (str(HERE.joinpath("config.json")), typer_config.json_conf_callback),
     (str(HERE.joinpath("config.toml")), typer_config.toml_conf_callback),
@@ -50,9 +50,9 @@ confs = [
 ]
 
 
-@pytest.mark.parametrize("_conf", confs)
-def test_simple_example(simple_app, _conf):
-    conf, callback = _conf
+@pytest.mark.parametrize("confs", CONFS, ids=str)
+def test_simple_example(simple_app, confs):
+    conf, callback = confs
     _app = simple_app(callback)
 
     result = RUNNER.invoke(_app, ["--config", conf])
