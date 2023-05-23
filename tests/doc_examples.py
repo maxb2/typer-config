@@ -128,7 +128,7 @@ class Fence(NamedTuple):
             raw = raw[match.span()[1] :]
         return options
 
-    def attrs_from_str(raw: str) -> OrderedDict[str, Attr]:
+    def attrs_from_str(raw: str) -> "OrderedDict[str, Attr]":
         """Markdown fence attributes from string.
 
         Args:
