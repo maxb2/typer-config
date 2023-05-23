@@ -38,6 +38,9 @@ ConfigDictTransformer: TypeAlias = Callable[[ConfigDict], ConfigDict]
 ConfigLoader: TypeAlias = Callable[[TyperParameterValue], ConfigDict]
 """Configuration loader function."""
 
+ConfigLoaderConditional: TypeAlias = Callable[[TyperParameterValue], bool]
+"""Configuration loader conditional function."""
+
 ConfigParameterCallback: TypeAlias = Callable[
     [Context, CallbackParam, TyperParameterValue], TyperParameterValue
 ]

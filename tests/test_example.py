@@ -41,9 +41,13 @@ CONFS = [
     (str(HERE.joinpath("config.env")), typer_config.dotenv_conf_callback),
     (
         str(HERE.joinpath("config.ini")),
+        # Have to make one dynamically because of the required INI section
         typer_config.conf_callback_factory(
-            typer_config.loaders.subpath_loader(
-                typer_config.loaders.ini_loader, ["simple_app"]
+            typer_config.loaders.loader_transformer(
+                typer_config.loaders.subpath_loader(
+                    typer_config.loaders.ini_loader, ["simple_app"]
+                ),
+                loader_conditional=lambda param_value: param_value,
             )
         ),
     ),
@@ -54,6 +58,11 @@ CONFS = [
 def test_simple_example(simple_app, confs):
     conf, callback = confs
     _app = simple_app(callback)
+
+    result = RUNNER.invoke(_app, ["--help"])
+    assert (
+        result.exit_code == 0
+    ), f"Couldn't get to `--help` for {conf}\n\n{result.stdout}"
 
     result = RUNNER.invoke(_app, ["--config", conf])
     assert result.exit_code == 0, f"Loading failed for {conf}\n\n{result.stdout}"
@@ -89,6 +98,10 @@ def test_pyproject_example_deprecated(simple_app):
     pyproject_callback = typer_config.conf_callback_factory(pyproject_loader)
 
     _app = simple_app(pyproject_callback)
+
+    result = RUNNER.invoke(_app, ["--help"])
+
+    assert result.exit_code == 0, f"{result.stdout}"
 
     result = RUNNER.invoke(_app)
 
