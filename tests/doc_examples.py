@@ -6,15 +6,55 @@ Note: heavily inspired by https://github.com/koaning/mktestdocs
 
 import os
 import re
-from dataclasses import dataclass
 from pathlib import Path
 from subprocess import run
 from tempfile import TemporaryDirectory
 from textwrap import dedent
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple, NamedTuple
 
-from pymdownx.superfences import RE_NESTED_FENCE_START as RE_FENCE_START
-from pymdownx.superfences import RE_OPTIONS
+from collections import OrderedDict
+
+
+CLASS_RE = re.compile(
+    dedent(
+        r"""
+        [ \t]*
+        \.
+        (?P<class>[a-zA-Z][a-zA-Z0-9_\-]*)
+        [ \t]*
+        """
+    ),
+    re.DOTALL | re.VERBOSE,
+)
+
+ID_RE = re.compile(
+    dedent(
+        r"""
+        [ \t]*
+        \#
+        (?P<id>[a-zA-Z][a-zA-Z0-9_\-]*)
+        [ \t]*
+        """
+    ),
+    re.DOTALL | re.VERBOSE,
+)
+
+KEY_VAL_RE = re.compile(
+    dedent(
+        r"""
+        [ \t]*
+        (?P<key>\b[a-zA-Z][a-zA-Z0-9_]*)
+        (?:
+            =
+            (?P<quot>"|')
+            (?P<value>.*?)
+            (?P=quot)
+        )?
+        [ \t]*
+        """
+    ),
+    re.DOTALL | re.VERBOSE,
+)
 
 # NOTE: this is modified from
 # `markdown.extensions.fenced_code.FencedBlockPreprocessor.FENCED_BLOCK_RE`
@@ -23,23 +63,138 @@ FENCED_BLOCK_RE = re.compile(
     dedent(
         r"""
         (?P<raw>
-            (?P<fence>^(?:~{3,}|`{3,}))[ ]*                          # opening fence
-            ((\{(?P<attrs>[^\}\n]*)\})|                              # (optional {attrs} or
-            (\.?(?P<lang>[\w#.+-]*)[ ]*)?                            # optional (.)lang
-            (?P<options>
-                (?:
-                    (?:\b[a-zA-Z][a-zA-Z0-9_]*(?:=(?P<oquot>"|').*?(?P=oquot))?[ \t]*) |  # Options
-                )*
+            (?P<fence>^(?:~{3,}|`{3,}))[ ]*           # opening fence
+            (
+                (\{(?P<attrs>[^\}\n]*)\})|            # (optional {attrs} or
+                (\.?(?P<lang>[\w#.+-]*)[ ]*)?         # optional (.)lang
+                (?P<options>                          # optional "options"
+                    (?:                               # key-value pairs
+                        (?:
+                            \b[a-zA-Z][a-zA-Z0-9_]*
+                            (?:
+                                =
+                                (?P<quot>"|')
+                                .*?
+                                (?P=quot)
+                            )?
+                            [ \t]*
+                        ) |                           
+                    )*
+                )
             )
-            (hl_lines=(?P<quot>"|')(?P<hl_lines>.*?)(?P=quot)[ ]*)?) # optional hl_lines)
-            \n                                                       # newline (end of opening fence)
-            (?P<code>.*?)(?<=\n)                                     # the code block
-            (?P=fence)[ ]*$                                          # closing fence
+            \n                                        # newline (end of opening fence)
+            (?P<code>.*?)(?<=\n)                      # the code block
+            (?P=fence)[ ]*$                           # closing fence
         )
         """
     ),
     re.MULTILINE | re.DOTALL | re.VERBOSE,
 )
+
+
+class Attr(NamedTuple):
+    value: str
+    type: str
+
+
+# @dataclass
+class Fence(NamedTuple):
+    fence: str = ""
+    lang: Optional[str] = None
+    attrs: Optional[OrderedDict[str, Attr]] = None
+    options: Optional[Dict[str, Any]] = None
+    contents: str = ""
+    raw: Optional[str] = None
+
+    def options_from_str(raw: str) -> Dict[str, Any]:
+        """Markdown fence options dict from string
+
+        Args:
+            raw (str): string of options
+
+        Returns:
+            Dict[str, Any]: dict of options
+        """
+        options = {}
+        while raw:
+            match = KEY_VAL_RE.match(raw)
+            if match is None:
+                break
+            options[match.groupdict()["key"]] = match.groupdict()["value"]
+            raw = raw[match.span()[1] :]
+        return options
+
+    def attrs_from_str(raw: str) -> OrderedDict[str, Attr]:
+        """Markdown fence attributes from string.
+
+        Args:
+            raw (str): string of attributes
+
+        Returns:
+            Dict[str, Any]: dict of attrs
+        """
+
+        attrs = OrderedDict()
+
+        while raw:
+            if match := CLASS_RE.match(raw):
+                attrs[match.groupdict()["class"]] = Attr(value=None, type="class")
+            elif match := ID_RE.match(raw):
+                attrs[match.groupdict()["id"]] = Attr(value=None, type="id")
+            elif match := KEY_VAL_RE.match(raw):
+                attrs[match.groupdict()["key"]] = Attr(
+                    value=match.groupdict()["value"], type="keyval"
+                )
+            else:
+                break
+            raw = raw[match.span()[1] :]
+        return attrs
+
+    def from_re_groups(groups: Tuple[str]) -> "Fence":
+        """Make Fence from regex groups
+
+        Notes:
+            This is tightly coupled to `FENCED_BLOCK_RE`.
+
+        Args:
+            groups (Tuple[str]): regex match groups
+
+        Returns:
+            Fence: markdown fence
+        """
+
+        attrs = Fence.attrs_from_str(groups[4])
+
+        try:
+            lang_attr = list(attrs.items())[0]
+            _lang = lang_attr[0] if lang_attr[1].type == "class" else None
+        except IndexError:
+            _lang = None
+
+        lang = groups[6] or _lang
+
+        return Fence(
+            fence=groups[1],
+            lang=lang,
+            attrs=attrs,
+            options=Fence.options_from_str(groups[7]),
+            contents=groups[9],
+            raw=groups[0],
+        )
+
+    def from_str(raw: str) -> "Fence":
+        """Fence from markdown string
+
+        Args:
+            raw (str): markdown string
+
+        Raises:
+            Exception: couldn't find a markdown fence
+
+        Returns:
+            Fence: markdown fence
+        """
+        return Fence.from_re_groups(FENCED_BLOCK_RE.match(raw).groups())
 
 
 class WorkingDirectory:
@@ -69,111 +224,6 @@ def register_executor(lang, executor):
     _executors[lang] = executor
 
 
-@dataclass
-class Fence:
-    fence: str = ""
-    lang: Optional[str] = None
-    attrs: Optional[Dict[str, Any]] = None
-    options: Optional[Dict[str, Any]] = None
-    contents: str = ""
-    _raw: Optional[str] = None
-
-    def options_from_str(raw: str) -> Dict[str, Any]:
-        """Markdown fence options dict from string
-
-        Args:
-            raw (str): string of options
-
-        Returns:
-            Dict[str, Any]: dict of options
-        """
-        options = {}
-        while raw:
-            match = RE_OPTIONS.match(raw)
-            if match is None:
-                break
-            options[match.groupdict()["key"]] = match.groupdict()["value"]
-            raw = raw[match.span()[1] :]
-        return options
-
-    def attrs_from_str(raw: str) -> Dict[str, Any]:
-        """Markdown fence attributes from string.
-
-        Args:
-            raw (str): string of attributes
-
-        Returns:
-            Dict[str, Any]: dict of attrs
-        """
-        # TODO: actually implement this
-        return {"_raw": raw}
-
-    def from_re_groups(groups: Tuple[str]) -> "Fence":
-        """Make Fence from regex groups
-
-        Notes:
-            This is tightly coupled to `FENCED_BLOCK_RE`.
-
-        Args:
-            groups (Tuple[str]): regex match groups
-
-        Returns:
-            Fence: markdown fence
-        """
-        return Fence(
-            fence=groups[1],
-            lang=groups[6],
-            attrs=Fence.attrs_from_str(groups[4]),
-            options=Fence.options_from_str(groups[7]),
-            contents=groups[12],
-            _raw=groups[0],
-        )
-
-    def from_str(raw: str) -> "Fence":
-        """Fence from markdown string
-
-        Args:
-            raw (str): markdown string
-
-        Raises:
-            Exception: couldn't find a markdown fence
-
-        Returns:
-            Fence: markdown fence
-        """
-        lines = raw.strip().splitlines()
-
-        match = RE_FENCE_START.match(lines[0])
-        if match is None:
-            raise Exception(lines[0])
-        groupdict = match.groupdict()
-
-        fence = groupdict.get("fence")
-        assert lines[-1].strip() == fence, raw
-
-        # TODO: support getting lang from attrs
-        lang = groupdict.get("lang", None)
-
-        # TODO: parse the attrs
-        attrs = None
-
-        _options = groupdict.get("options", None)
-        if _options:
-            options = Fence.options_from_str(_options)
-
-        # NOTE: this assumes the last line is just the fence
-        contents = "\n".join(lines[1:-1])
-
-        return Fence(
-            fence=fence,
-            lang=lang,
-            attrs=attrs,
-            options=options,
-            contents=contents,
-            _raw=raw,
-        )
-
-
 def grab_fences(source: str) -> List[Fence]:
     """Grab fences in  markdown
 
@@ -192,7 +242,7 @@ def exec_file_fence(fence: Fence, **kwargs):
     Args:
         fence (Fence): markdown fence
     """
-    fname = fence.options["title"]
+    fname = fence.options.get("title", None) or fence.attrs.get("title", [None])[0]
     with open(fname, "w") as f:
         f.write(fence.contents)
 
@@ -209,7 +259,7 @@ def exec_python_fence(fence: Fence, globals: Dict = {}):
         fence (Fence): markdown fence
         globals (Dict, optional): python globals to pass to exec. Defaults to {}.
     """
-    if fence.options.get("title", False):
+    if fence.options.get("title", False) or fence.attrs.get("title", False):
         exec_file_fence(fence)
     try:
         exec(fence.contents, globals)
@@ -218,11 +268,8 @@ def exec_python_fence(fence: Fence, globals: Dict = {}):
         raise
 
 
-# register_executor("python", exec_python_fence)
-# register_executor("py", exec_python_fence)
-
-register_executor("python", exec_file_fence)
-register_executor("py", exec_file_fence)
+register_executor("python", exec_python_fence)
+register_executor("py", exec_python_fence)
 
 
 def exec_bash_fence(fence: Fence, **kwargs):
