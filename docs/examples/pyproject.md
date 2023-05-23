@@ -11,6 +11,15 @@ opt1 = "things"
 opt2 = "nothing"
 ```
 
+<!--- This is here for the doc tests to pass.
+```toml title='other.toml'
+[tool.my_tool.parameters]
+arg1 = "entirely"
+opt1 = "something"
+opt2 = "else"
+```
+--->
+
 Then, we can read the values in our typer CLI:
 
 ```python title="my_tool.py"
@@ -22,17 +31,17 @@ from typer_config.loaders import toml_loader
 
 
 def pyproject_loader(param_value: str) -> Dict[str, Any]:
-    if not param_value: # set a default path to read from
+    if not param_value:  # set a default path to read from
         param_value = "pyproject.toml"
-        
-    pyproject = toml_loader("pyproject.toml")
+    pyproject = toml_loader(param_value)
     conf = pyproject["tool"]["my_tool"]["parameters"]
     return conf
+
 
 ### You can define the same loader using some provided combinators:
 #
 # from typer_config.loaders import default_value_loader, subpath_loader, toml_loader
-# 
+#
 # pyproject_loader = subpath_loader(
 #     default_value_loader(toml_loader, lambda: "pyproject.toml"),
 #     ["tool", "my_tool", "parameters"],
@@ -40,7 +49,8 @@ def pyproject_loader(param_value: str) -> Dict[str, Any]:
 
 pyproject_callback = conf_callback_factory(pyproject_loader)
 
-app = typer.Typer( )
+app = typer.Typer()
+
 
 @app.command()
 def main(
@@ -67,7 +77,9 @@ And we get this behavior:
 
 ```bash
 $ ls .
-my_tool.py other.toml pyproject.toml
+my_tool.py
+other.toml
+pyproject.toml
 
 $ python my_tool.py
 things nothing stuff

@@ -3,11 +3,12 @@
 This simple example uses a `--config` option to load a configuration from a YAML file.
 
 An example typer app:
-```python title="simple_app.py"
+```{.python title="simple_app.py" test="true"}
 import typer
 from typer_config import yaml_conf_callback
 
-app = typer.Typer( )
+app = typer.Typer()
+
 
 @app.command()
 def main(
@@ -32,7 +33,7 @@ if __name__ == "__main__":
 
 With a config file:
 
-```yaml title="config.yaml"
+```yaml title="config.yml"
 arg1: stuff
 opt1: things
 opt2: nothing
@@ -40,7 +41,7 @@ opt2: nothing
 
 And invoked with python:
 
-```bash
+```{.bash title="Terminal"}
 $ python simple_app.py --config config.yml
 things nothing stuff
 
@@ -52,3 +53,37 @@ people nothing stuff
 ```
 
 > **Note**: this package also provides `json_conf_callback`, `toml_conf_callback`, and `dotenv_conf_callback` for those file formats.
+
+<!---
+```{.python test="true" write="false"}
+from typer.testing import CliRunner
+
+RUNNER = CliRunner()
+
+conf = "config.yml"
+
+
+result = RUNNER.invoke(app, ["--config", conf])
+
+assert result.exit_code == 0, f"Loading failed for {conf}\n\n{result.stdout}"
+assert (
+    result.stdout.strip() == "things nothing stuff"
+), f"Unexpected output for {conf}"
+
+
+result = RUNNER.invoke(app, ["--config", conf, "others"])
+
+assert result.exit_code == 0, f"Loading failed for {conf}\n\n{result.stdout}"
+assert (
+    result.stdout.strip() == "things nothing others"
+), f"Unexpected output for {conf}"
+
+result = RUNNER.invoke(app, ["--config", conf, "--opt1", "people"])
+
+assert result.exit_code == 0, f"Loading failed for {conf}\n\n{result.stdout}"
+assert (
+    result.stdout.strip() == "people nothing stuff"
+), f"Unexpected output for {conf}"
+
+```
+--->

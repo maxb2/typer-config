@@ -73,6 +73,9 @@ mkdocs-material = "^9.1.9"
 mkdocstrings = {extras = ["python"], version = "^0.21.2"}
 mike = "^1.1.2"
 mkdocs-gen-files = "^0.5.0"
+pydantic = "^1.10.7"
+blacken-docs = { git = "https://github.com/maxb2/blacken-docs.git", rev = "b3c82da4df8eaca840b101d0aeab12ae029b6364" }
+schema = "^0.7.5"
 
 [tool.isort]
 profile = "black"

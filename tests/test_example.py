@@ -34,50 +34,48 @@ def simple_app():
     return _app
 
 
-def test_simple_example(simple_app):
-    # All the formats and their callbacks
-    confs = [
-        (str(HERE.joinpath("config.yml")), typer_config.yaml_conf_callback),
-        (str(HERE.joinpath("config.json")), typer_config.json_conf_callback),
-        (str(HERE.joinpath("config.toml")), typer_config.toml_conf_callback),
-        (str(HERE.joinpath("config.env")), typer_config.dotenv_conf_callback),
-        (
-            str(HERE.joinpath("config.ini")),
-            typer_config.conf_callback_factory(
-                typer_config.loaders.subpath_loader(
-                    typer_config.loaders.ini_loader, ["simple_app"]
-                )
-            ),
+CONFS = [
+    (str(HERE.joinpath("config.yml")), typer_config.yaml_conf_callback),
+    (str(HERE.joinpath("config.json")), typer_config.json_conf_callback),
+    (str(HERE.joinpath("config.toml")), typer_config.toml_conf_callback),
+    (str(HERE.joinpath("config.env")), typer_config.dotenv_conf_callback),
+    (
+        str(HERE.joinpath("config.ini")),
+        typer_config.conf_callback_factory(
+            typer_config.loaders.subpath_loader(
+                typer_config.loaders.ini_loader, ["simple_app"]
+            )
         ),
-    ]
+    ),
+]
 
-    # Test all the combinations of formats and extra parameters
-    for conf, callback in confs:
-        _app = simple_app(callback)
 
-        result = RUNNER.invoke(_app, ["--config", conf])
-        assert result.exit_code == 0, f"Loading failed for {conf}\n\n{result.stdout}"
-        assert (
-            result.stdout.strip() == "things nothing stuff"
-        ), f"Unexpected output for {conf}"
+@pytest.mark.parametrize("confs", CONFS, ids=str)
+def test_simple_example(simple_app, confs):
+    conf, callback = confs
+    _app = simple_app(callback)
 
-        result = RUNNER.invoke(_app, ["--config", conf, "others"])
-        assert result.exit_code == 0, f"Loading failed for {conf}\n\n{result.stdout}"
-        assert (
-            result.stdout.strip() == "things nothing others"
-        ), f"Unexpected output for {conf}"
+    result = RUNNER.invoke(_app, ["--config", conf])
+    assert result.exit_code == 0, f"Loading failed for {conf}\n\n{result.stdout}"
+    assert (
+        result.stdout.strip() == "things nothing stuff"
+    ), f"Unexpected output for {conf}"
 
-        result = RUNNER.invoke(_app, ["--config", conf, "--opt1", "people"])
-        assert result.exit_code == 0, f"Loading failed for {conf}\n\n{result.stdout}"
-        assert (
-            result.stdout.strip() == "people nothing stuff"
-        ), f"Unexpected output for {conf}"
+    result = RUNNER.invoke(_app, ["--config", conf, "others"])
+    assert result.exit_code == 0, f"Loading failed for {conf}\n\n{result.stdout}"
+    assert (
+        result.stdout.strip() == "things nothing others"
+    ), f"Unexpected output for {conf}"
 
-        result = RUNNER.invoke(_app, ["--config", conf + ".non_existent"])
-        assert (
-            result.exit_code != 0
-        ), f"Should have failed for {conf}\n\n{result.stdout}"
-        assert "No such file" in result.stdout, f"Wrong error message for {conf}"
+    result = RUNNER.invoke(_app, ["--config", conf, "--opt1", "people"])
+    assert result.exit_code == 0, f"Loading failed for {conf}\n\n{result.stdout}"
+    assert (
+        result.stdout.strip() == "people nothing stuff"
+    ), f"Unexpected output for {conf}"
+
+    result = RUNNER.invoke(_app, ["--config", conf + ".non_existent"])
+    assert result.exit_code != 0, f"Should have failed for {conf}\n\n{result.stdout}"
+    assert "No such file" in result.stdout, f"Wrong error message for {conf}"
 
 
 def test_pyproject_example_deprecated(simple_app):
