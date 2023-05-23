@@ -2,18 +2,22 @@
 Test examples in docs.
 
 Note: heavily inspired by https://github.com/koaning/mktestdocs
+
+What I've written here is kind of a mess.
+I'm working on rewriting it and PR'ing it upstream:
+https://github.com/maxb2/mktestdocs/tree/feat/superfences
+
+For now, it works.
 """
 
 import os
 import re
+from collections import OrderedDict
 from pathlib import Path
 from subprocess import run
 from tempfile import TemporaryDirectory
 from textwrap import dedent
-from typing import Any, Dict, List, Optional, Tuple, NamedTuple
-
-from collections import OrderedDict
-
+from typing import Any, Dict, List, NamedTuple, Optional, Tuple
 
 CLASS_RE = re.compile(
     dedent(

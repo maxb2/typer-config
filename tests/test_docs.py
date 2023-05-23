@@ -1,4 +1,5 @@
 from pathlib import Path
+
 import pytest
 
 from .doc_examples import check_typer_md_file
