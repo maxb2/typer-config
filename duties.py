@@ -106,7 +106,7 @@ def test(ctx: Context):
     Args:
         ctx (Context): the context instance (passed automatically).
     """
-    ctx.run("pytest --cov --cov-report=xml", title="Testing")
+    ctx.run("pytest --cov=typer_config --cov-report=xml", title="Testing")
 
 
 @duty
