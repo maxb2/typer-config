@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [0.4.0](https://github.com/maxb2/typer-config/releases/tag/0.4.0) - 2023-05-22
+
+<small>[Compare with 0.3.0](https://github.com/maxb2/typer-config/compare/0.3.0...0.4.0)</small>
+
+### Features
+
+- config loader transformer (#21) ([7af9695](https://github.com/maxb2/typer-config/commit/7af96956b7e1e0170cd5a8a0d7c5076f76f53aa0) by Matthew Anderson). * deps: update to fixed version of griffe
+
 ## [0.3.0](https://github.com/maxb2/typer-config/releases/tag/0.3.0) - 2023-05-17
 
 <small>[Compare with 0.2.0](https://github.com/maxb2/typer-config/compare/0.2.0...0.3.0)</small>
