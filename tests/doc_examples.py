@@ -105,7 +105,7 @@ class Attr(NamedTuple):
 class Fence(NamedTuple):
     fence: str = ""
     lang: Optional[str] = None
-    attrs: Optional[OrderedDict[str, Attr]] = None
+    attrs: "Optional[OrderedDict[str, Attr]]" = None
     options: Optional[Dict[str, Any]] = None
     contents: str = ""
     raw: Optional[str] = None
