@@ -6,13 +6,17 @@ These loaders must implement the `typer_config.__typing.ConfigLoader` interface.
 import json
 import sys
 from configparser import ConfigParser
+from typing import Optional
+from warnings import warn
 
 from .__typing import (
     ConfigDict,
     ConfigDictAccessorPath,
+    ConfigDictTransformer,
     ConfigLoader,
     NoArgCallable,
     TyperParameterValue,
+    TyperParameterValueTransformer,
 )
 
 USING_TOMLLIB = False
@@ -52,10 +56,75 @@ except ImportError:  # pragma: no cover
     pass
 
 
+def loader_transformer(
+    loader: ConfigLoader,
+    param_transformer: Optional[TyperParameterValueTransformer] = None,
+    config_transformer: Optional[ConfigDictTransformer] = None,
+) -> ConfigLoader:
+    """Configuration loader transformer.
+
+    This allows to transform the input and output of a configuration loader.
+
+    Examples:
+        Set a default file to open when none is given:
+        ```py
+        default_file_loader = loader_transformer(
+            yaml_loader,
+            param_transformer=lambda param: param if param else "config.yml",
+        )
+        ```
+
+        Use a subsection of a file:
+        ```py
+        subsection_loader = loader_transformer(
+            yaml_loader,
+            config_transformer = lambda config: config["subsection"],
+        )
+        ```
+
+        Use both transformers to use the `[tool.my_tool]` section from `pyproject.toml`
+        by default:
+        ```py
+        pyproject_loader = loader_transformer(
+            toml_loader,
+            param_transformer = lambda param: param if param else "pyproject.toml"
+            config_transformer = lambda config: config["tool"]["my_tool"],
+        )
+        ```
+
+    Args:
+        loader (ConfigLoader): Loader to transform.
+        param_transformer (Optional[TyperParameterValueTransformer], optional): Typer
+            parameter transformer. Defaults to None (no-op).
+        config_transformer (Optional[ConfigDictTransformer], optional): Config
+            dictionary transformer. Defaults to None (no-op).
+
+    Returns:
+        ConfigLoader: Transformed config loader.
+    """
+
+    def _loader(param_value: TyperParameterValue) -> ConfigDict:
+        if param_transformer is not None:
+            param_value = param_transformer(param_value)
+
+        conf: ConfigDict = loader(param_value)
+
+        if config_transformer is not None:
+            conf = config_transformer(conf)
+
+        return conf
+
+    return _loader
+
+
 def subpath_loader(
     loader: ConfigLoader, dictpath: ConfigDictAccessorPath
 ) -> ConfigLoader:
     """Modify a loader to return a subpath of the dictionary from file.
+
+    Warns:
+        DeprecationWarning: This function is deprecated. Please use
+            typer_config.loaders.loader_transformer instead.
 
     Examples:
         The following example reads the values from the `my_app` section in
@@ -80,6 +149,12 @@ def subpath_loader(
         ConfigLoader: sub dictionary loader
     """
 
+    warn(
+        "typer_config.loaders.subpath_loader is deprecated. "
+        "Please use typer_config.loaders.loader_transformer instead.",
+        DeprecationWarning,
+    )
+
     def _loader(param_value: str) -> ConfigDict:
         # get original ConfigDict
         conf: ConfigDict = loader(param_value)
@@ -97,6 +172,10 @@ def default_value_loader(
 ) -> ConfigLoader:
     """Modify a loader to use a default value if the passed value is false-ish.
 
+    Warns:
+        DeprecationWarning: This function is deprecated. Please use
+            typer_config.loaders.loader_transformer instead.
+
     Examples:
         The following example lets a user specify a config file, but will load
         the `pyproject.toml` if they don't.
@@ -109,9 +188,17 @@ def default_value_loader(
         loader (ConfigLoader): loader to modify
         value_getter (NoArgCallable): function that returns default value
 
+
+
     Returns:
         ConfigLoader: modified loader
     """
+
+    warn(
+        "typer_config.loaders.default_value_loader is deprecated. "
+        "Please use typer_config.loaders.loader_transformer instead.",
+        DeprecationWarning,
+    )
 
     def _loader(param_value: str) -> ConfigDict:
         # parameter value was not specified by user

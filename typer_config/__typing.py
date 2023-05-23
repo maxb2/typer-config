@@ -27,6 +27,14 @@ ConfigDictAccessorPath: TypeAlias = Iterable[str]
 """Configuration dictionary accessor path."""
 
 # Function types
+TyperParameterValueTransformer: TypeAlias = Callable[
+    [TyperParameterValue], TyperParameterValue
+]
+"""Typer parameter value transforming function."""
+
+ConfigDictTransformer: TypeAlias = Callable[[ConfigDict], ConfigDict]
+"""ConfigDict transforming function."""
+
 ConfigLoader: TypeAlias = Callable[[TyperParameterValue], ConfigDict]
 """Configuration loader function."""
 
