@@ -5,7 +5,13 @@ Typer Configuration Utilities
 from typer import BadParameter, CallbackParam, Context
 
 from .__typing import ConfigLoader, ConfigParameterCallback, TyperParameterValue
-from .loaders import dotenv_loader, json_loader, toml_loader, yaml_loader
+from .loaders import (
+    dotenv_loader,
+    json_loader,
+    toml_loader,
+    yaml_loader,
+    loader_transformer,
+)
 
 
 def conf_callback_factory(loader: ConfigLoader) -> ConfigParameterCallback:
@@ -48,7 +54,9 @@ def conf_callback_factory(loader: ConfigLoader) -> ConfigParameterCallback:
     return _callback
 
 
-yaml_conf_callback: ConfigParameterCallback = conf_callback_factory(yaml_loader)
+yaml_conf_callback: ConfigParameterCallback = conf_callback_factory(
+    loader_transformer(yaml_loader, loader_conditional=lambda param_value: param_value)
+)
 """YAML typer config parameter callback.
 
 Args:
@@ -64,7 +72,9 @@ Returns:
     TyperParameterValue: must return back the given parameter
 """
 
-json_conf_callback: ConfigParameterCallback = conf_callback_factory(json_loader)
+json_conf_callback: ConfigParameterCallback = conf_callback_factory(
+    loader_transformer(json_loader, loader_conditional=lambda param_value: param_value)
+)
 """JSON typer config parameter callback.
 
 Args:
@@ -81,7 +91,9 @@ Returns:
 """
 
 
-toml_conf_callback: ConfigParameterCallback = conf_callback_factory(toml_loader)
+toml_conf_callback: ConfigParameterCallback = conf_callback_factory(
+    loader_transformer(toml_loader, loader_conditional=lambda param_value: param_value)
+)
 """TOML typer config parameter callback.
 
 Args:
@@ -97,7 +109,11 @@ Returns:
     TyperParameterValue: must return back the given parameter
 """
 
-dotenv_conf_callback: ConfigParameterCallback = conf_callback_factory(dotenv_loader)
+dotenv_conf_callback: ConfigParameterCallback = conf_callback_factory(
+    loader_transformer(
+        dotenv_loader, loader_conditional=lambda param_value: param_value
+    )
+)
 """Dotenv typer config parameter callback.
 
 Args:

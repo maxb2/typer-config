@@ -14,6 +14,7 @@ from .__typing import (
     ConfigDictAccessorPath,
     ConfigDictTransformer,
     ConfigLoader,
+    ConfigLoaderConditional,
     NoArgCallable,
     TyperParameterValue,
     TyperParameterValueTransformer,
@@ -58,6 +59,7 @@ except ImportError:  # pragma: no cover
 
 def loader_transformer(
     loader: ConfigLoader,
+    loader_conditional: Optional[ConfigLoaderConditional] = None,
     param_transformer: Optional[TyperParameterValueTransformer] = None,
     config_transformer: Optional[ConfigDictTransformer] = None,
 ) -> ConfigLoader:
@@ -94,6 +96,8 @@ def loader_transformer(
 
     Args:
         loader (ConfigLoader): Loader to transform.
+        loader_condtional (Optional[ConfigLoaderConditional], optional): Function
+            to determine whether to execute loader. Defaults to None (no-op).
         param_transformer (Optional[TyperParameterValueTransformer], optional): Typer
             parameter transformer. Defaults to None (no-op).
         config_transformer (Optional[ConfigDictTransformer], optional): Config
@@ -104,11 +108,18 @@ def loader_transformer(
     """
 
     def _loader(param_value: TyperParameterValue) -> ConfigDict:
+        # Transform input
         if param_transformer is not None:
             param_value = param_transformer(param_value)
 
-        conf: ConfigDict = loader(param_value)
+        # Decide whether to execute loader
+        # NOTE: bad things can happen when `param_value=''`
+        # such as `--help` not working
+        conf: ConfigDict = {}
+        if loader_conditional is None or loader_conditional(param_value):
+            conf = loader(param_value)
 
+        # Transform output
         if config_transformer is not None:
             conf = config_transformer(conf)
 
