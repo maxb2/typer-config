@@ -8,9 +8,9 @@ from .__typing import ConfigLoader, ConfigParameterCallback, TyperParameterValue
 from .loaders import (
     dotenv_loader,
     json_loader,
+    loader_transformer,
     toml_loader,
     yaml_loader,
-    loader_transformer,
 )
 
 
