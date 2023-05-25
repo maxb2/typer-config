@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [0.5.0](https://github.com/maxb2/typer-config/releases/tag/0.5.0) - 2023-05-25
+
+<small>[Compare with 0.4.0](https://github.com/maxb2/typer-config/compare/0.4.0...0.5.0)</small>
+
+### Features
+
+- loader conditionals (#23) ([4bb82de](https://github.com/maxb2/typer-config/commit/4bb82de3a9d1e355a0eb0048d10d4246d57a5c22) by Matthew Anderson).
+
 ## [0.4.0](https://github.com/maxb2/typer-config/releases/tag/0.4.0) - 2023-05-22
 
 <small>[Compare with 0.3.0](https://github.com/maxb2/typer-config/compare/0.3.0...0.4.0)</small>
