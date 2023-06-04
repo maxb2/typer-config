@@ -51,7 +51,7 @@ def fmt(ctx: Context):
     Args:
         ctx (Context): the context instance (passed automatically).
     """
-    ctx.run("isort .", title="Sorting imports")
+    ctx.run("isort --ca --profile=black .", title="Sorting imports")
     ctx.run("black .", title="Formatting code")
 
 
