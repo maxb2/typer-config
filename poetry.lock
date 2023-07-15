@@ -336,13 +336,13 @@ pipenv = ["pipenv"]
 
 [[package]]
 name = "duty"
-version = "0.11.0"
+version = "1.0.0"
 description = "A simple task runner."
 optional = false
-python-versions = ">=3.7"
+python-versions = ">=3.8"
 files = [
-    {file = "duty-0.11.0-py3-none-any.whl", hash = "sha256:6881d47e07ddbbb25044ca78b2402ef1d9f4b8bde9af4e91772d9f3827f3efb8"},
-    {file = "duty-0.11.0.tar.gz", hash = "sha256:a76c27fc63b459adef25deee8d5bf15af6235f4f9bdbd902444287fbf2e9a635"},
+    {file = "duty-1.0.0-py3-none-any.whl", hash = "sha256:105e9131e4933900e78a7549b253426c297877cc2a7e71b4384f9f6f059a44bf"},
+    {file = "duty-1.0.0.tar.gz", hash = "sha256:39bfa7b95d4fd844414c7c7f6cbf8f199678696f9da1340d6c90ddc7fc8317af"},
 ]
 
 [package.dependencies]
@@ -1728,4 +1728,4 @@ yaml = ["pyyaml"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "224bb37516d3826b448cf67810e433666bf2d1929d9a9fa61e9071ccc568783d"
+content-hash = "45f7a9dc836a81aacf144f510401ca30926c86b9cdb12719b8874a67fb29725d"
