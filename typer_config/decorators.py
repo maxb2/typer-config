@@ -43,7 +43,7 @@ def use_config(
 
     Args:
         callback (ConfigParameterCallback): config parameter callback to load
-        param_name (TyperParameterName, optional): name of config parameter. 
+        param_name (TyperParameterName, optional): name of config parameter.
             Defaults to "config".
         param_help (str, optional): config parameter help string.
             Defaults to "Configuration file.".
