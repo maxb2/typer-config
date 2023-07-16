@@ -46,12 +46,14 @@ typer = "^0"
 toml = {version = "^0.10.2", optional = true}
 pyyaml = {version = "^6.0", optional = true}
 python-dotenv = {version = "*", optional = true}
+makefun = {version = "^1.15.1", optional = true}
 
 [tool.poetry.extras]
 python-dotenv = ["python-dotenv"]
 toml = ["toml"]
 yaml = ["pyyaml"]
-all = ["toml", "pyyaml", "python-dotenv"]
+decorators = ["makefun"]
+all = ["toml", "pyyaml", "python-dotenv", "makefun"]
 
 [tool.poetry.group.dev.dependencies]
 ruff = ">=0.0.263,<0.0.279"

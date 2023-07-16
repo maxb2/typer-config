@@ -48,3 +48,6 @@ ConfigParameterCallback: TypeAlias = Callable[
 
 NoArgCallable: TypeAlias = Callable[[], Any]
 """No argument callable."""
+
+TyperCommand: TypeAlias = Callable[..., Any]
+"""A function that will be decorated with typer.Typer().command()"""
