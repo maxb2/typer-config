@@ -63,10 +63,7 @@ def use_config(
             if param_name in kwargs:
                 del kwargs[param_name]
 
-            return cmd(
-                *args,
-                **kwargs,
-            )
+            return cmd(*args, **kwargs)
 
         wrapped.__signature__ = new_sig  # type: ignore
 
