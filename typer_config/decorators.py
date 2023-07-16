@@ -5,13 +5,13 @@ from inspect import Parameter, signature
 
 from typer import Option
 
-from . import (
+from .__typing import ConfigParameterCallback, TyperCommand, TyperCommandDecorator
+from .callbacks import (
     dotenv_conf_callback,
     json_conf_callback,
     toml_conf_callback,
     yaml_conf_callback,
 )
-from .__typing import ConfigParameterCallback, TyperCommand, TyperCommandDecorator
 
 
 def use_config(
