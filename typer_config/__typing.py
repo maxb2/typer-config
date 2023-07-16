@@ -51,3 +51,5 @@ NoArgCallable: TypeAlias = Callable[[], Any]
 
 TyperCommand: TypeAlias = Callable[..., Any]
 """A function that will be decorated with typer.Typer().command()"""
+
+TyperCommandDecorator: TypeAlias = Callable[[TyperCommand], TyperCommand]
