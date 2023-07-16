@@ -2,10 +2,16 @@
 
 from functools import partial, wraps
 from inspect import Parameter, signature
+from typing import Callable
 
 from typer import Option
 
-from .__typing import ConfigParameterCallback, TyperCommand, TyperCommandDecorator
+from .__typing import (
+    ConfigParameterCallback,
+    TyperCommand,
+    TyperCommandDecorator,
+    TyperParameterName,
+)
 from .callbacks import (
     dotenv_conf_callback,
     json_conf_callback,
@@ -16,7 +22,7 @@ from .callbacks import (
 
 def use_config(
     callback: ConfigParameterCallback,
-    param_name: str = "config",
+    param_name: TyperParameterName = "config",
     param_help: str = "Configuration file.",
 ) -> TyperCommandDecorator:
     """Decorator for using configuration on a typer command.
@@ -37,7 +43,8 @@ def use_config(
 
     Args:
         callback (ConfigParameterCallback): config parameter callback to load
-        param_name (str, optional): name of config parameter. Defaults to "config".
+        param_name (TyperParameterName, optional): name of config parameter. 
+            Defaults to "config".
         param_help (str, optional): config parameter help string.
             Defaults to "Configuration file.".
 
@@ -79,18 +86,20 @@ def use_config(
 
 
 # default decorators
-json_config = partial(use_config, callback=json_conf_callback)
+use_json_config: Callable[[TyperParameterName, str], TyperCommandDecorator] = partial(
+    use_config, callback=json_conf_callback
+)
 """Decorator for using JSON configuration on a typer command.
 
 Usage:
     ```py
     import typer
-    from typer_config.decorators import json_config
+    from typer_config.decorators import use_json_config
 
     app = typer.Typer()
 
     @app.command()
-    @json_config()
+    @use_json_config()
     def main(...):
         ...
     ```
@@ -104,18 +113,20 @@ Returns:
     TyperCommandDecorator: decorator to apply to command
 """
 
-yaml_config = partial(use_config, callback=yaml_conf_callback)
+use_yaml_config: Callable[[TyperParameterName, str], TyperCommandDecorator] = partial(
+    use_config, callback=yaml_conf_callback
+)
 """Decorator for using YAML configuration on a typer command.
 
 Usage:
     ```py
     import typer
-    from typer_config.decorators import yaml_config
+    from typer_config.decorators import use_yaml_config
 
     app = typer.Typer()
 
     @app.command()
-    @yaml_config()
+    @use_yaml_config()
     def main(...):
         ...
     ```
@@ -129,18 +140,20 @@ Returns:
     TyperCommandDecorator: decorator to apply to command
 """
 
-toml_config = partial(use_config, callback=toml_conf_callback)
+use_toml_config: Callable[[TyperParameterName, str], TyperCommandDecorator] = partial(
+    use_config, callback=toml_conf_callback
+)
 """Decorator for using TOML configuration on a typer command.
 
 Usage:
     ```py
     import typer
-    from typer_config.decorators import toml_config
+    from typer_config.decorators import use_toml_config
 
     app = typer.Typer()
 
     @app.command()
-    @toml_config()
+    @use_toml_config()
     def main(...):
         ...
     ```
@@ -154,18 +167,20 @@ Returns:
     TyperCommandDecorator: decorator to apply to command
 """
 
-dotenv_config = partial(use_config, callback=dotenv_conf_callback)
+use_dotenv_config: Callable[[TyperParameterName, str], TyperCommandDecorator] = partial(
+    use_config, callback=dotenv_conf_callback
+)
 """Decorator for using dotenv configuration on a typer command.
 
 Usage:
     ```py
     import typer
-    from typer_config.decorators import dotenv_config
+    from typer_config.decorators import use_dotenv_config
 
     app = typer.Typer()
 
     @app.command()
-    @dotenv_config()
+    @use_dotenv_config()
     def main(...):
         ...
     ```

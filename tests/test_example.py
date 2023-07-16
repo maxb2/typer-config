@@ -1,3 +1,4 @@
+import functools
 from pathlib import Path
 
 import pytest
@@ -34,30 +35,101 @@ def simple_app():
     return _app
 
 
+@pytest.fixture
+def simple_app_decorated():
+    def _app(decorator):
+        app = typer.Typer()
+
+        @app.command()
+        @decorator()
+        def main(
+            arg1: str,
+            opt1: str = typer.Option(...),
+            opt2: str = typer.Option("hello"),
+        ):
+            typer.echo(f"{opt1} {opt2} {arg1}")
+
+        return app
+
+    return _app
+
+
+# Have to make one dynamically because of the required INI section
+INI_CALLBACK = typer_config.conf_callback_factory(
+    typer_config.loaders.loader_transformer(
+        typer_config.loaders.subpath_loader(
+            typer_config.loaders.ini_loader, ["simple_app"]
+        ),
+        loader_conditional=lambda param_value: param_value,
+    )
+)
+
 CONFS = [
-    (str(HERE.joinpath("config.yml")), typer_config.yaml_conf_callback),
-    (str(HERE.joinpath("config.json")), typer_config.json_conf_callback),
-    (str(HERE.joinpath("config.toml")), typer_config.toml_conf_callback),
-    (str(HERE.joinpath("config.env")), typer_config.dotenv_conf_callback),
+    (
+        str(HERE.joinpath("config.yml")),
+        typer_config.yaml_conf_callback,
+        typer_config.decorators.use_yaml_config,
+    ),
+    (
+        str(HERE.joinpath("config.json")),
+        typer_config.json_conf_callback,
+        typer_config.decorators.use_json_config,
+    ),
+    (
+        str(HERE.joinpath("config.toml")),
+        typer_config.toml_conf_callback,
+        typer_config.decorators.use_toml_config,
+    ),
+    (
+        str(HERE.joinpath("config.env")),
+        typer_config.dotenv_conf_callback,
+        typer_config.decorators.use_dotenv_config,
+    ),
     (
         str(HERE.joinpath("config.ini")),
-        # Have to make one dynamically because of the required INI section
-        typer_config.conf_callback_factory(
-            typer_config.loaders.loader_transformer(
-                typer_config.loaders.subpath_loader(
-                    typer_config.loaders.ini_loader, ["simple_app"]
-                ),
-                loader_conditional=lambda param_value: param_value,
-            )
-        ),
+        INI_CALLBACK,
+        functools.partial(typer_config.decorators.use_config, callback=INI_CALLBACK),
     ),
 ]
 
 
 @pytest.mark.parametrize("confs", CONFS, ids=str)
 def test_simple_example(simple_app, confs):
-    conf, callback = confs
+    conf, callback, _ = confs
     _app = simple_app(callback)
+
+    result = RUNNER.invoke(_app, ["--help"])
+    assert (
+        result.exit_code == 0
+    ), f"Couldn't get to `--help` for {conf}\n\n{result.stdout}"
+
+    result = RUNNER.invoke(_app, ["--config", conf])
+    assert result.exit_code == 0, f"Loading failed for {conf}\n\n{result.stdout}"
+    assert (
+        result.stdout.strip() == "things nothing stuff"
+    ), f"Unexpected output for {conf}"
+
+    result = RUNNER.invoke(_app, ["--config", conf, "others"])
+    assert result.exit_code == 0, f"Loading failed for {conf}\n\n{result.stdout}"
+    assert (
+        result.stdout.strip() == "things nothing others"
+    ), f"Unexpected output for {conf}"
+
+    result = RUNNER.invoke(_app, ["--config", conf, "--opt1", "people"])
+    assert result.exit_code == 0, f"Loading failed for {conf}\n\n{result.stdout}"
+    assert (
+        result.stdout.strip() == "people nothing stuff"
+    ), f"Unexpected output for {conf}"
+
+    result = RUNNER.invoke(_app, ["--config", conf + ".non_existent"])
+    assert result.exit_code != 0, f"Should have failed for {conf}\n\n{result.stdout}"
+    assert "No such file" in result.stdout, f"Wrong error message for {conf}"
+
+
+@pytest.mark.parametrize("confs", CONFS, ids=str)
+def test_simple_example_decorated(simple_app_decorated, confs):
+    conf, _, dec = confs
+    _app = simple_app_decorated(dec)
 
     result = RUNNER.invoke(_app, ["--help"])
     assert (
