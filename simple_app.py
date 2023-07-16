@@ -1,13 +1,12 @@
 import typer
 
-from typer_config import yaml_conf_callback
-from typer_config.decorators import use_config
+from typer_config.decorators import yaml_config
 
 app = typer.Typer()
 
 
 @app.command()
-@use_config(yaml_conf_callback)
+@yaml_config(param_name="cfg")
 def main(
     arg1: str,
     opt1: str = typer.Option(...),
