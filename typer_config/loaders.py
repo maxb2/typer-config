@@ -96,7 +96,7 @@ def loader_transformer(
 
     Args:
         loader (ConfigLoader): Loader to transform.
-        loader_condtional (Optional[ConfigLoaderConditional], optional): Function
+        loader_conditional (Optional[ConfigLoaderConditional], optional): Function
             to determine whether to execute loader. Defaults to None (no-op).
         param_transformer (Optional[TyperParameterValueTransformer], optional): Typer
             parameter transformer. Defaults to None (no-op).

@@ -26,6 +26,7 @@ nav:
     - install.md
     - how.md
   - Examples:
+    - 'examples/decorator.md'
     - 'examples/simple_yaml.md'
     - 'examples/pyproject.md'
     - 'examples/pydantic.md'
