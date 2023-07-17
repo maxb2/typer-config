@@ -95,7 +95,7 @@ assert (
 
 ## Save Config Files
 
-This example lets you save the parameters of the invoked command to a configuration file using the `@dump_config` decorator which operates on Typer commands (requested in [issue #25](https://github.com/maxb2/typer-config/issues/25)).
+This example shows you how save the parameters of the invoked command to a configuration file using the `@dump_config` decorator which operates on Typer commands (requested in [issue #25](https://github.com/maxb2/typer-config/issues/25)).
 
 An example typer app:
 ```{.python title="simple_app.py" test="true"}
