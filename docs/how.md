@@ -8,5 +8,9 @@ The `typer` library then sees this extended signature and parses/generates the h
 Internally, the decorator then removes the `config` parameter from the arguments passed to the actual implementation that you wrote.
 Otherwise, your function would error with an unknown argument.
 
-If you use the `config` parameter directly in your function, you _must_ use `is_eager=True` in the parameter definition because that will cause it to be processed first.
+If you use the `config` parameter directly in your function, you **must** use `is_eager=True` in the parameter definition because that will cause it to be processed first.
+For example:
+```python
+config: str = typer.Option("", is_eager=True, callback=...)
+```
 If you don't use `is_eager`, then your parameter values will depend on the order in which they were processed (read: unpredictably).
