@@ -18,4 +18,29 @@ $ my-typer-app --opt1 foo --opt2 bar arg1 arg2
 $ my-typer-app --config config.yml
 ```
 
-See [Examples](examples/simple_yaml) for more.
+## Quickstart
+
+You can use a decorator to quickly add a configuration parameter to your `typer` application:
+
+```py
+import typer
+from typer_config import use_yaml_config
+
+app = typer.Typer()
+
+
+@app.command()
+@use_yaml_config() # MUST BE AFTER @app.command()
+def main(...):
+    ...
+
+if __name__ == "__main__":
+    app()
+```
+
+Your typer command will now include a `--config CONFIG_FILE` option at the command line.
+
+> **Note**: this package also provides `@use_json_config`, `@use_toml_config`, and `@use_dotenv_config` for those file formats.
+> You can also use your own loader function and the `@use_config(loader_func)` decorator.
+
+See [Examples](examples/simple_yaml) for more use cases.

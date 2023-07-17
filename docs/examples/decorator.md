@@ -1,6 +1,6 @@
 # Decorator Syntax
 
-**New in [0.6.0](https://github.com/maxb2/typer-config/releases/tag/0.6.0)**
+✨ **New in [0.6.0](https://github.com/maxb2/typer-config/releases/tag/0.6.0)** ✨
 
 You can use a decorator to indicate that your `typer` command uses a config option.
 This is meant to reduce boiler-plate code (compare to the [verbose example](/examples/simple_yaml)).
