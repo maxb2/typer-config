@@ -9,6 +9,8 @@ This is meant to reduce boiler-plate code (compare to the [verbose example](/exa
 
 An example typer app:
 ```{.python title="simple_app.py" test="true"}
+from typing_extensions import Annotated
+
 import typer
 from typer_config import use_yaml_config
 
@@ -16,11 +18,11 @@ app = typer.Typer()
 
 
 @app.command()
-@use_yaml_config() # MUST BE AFTER @app.command() (1)
+@use_yaml_config()  # MUST BE AFTER @app.command() (1)
 def main(
     arg1: str,
-    opt1: str = typer.Option(...),
-    opt2: str = typer.Option("hello"),
+    opt1: Annotated[str, typer.Option()],
+    opt2: Annotated[str, typer.Option()] = "hello",
 ):
     typer.echo(f"{opt1} {opt2} {arg1}")
 
@@ -99,19 +101,22 @@ This example shows you how save the parameters of the invoked command to a confi
 
 An example typer app:
 ```{.python title="simple_app.py" test="true"}
+from typing_extensions import Annotated
+
 import typer
 from typer_config.decorators import dump_json_config, use_json_config
 
 
 app = typer.Typer()
 
+
 @app.command()
-@use_json_config() # before dump decorator (1)
-@dump_json_config("./dumped.json") 
+@use_json_config()  # before dump decorator (1)
+@dump_json_config("./dumped.json")
 def main(
     arg1: str,
-    opt1: str = typer.Option(...),
-    opt2: str = typer.Option("hello"),
+    opt1: Annotated[str, typer.Option()],
+    opt2: Annotated[str, typer.Option()] = "hello",
 ):
     typer.echo(f"{opt1} {opt2} {arg1}")
 

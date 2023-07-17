@@ -6,6 +6,8 @@ This simple example uses a `--config` option to load a configuration from a YAML
 
 An example typer app:
 ```{.python title="simple_app.py" test="true"}
+from typing_extensions import Annotated
+
 import typer
 from typer_config import yaml_conf_callback
 
@@ -15,13 +17,15 @@ app = typer.Typer()
 @app.command()
 def main(
     arg1: str,
-    config: str = typer.Option(
-        "",
-        callback=yaml_conf_callback,
-        is_eager=True,  # THIS IS REALLY IMPORTANT (1)
-    ),
-    opt1: str = typer.Option(...),
-    opt2: str = typer.Option("hello"),
+    opt1: Annotated[str, typer.Option()],
+    opt2: Annotated[str, typer.Option()] = "hello",
+    config: Annotated[
+        str,
+        typer.Option(
+            callback=yaml_conf_callback,
+            is_eager=True,  # THIS IS REALLY IMPORTANT (1)
+        ),
+    ] = "",
 ):
     typer.echo(f"{opt1} {opt2} {arg1}")
 
