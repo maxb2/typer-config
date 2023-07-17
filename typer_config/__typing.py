@@ -3,7 +3,8 @@ Data and Function types.
 """
 
 import sys
-from typing import Any, Callable, Dict, Iterable
+from pathlib import Path
+from typing import Any, Callable, Dict, Iterable, Union
 
 from typer import CallbackParam, Context
 
@@ -25,6 +26,9 @@ ConfigDict: TypeAlias = Dict[TyperParameterName, Any]
 
 ConfigDictAccessorPath: TypeAlias = Iterable[str]
 """Configuration dictionary accessor path."""
+
+FilePath: TypeAlias = Union[Path, str]
+"""File path"""
 
 # Function types
 TyperParameterValueTransformer: TypeAlias = Callable[
@@ -48,6 +52,9 @@ ConfigParameterCallback: TypeAlias = Callable[
 
 NoArgCallable: TypeAlias = Callable[[], Any]
 """No argument callable."""
+
+ConfigDumper: TypeAlias = Callable[[ConfigDict, FilePath], None]
+"""Configuration dumper function."""
 
 TyperCommand: TypeAlias = Callable[..., Any]
 """A function that will be decorated with `typer.Typer().command()`."""
