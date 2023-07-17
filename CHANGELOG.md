@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [0.6.1](https://github.com/maxb2/typer-config/releases/tag/0.6.1) - 2023-07-17
+
+<small>[Compare with 0.6.0](https://github.com/maxb2/typer-config/compare/0.6.0...0.6.1)</small>
+
+- update docs to use `Annotated` parameters (#41) ([f2a8a25](https://github.com/maxb2/typer-config/commit/f2a8a254d971d064f66d7c02bed9bf4c22b64c24) by Matthew Anderson).
+
 ## [0.6.0](https://github.com/maxb2/typer-config/releases/tag/0.6.0) - 2023-07-17
 
 <small>[Compare with 0.5.0](https://github.com/maxb2/typer-config/compare/0.5.0...0.6.0)</small>

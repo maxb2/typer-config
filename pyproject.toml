@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "typer-config"
-version = "0.6.0"
+version = "0.6.1"
 description = "Utilities for working with configuration files in typer CLIs. "
 authors = ["Matt Anderson <matt@manderscience.com>"]
 readme = "README.md"
