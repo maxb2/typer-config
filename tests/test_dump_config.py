@@ -1,3 +1,4 @@
+from enum import Enum
 from pathlib import Path
 
 import pytest
@@ -13,13 +14,19 @@ RUNNER = CliRunner()
 HERE = Path(__file__).parent.absolute()
 
 
+class Things(Enum):
+    a = "a"
+    b = "b"
+    c = "c"
+
+
 @pytest.fixture
 def dumper_app():
     def _app(dumper, location):
         app = typer.Typer()
 
         @app.command()
-        @tcdec.save_config(dumper, location)
+        @tcdec.dump_config(dumper, location)
         def main(
             arg1: str,
             config: str = typer.Option(
@@ -28,6 +35,7 @@ def dumper_app():
             ),
             opt1: str = typer.Option(...),
             opt2: str = typer.Option("hello"),
+            things: Things = typer.Option(Things.a.value),
         ):
             typer.echo(f"{opt1} {opt2} {arg1}")
 
@@ -56,7 +64,7 @@ DUMPERS = [
 
 
 @pytest.mark.parametrize("dumper", DUMPERS, ids=str)
-def test_save_config(dumper_app, dumper):
+def test_dump_config(dumper_app, dumper):
     dumper, location, loader = dumper
 
     _app = dumper_app(dumper, location)
@@ -66,7 +74,9 @@ def test_save_config(dumper_app, dumper):
         result.exit_code == 0
     ), f"Couldn't get to `--help` for {location}\n\n{result.stdout}"
 
-    result = RUNNER.invoke(_app, ["--opt1", "foo", "--opt2", "bar", "baz"])
+    result = RUNNER.invoke(
+        _app, ["--opt1", "foo", "--opt2", "bar", "baz", "--things", "b"]
+    )
     assert result.exit_code == 0, f"Dumping failed for {location}\n\n{result.stdout}"
     assert result.stdout.strip() == "foo bar baz", f"Unexpected output for {location}"
 
@@ -77,6 +87,7 @@ def test_save_config(dumper_app, dumper):
         "opt1": "foo",
         "opt2": "bar",
         "arg1": "baz",
+        "things": "b",
     }, f"{location} does not match original parameters"
 
     location.unlink()

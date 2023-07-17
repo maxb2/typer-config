@@ -1,5 +1,6 @@
 """Typer Config decorators."""
 
+from enum import Enum
 from functools import partial, wraps
 from inspect import Parameter, signature
 from typing import Callable
@@ -20,6 +21,7 @@ from .callbacks import (
     toml_conf_callback,
     yaml_conf_callback,
 )
+from .dumpers import json_dumper, toml_dumper, yaml_dumper
 
 
 def use_config(
@@ -197,17 +199,20 @@ Returns:
 """
 
 
-def save_config(dumper: ConfigDumper, location: FilePath) -> TyperCommandDecorator:
-    """Decorator for saving a config file with parameters
+def dump_config(dumper: ConfigDumper, location: FilePath) -> TyperCommandDecorator:
+    """Decorator for dumping a config file with parameters
     from an invocation of a typer command.
 
     Usage:
         ```py
+        import typer
+        from typer.decorators import dump_config
+
         app = typer.Typer()
 
         @app.command()
-        # NOTE: @save_config MUST BE AFTER @app.command()
-        @save_config(yaml_dumper, "config_save_dir/params.yaml")
+        # NOTE: @dump_config MUST BE AFTER @app.command()
+        @dump_config(yaml_dumper, "config_dump_dir/params.yaml")
         def cmd(...):
             ...
         ```
@@ -223,10 +228,103 @@ def save_config(dumper: ConfigDumper, location: FilePath) -> TyperCommandDecorat
     def decorator(cmd: TyperCommand) -> TyperCommand:
         @wraps(cmd)
         def inner(*args, **kwargs):
+            # get a dictionary of the passed args
             bound_args = signature(cmd).bind(*args, **kwargs).arguments
+
+            # convert enums to their values
+            for key, val in bound_args.items():
+                if isinstance(val, Enum):
+                    bound_args[key] = val.value
+
+            # dump passed args
             dumper(bound_args, location)
+
+            # run original command
             return cmd(*args, **kwargs)
 
         return inner
 
     return decorator
+
+
+dump_json_config: Callable[[FilePath], TyperCommandDecorator] = partial(
+    dump_config, dumper=json_dumper
+)
+"""Decorator for dumping a JSON file with parameters
+from an invocation of a typer command.
+
+Usage:
+    ```py
+    import typer
+    from typer.decorators import dump_json_config
+
+    app = typer.Typer()
+
+    @app.command()
+    # NOTE: @dump_json_config MUST BE AFTER @app.command()
+    @dump_json_config("config_dump_dir/params.json")
+    def cmd(...):
+        ...
+    ```
+
+Args:
+    location (FilePath): config file to write
+
+Returns:
+    TyperCommandDecorator: command decorator
+"""
+
+
+dump_yaml_config: Callable[[FilePath], TyperCommandDecorator] = partial(
+    dump_config, dumper=yaml_dumper
+)
+"""Decorator for dumping a YAML file with parameters
+from an invocation of a typer command.
+
+Usage:
+    ```py
+    import typer
+    from typer.decorators import dump_yaml_config
+
+    app = typer.Typer()
+
+    @app.command()
+    # NOTE: @dump_yaml_config MUST BE AFTER @app.command()
+    @dump_yaml_config("config_dump_dir/params.yml")
+    def cmd(...):
+        ...
+    ```
+
+Args:
+    location (FilePath): config file to write
+
+Returns:
+    TyperCommandDecorator: command decorator
+"""
+
+dump_toml_config: Callable[[FilePath], TyperCommandDecorator] = partial(
+    dump_config, dumper=toml_dumper
+)
+"""Decorator for dumping a TOML file with parameters
+from an invocation of a typer command.
+
+Usage:
+    ```py
+    import typer
+    from typer.decorators import dump_toml_config
+
+    app = typer.Typer()
+
+    @app.command()
+    # NOTE: @dump_toml_config MUST BE AFTER @app.command()
+    @dump_toml_config("config_dump_dir/params.toml")
+    def cmd(...):
+        ...
+    ```
+
+Args:
+    location (FilePath): config file to write
+
+Returns:
+    TyperCommandDecorator: command decorator
+"""

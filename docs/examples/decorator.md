@@ -95,20 +95,20 @@ assert (
 
 ## Save Config Files
 
-This example lets you save the parameters of the invoked command to a configuration file using the `@save_config` decorator which operates on Typer commands (requested in [issue #25](https://github.com/maxb2/typer-config/issues/25)).
+This example lets you save the parameters of the invoked command to a configuration file using the `@dump_config` decorator which operates on Typer commands (requested in [issue #25](https://github.com/maxb2/typer-config/issues/25)).
 
 An example typer app:
 ```{.python title="simple_app.py" test="true"}
 import typer
 from typer_config import json_conf_callback
-from typer_config.decorators import save_config
+from typer_config.decorators import dump_config
 from typer_config.dumpers import json_dumper
 
 
 app = typer.Typer()
 
 @app.command()
-@save_config(json_dumper, "./saved.json") # MUST BE AFTER app.command() (2)
+@dump_config(json_dumper, "./saved.json") # MUST BE AFTER app.command() (2)
 def main(
     arg1: str,
     config: str = typer.Option(
