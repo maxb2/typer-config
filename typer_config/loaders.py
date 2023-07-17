@@ -4,11 +4,11 @@ Configuration File Loaders.
 These loaders must implement the `typer_config.__typing.ConfigLoader` interface.
 """
 import json
-import sys
 from configparser import ConfigParser
 from typing import Optional
 from warnings import warn
 
+from .__optional_imports import *  # pylint: disable=wildcard-import, unused-wildcard-import
 from .__typing import (
     ConfigDict,
     ConfigDictAccessorPath,
@@ -19,42 +19,6 @@ from .__typing import (
     TyperParameterValue,
     TyperParameterValueTransformer,
 )
-
-USING_TOMLLIB = False
-TOML_MISSING = True
-YAML_MISSING = True
-DOTENV_MISSING = True
-
-
-if sys.version_info >= (3, 11):  # pragma: no cover
-    import tomllib  # type: ignore
-
-    TOML_MISSING = False
-    USING_TOMLLIB = True
-else:  # pragma: no cover
-    try:
-        # Third-party toml parsing library
-        import toml
-
-        TOML_MISSING = False
-
-    except ImportError:
-        pass
-
-
-try:  # pragma: no cover
-    import yaml
-
-    YAML_MISSING = False
-except ImportError:  # pragma: no cover
-    pass
-
-try:  # pragma: no cover
-    import dotenv
-
-    DOTENV_MISSING = False
-except ImportError:  # pragma: no cover
-    pass
 
 
 def loader_transformer(
@@ -274,19 +238,14 @@ def toml_loader(param_value: TyperParameterValue) -> ConfigDict:
         ConfigDict: dictionary loaded from file
     """
 
-    if TOML_MISSING:  # pragma: no cover
-        raise ModuleNotFoundError("Please install the toml library.")
-
-    conf: ConfigDict = {}
-
     if USING_TOMLLIB:  # pragma: no cover
         with open(param_value, "rb") as _file:
-            conf = tomllib.load(_file)  # type: ignore
-    else:  # pragma: no cover
-        with open(param_value, "r", encoding="utf-8") as _file:
-            conf = toml.load(_file)  # type: ignore
+            return tomllib.load(_file)  # type: ignore
 
-    return conf
+    if TOML_MISSING:  # pragma: no cover
+        raise ModuleNotFoundError("Please install the toml library.")
+    with open(param_value, "r", encoding="utf-8") as _file:  # pragma: no cover
+        return toml.load(_file)  # type: ignore
 
 
 def dotenv_loader(param_value: TyperParameterValue) -> ConfigDict:

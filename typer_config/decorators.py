@@ -7,7 +7,9 @@ from typing import Callable
 from typer import Option
 
 from .__typing import (
+    ConfigDumper,
     ConfigParameterCallback,
+    FilePath,
     TyperCommand,
     TyperCommandDecorator,
     TyperParameterName,
@@ -193,3 +195,38 @@ Args:
 Returns:
     TyperCommandDecorator: decorator to apply to command
 """
+
+
+def save_config(dumper: ConfigDumper, location: FilePath) -> TyperCommandDecorator:
+    """Decorator for saving a config file with parameters
+    from an invocation of a typer command.
+
+    Usage:
+        ```py
+        app = typer.Typer()
+
+        @app.command()
+        # NOTE: @save_config MUST BE AFTER @app.command()
+        @save_config(yaml_dumper, "config_save_dir/params.yaml")
+        def cmd(...):
+            ...
+        ```
+
+    Args:
+        dumper (ConfigDumper): config file dumper
+        location (FilePath): config file to write
+
+    Returns:
+        TyperCommandDecorator: command decorator
+    """
+
+    def decorator(cmd: TyperCommand) -> TyperCommand:
+        @wraps(cmd)
+        def inner(*args, **kwargs):
+            bound_args = signature(cmd).bind(*args, **kwargs).arguments
+            dumper(bound_args, location)
+            return cmd(*args, **kwargs)
+
+        return inner
+
+    return decorator
