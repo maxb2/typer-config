@@ -73,25 +73,18 @@ conf = "config.yml"
 result = RUNNER.invoke(app, ["--config", conf])
 
 assert result.exit_code == 0, f"Loading failed for {conf}\n\n{result.stdout}"
-assert (
-    result.stdout.strip() == "things nothing stuff"
-), f"Unexpected output for {conf}"
+assert result.stdout.strip() == "things nothing stuff", f"Unexpected output for {conf}"
 
 
 result = RUNNER.invoke(app, ["--config", conf, "others"])
 
 assert result.exit_code == 0, f"Loading failed for {conf}\n\n{result.stdout}"
-assert (
-    result.stdout.strip() == "things nothing others"
-), f"Unexpected output for {conf}"
+assert result.stdout.strip() == "things nothing others", f"Unexpected output for {conf}"
 
 result = RUNNER.invoke(app, ["--config", conf, "--opt1", "people"])
 
 assert result.exit_code == 0, f"Loading failed for {conf}\n\n{result.stdout}"
-assert (
-    result.stdout.strip() == "people nothing stuff"
-), f"Unexpected output for {conf}"
-
+assert result.stdout.strip() == "people nothing stuff", f"Unexpected output for {conf}"
 ```
 --->
 
@@ -151,15 +144,16 @@ RUNNER = CliRunner()
 result = RUNNER.invoke(app, ["--opt1", "foo", "--opt2", "bar", "baz"])
 
 assert result.exit_code == 0, "Application failed"
-assert (
-    result.stdout.strip() == "foo bar baz"
-), "Unexpected output"
+assert result.stdout.strip() == "foo bar baz", "Unexpected output"
 
 
 assert os.path.isfile("./dumped.json"), "Saved file does not exist"
 
 with open("./dumped.json", "r") as f:
-    assert json.load(f) == {"opt1": "foo", "opt2": "bar", "arg1": "baz"}, "Saved file has wrong contents"
-
+    assert json.load(f) == {
+        "opt1": "foo",
+        "opt2": "bar",
+        "arg1": "baz",
+    }, "Saved file has wrong contents"
 ```
 --->
