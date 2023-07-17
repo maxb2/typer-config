@@ -24,13 +24,13 @@ You can use a decorator to quickly add a configuration parameter to your `typer`
 
 ```py
 import typer
-from typer_config import use_yaml_config
+from typer_config import use_yaml_config # other formats available (1)
 
 app = typer.Typer()
 
 
 @app.command()
-@use_yaml_config() # MUST BE AFTER @app.command()
+@use_yaml_config() # MUST BE AFTER @app.command() (2)
 def main(...):
     ...
 
@@ -38,9 +38,11 @@ if __name__ == "__main__":
     app()
 ```
 
-Your typer command will now include a `--config CONFIG_FILE` option at the command line.
+1. This package also provides `@use_json_config`, `@use_toml_config`, and `@use_dotenv_config` for those file formats.
+   You can also use your own loader function and the `@use_config(loader_func)` decorator.
 
-> **Note**: this package also provides `@use_json_config`, `@use_toml_config`, and `@use_dotenv_config` for those file formats.
-> You can also use your own loader function and the `@use_config(loader_func)` decorator.
+2. The `app.command()` decorator registers the function object in a lookup table, so we must transform our command before registration.
+
+Your typer command will now include a `--config CONFIG_FILE` option at the command line.
 
 See [Examples](examples/simple_yaml) for more use cases.

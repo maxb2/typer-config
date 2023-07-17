@@ -1,6 +1,6 @@
 # Pyproject TOML loader
 
-> **Note:** This example uses an older and more verbose syntax. See [Decorator Syntax](/examples/decorator) for a cleaner way to write this.
+> **Note:** This example uses an older and more verbose syntax. See [Decorator Syntax](../decorator) for a cleaner way to write this.
 
 If you use an unsupported file format or need to do extra processing of the file, you can make your own file loader and construct an appropriate callback.
 

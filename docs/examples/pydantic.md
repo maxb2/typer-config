@@ -1,6 +1,6 @@
 # Pydantic Validation Example
 
-> **Note:** This example uses an older and more verbose syntax. See [Decorator Syntax](/examples/decorator) for a cleaner way to write this.
+> **Note:** This example uses an older and more verbose syntax. See [Decorator Syntax](../decorator) for a cleaner way to write this.
 
 This simple example uses a `--config` option to load a configuration from a YAML file and uses [pydantic](https://pydantic.dev/) to validate the file before continuing.
 
@@ -74,5 +74,3 @@ things nothing others
 $ python simple_app.py --config config.yml --opt1 people
 people nothing stuff
 ```
-
-> **Note**: this package also provides `json_conf_callback`, `toml_conf_callback`, and `dotenv_conf_callback` for those file formats.

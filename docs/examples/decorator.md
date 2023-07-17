@@ -3,7 +3,7 @@
 ✨ **New in [0.6.0](https://github.com/maxb2/typer-config/releases/tag/0.6.0)** ✨
 
 You can use a decorator to indicate that your `typer` command uses a config option.
-This is meant to reduce boiler-plate code (compare to the [verbose example](/examples/simple_yaml)).
+This is meant to reduce boiler-plate code (compare to the [verbose example](../simple_yaml)).
 
 ## Simple YAML Example
 
@@ -12,13 +12,13 @@ An example typer app:
 from typing_extensions import Annotated
 
 import typer
-from typer_config import use_yaml_config
+from typer_config import use_yaml_config # other formats available (1)
 
 app = typer.Typer()
 
 
 @app.command()
-@use_yaml_config()  # MUST BE AFTER @app.command() (1)
+@use_yaml_config()  # MUST BE AFTER @app.command() (2)
 def main(
     arg1: str,
     opt1: Annotated[str, typer.Option()],
@@ -31,10 +31,12 @@ if __name__ == "__main__":
     app()
 ```
 
-1. The `app.command()` decorator registers the function object in a lookup table, so we must transform our command before registration.
+1. This package also provides `use_json_config`, `use_toml_config`, and `use_dotenv_config` for those file formats.
+
+2. The `app.command()` decorator registers the function object in a lookup table, so we must transform our command before registration.
 
 This dynamically injects the `config` parameter into your command's signature such that `typer` is aware of it when parsing the command line.
-The `@use_*_config()` decorators take extra parameters, `param_name` and `param_help` to customize the appearance of the config parameter in the `typer` help menu. See the [API reference](/api/#typer_config.decorators.use_config) for more details.
+The `@use_*_config()` decorators take extra parameters, `param_name` and `param_help` to customize the appearance of the config parameter in the `typer` help menu. See the [API reference](../../api/#typer_config.decorators.use_config) for more details.
 
 And for the sake of completeness, it works the same as the other example:
 
@@ -58,8 +60,6 @@ things nothing others
 $ python simple_app.py --config config.yml --opt1 people
 people nothing stuff
 ```
-
-> **Note**: this package also provides `use_json_config`, `use_toml_config`, and `use_dotenv_config` for those file formats.
 
 <!---
 ```{.python test="true" write="false"}
@@ -97,14 +97,17 @@ An example typer app:
 from typing_extensions import Annotated
 
 import typer
-from typer_config.decorators import dump_json_config, use_json_config
+from typer_config.decorators import (
+    dump_json_config, # other formats available (1)
+    use_json_config,
+)
 
 
 app = typer.Typer()
 
 
 @app.command()
-@use_json_config()  # before dump decorator (1)
+@use_json_config()  # before dump decorator (2)
 @dump_json_config("./dumped.json")
 def main(
     arg1: str,
@@ -118,7 +121,9 @@ if __name__ == "__main__":
     app()
 ```
 
-1. If you put `@use_json_config` before `@dump_json_config`, you will not capture the `config` parameter in your config dump. You probably want this behavior to avoid cascading config files.
+1. This package also provides `@dump_yaml_config` and `@dump_toml_config` for those file formats.
+
+2. If you put `@use_json_config` before `@dump_json_config`, you will not capture the `config` parameter in your config dump. You probably want this behavior to avoid cascading config files.
 
 
 And invoked with python:
@@ -130,8 +135,6 @@ foo bar baz
 $ cat ./dumped.json
 {"arg1": "baz", "opt1": "foo", "opt2": "bar"}
 ```
-
-> **Note**: this package also provides `yaml_dumper` and `toml_dumper` for those file formats.
 
 <!---
 ```{.python test="true" write="false"}
