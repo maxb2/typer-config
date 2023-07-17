@@ -232,6 +232,8 @@ def dump_config(dumper: ConfigDumper, location: FilePath) -> TyperCommandDecorat
             bound_args = signature(cmd).bind(*args, **kwargs).arguments
 
             # convert enums to their values
+            # NOTE: bound_args shouldn't be nested in the typer
+            # framework, so top level iteration should be fine.
             for key, val in bound_args.items():
                 if isinstance(val, Enum):
                     bound_args[key] = val.value
