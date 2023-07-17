@@ -1,5 +1,7 @@
 # Pydantic Validation Example
 
+> **Note:** This example uses an older and more verbose syntax. See [Decorator Syntax](/examples/decorator) for a cleaner way to write this.
+
 This simple example uses a `--config` option to load a configuration from a YAML file and uses [pydantic](https://pydantic.dev/) to validate the file before continuing.
 
 An example typer app:
