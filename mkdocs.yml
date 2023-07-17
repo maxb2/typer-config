@@ -31,7 +31,6 @@ nav:
     - 'examples/pyproject.md'
     - 'examples/pydantic.md'
     - 'examples/schema.md'
-    - 'examples/extras.md'
   - API Reference: api.md
   - Changelog: changelog.md
 

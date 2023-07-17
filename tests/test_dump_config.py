@@ -22,11 +22,11 @@ class Things(Enum):
 
 @pytest.fixture
 def dumper_app():
-    def _app(dumper, location):
+    def _app(dump, location):
         app = typer.Typer()
 
         @app.command()
-        @tcdec.dump_config(dumper, location)
+        @dump(location)
         def main(
             arg1: str,
             config: str = typer.Option(
@@ -46,17 +46,17 @@ def dumper_app():
 
 DUMPERS = [
     (
-        tcdump.json_dumper,
+        tcdec.dump_json_config,
         HERE.joinpath("saved.json"),
         typer_config.loaders.json_loader,
     ),
     (
-        tcdump.yaml_dumper,
+        tcdec.dump_yaml_config,
         HERE.joinpath("saved.yaml"),
         typer_config.loaders.yaml_loader,
     ),
     (
-        tcdump.toml_dumper,
+        tcdec.dump_toml_config,
         HERE.joinpath("saved.toml"),
         typer_config.loaders.toml_loader,
     ),
@@ -65,9 +65,9 @@ DUMPERS = [
 
 @pytest.mark.parametrize("dumper", DUMPERS, ids=str)
 def test_dump_config(dumper_app, dumper):
-    dumper, location, loader = dumper
+    dump, location, loader = dumper
 
-    _app = dumper_app(dumper, location)
+    _app = dumper_app(dump, location)
 
     result = RUNNER.invoke(_app, ["--help"])
     assert (

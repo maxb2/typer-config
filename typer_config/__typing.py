@@ -53,7 +53,7 @@ ConfigParameterCallback: TypeAlias = Callable[
 NoArgCallable: TypeAlias = Callable[[], Any]
 """No argument callable."""
 
-ConfigDumper: TypeAlias = Callable[[FilePath, ConfigDict], None]
+ConfigDumper: TypeAlias = Callable[[ConfigDict, FilePath], None]
 """Configuration dumper function."""
 
 TyperCommand: TypeAlias = Callable[..., Any]

@@ -100,22 +100,16 @@ This example lets you save the parameters of the invoked command to a configurat
 An example typer app:
 ```{.python title="simple_app.py" test="true"}
 import typer
-from typer_config import json_conf_callback
-from typer_config.decorators import dump_config
-from typer_config.dumpers import json_dumper
+from typer_config.decorators import dump_json_config, use_json_config
 
 
 app = typer.Typer()
 
 @app.command()
-@dump_config(json_dumper, "./saved.json") # MUST BE AFTER app.command() (2)
+@use_json_config() # before dump decorator (1)
+@dump_json_config("./dumped.json") 
 def main(
     arg1: str,
-    config: str = typer.Option(
-        "",
-        callback=json_conf_callback,
-        is_eager=True,  # THIS IS REALLY IMPORTANT (1)
-    ),
     opt1: str = typer.Option(...),
     opt2: str = typer.Option("hello"),
 ):
@@ -126,10 +120,8 @@ if __name__ == "__main__":
     app()
 ```
 
-1. You _must_ use `is_eager=True` in the parameter definition because that will cause it to be processed first.
-   If you don't use `is_eager`, then your parameter values will depend on the order in which they were processed (read: unpredictably).
+1. If you put `@use_json_config` before `@dump_json_config`, you will not capture the `config` parameter in your config dump. You probably want this behavior to avoid cascading config files.
 
-2. The `app.command()` decorator registers the function object in a lookup table, so we must transform our command before registration.
 
 And invoked with python:
 
@@ -137,8 +129,8 @@ And invoked with python:
 $ python simple_app.py --opt1 foo --opt2 bar baz
 foo bar baz
 
-$ cat ./saved.json
-{"arg1": "baz", "config": "", "opt1": "foo", "opt2": "bar"}
+$ cat ./dumped.json
+{"arg1": "baz", "opt1": "foo", "opt2": "bar"}
 ```
 
 > **Note**: this package also provides `yaml_dumper` and `toml_dumper` for those file formats.
@@ -159,10 +151,10 @@ assert (
 ), "Unexpected output"
 
 
-assert os.path.isfile("./saved.json"), "Saved file does not exist"
+assert os.path.isfile("./dumped.json"), "Saved file does not exist"
 
-with open("./saved.json", "r") as f:
-    assert json.load(f) == {"opt1": "foo", "config": "", "opt2": "bar", "arg1": "baz"}, "Saved file has wrong contents"
+with open("./dumped.json", "r") as f:
+    assert json.load(f) == {"opt1": "foo", "opt2": "bar", "arg1": "baz"}, "Saved file has wrong contents"
 
 ```
 --->
