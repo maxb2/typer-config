@@ -409,18 +409,18 @@ dev = ["flake8", "markdown", "twine", "wheel"]
 
 [[package]]
 name = "git-changelog"
-version = "1.0.1"
+version = "2.0.0"
 description = "Automatic Changelog generator using Jinja2 templates."
 optional = false
-python-versions = ">=3.7"
+python-versions = ">=3.8"
 files = [
-    {file = "git_changelog-1.0.1-py3-none-any.whl", hash = "sha256:45ab8e7d8423bb2be9e9c8f3f1b9d485c246f00f7158744557ff277c51306054"},
-    {file = "git_changelog-1.0.1.tar.gz", hash = "sha256:ee02f7dd230dfa2be39e474649bc885f74254aac8d0bcd5ed6c89fcba0c2ec95"},
+    {file = "git_changelog-2.0.0-py3-none-any.whl", hash = "sha256:a5259065a4670e6bfb81e1bc95fa6182b871dbd10892df26eb087808cd00c6db"},
+    {file = "git_changelog-2.0.0.tar.gz", hash = "sha256:57bf99ad1beb84ed4ef0bdd7ca5dec246e78f3f8878edc2d45ced8eafa56d27a"},
 ]
 
 [package.dependencies]
 Jinja2 = ">=2.10,<4"
-semver = ">=2.13,<3.0"
+semver = ">=2.13"
 
 [[package]]
 name = "griffe"
@@ -1819,4 +1819,4 @@ yaml = ["pyyaml"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "861674ccc58ccc09d1f258724e95f17aeadbfcb00d29fb548fb7cbc183691992"
+content-hash = "3e8b7fca75d1d42731222086ccffdfafbed95b4940655ee9de169f9d5d3d217f"
