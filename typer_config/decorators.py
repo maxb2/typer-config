@@ -63,7 +63,7 @@ def use_config(
         config_param = Parameter(
             param_name,
             kind=Parameter.KEYWORD_ONLY,
-            annotation=str,  # NOTE: should this be configurable?
+            annotation=str,
             default=Option("", callback=callback, is_eager=True, help=param_help),
         )
 

@@ -16,7 +16,7 @@ app = typer.Typer()
 
 
 @app.command()
-@use_yaml_config()
+@use_yaml_config() # MUST BE AFTER @app.command() (1)
 def main(
     arg1: str,
     opt1: str = typer.Option(...),
@@ -28,6 +28,8 @@ def main(
 if __name__ == "__main__":
     app()
 ```
+
+1. The `app.command()` decorator registers the function object in a lookup table, so we must transform our command before registration.
 
 This dynamically injects the `config` parameter into your command's signature such that `typer` is aware of it when parsing the command line.
 The `@use_*_config()` decorators take extra parameters, `param_name` and `param_help` to customize the appearance of the config parameter in the `typer` help menu. See the [API reference](/api/#typer_config.decorators.use_config) for more details.
