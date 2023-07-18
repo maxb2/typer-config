@@ -1,7 +1,5 @@
 # Pyproject TOML loader
 
-> **Note:** This example uses an older and more verbose syntax. See [Decorator Syntax](../decorator) for a cleaner way to write this.
-
 If you use an unsupported file format or need to do extra processing of the file, you can make your own file loader and construct an appropriate callback.
 
 Suppose you want to specify parameters in a section of `pyproject.toml`:
@@ -31,6 +29,7 @@ from typing_extensions import Annotated
 import typer
 from typer_config import conf_callback_factory
 from typer_config.loaders import toml_loader
+from typer_config.decorators import use_config
 
 
 def pyproject_loader(param_value: str) -> Dict[str, Any]:
@@ -56,17 +55,11 @@ app = typer.Typer()
 
 
 @app.command()
+@use_config(pyproject_callback)
 def main(
     arg1: str,
     opt1: Annotated[str, typer.Option()],
     opt2: Annotated[str, typer.Option()] = "hello",
-    config: Annotated[
-        str,
-        typer.Option(
-            callback=pyproject_callback,
-            is_eager=True,  # THIS IS REALLY IMPORTANT (1)
-        ),
-    ] = "",
 ):
     typer.echo(f"{opt1} {opt2} {arg1}")
 
@@ -74,9 +67,6 @@ def main(
 if __name__ == "__main__":
     app()
 ```
-
-1. You _must_ use `is_eager=True` in the parameter definition because that will cause it to be processed first.
-   If you don't use `is_eager`, then your parameter values will depend on the order in which they were processed (read: unpredictably).
 
 And we get this behavior:
 

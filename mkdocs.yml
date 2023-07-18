@@ -26,11 +26,12 @@ nav:
     - install.md
     - how.md
   - Examples:
-    - 'examples/decorator.md'
     - 'examples/simple_yaml.md'
     - 'examples/pyproject.md'
     - 'examples/pydantic.md'
     - 'examples/schema.md'
+    - 'examples/explicit_config.md'
+    - 'examples/save_config.md'
   - API Reference: api.md
   - Changelog: changelog.md
 

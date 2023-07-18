@@ -1,7 +1,5 @@
 # Schema Validation Example
 
-> **Note:** This example uses an older and more verbose syntax. See [Decorator Syntax](../decorator) for a cleaner way to write this.
-
 This simple example uses a `--config` option to load a configuration from a YAML file and uses [schema](https://github.com/keleshev/schema) to validate the file before continuing.
 
 An example typer app:
@@ -11,8 +9,7 @@ from typing_extensions import Annotated
 
 from schema import Schema
 import typer
-from typer_config import yaml_loader, conf_callback_factory
-
+from typer_config import yaml_loader, conf_callback_factory, use_config
 
 schema = Schema({"arg1": str, "opt1": str, "opt2": str})
 
@@ -29,17 +26,11 @@ app = typer.Typer()
 
 
 @app.command()
+@use_config(validator_callback)
 def main(
     arg1: str,
     opt1: Annotated[str, typer.Option()],
     opt2: Annotated[str, typer.Option()] = "hello",
-    config: Annotated[
-        str,
-        typer.Option(
-            callback=validator_callback,
-            is_eager=True,  # THIS IS REALLY IMPORTANT (1)
-        ),
-    ] = "",
 ):
     typer.echo(f"{opt1} {opt2} {arg1}")
 
