@@ -359,20 +359,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../decorator/" class="md-nav__link">
-        Decorator Syntax
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../simple_yaml/" class="md-nav__link">
         Simple YAML Example
       </a>
@@ -427,6 +413,34 @@
     <li class="md-nav__item">
       <a href="../schema/" class="md-nav__link">
         Schema Validation Example
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../explicit_config/" class="md-nav__link">
+        Explicit Configuration Parameter
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../save_config/" class="md-nav__link">
+        Save Config Files
       </a>
     </li>
   
@@ -506,9 +520,6 @@
 
 
 <h1 id="pydantic-validation-example">Pydantic Validation Example</h1>
-<blockquote>
-<p><strong>Note:</strong> This example uses an older and more verbose syntax. See <a href="../decorator">Decorator Syntax</a> for a cleaner way to write this.</p>
-</blockquote>
 <p>This simple example uses a <code>--config</code> option to load a configuration from a YAML file and uses <a href="https://pydantic.dev/">pydantic</a> to validate the file before continuing.</p>
 <p>An example typer app:
 <div class="highlight"><span class="filename">simple_app.py</span><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span>
@@ -516,7 +527,9 @@
 
 <span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span>
 <span class="kn">import</span> <span class="nn">typer</span>
-<span class="kn">from</span> <span class="nn">typer_config</span> <span class="kn">import</span> <span class="n">yaml_loader</span><span class="p">,</span> <span class="n">conf_callback_factory</span>
+<span class="kn">from</span> <span class="nn">typer_config.loaders</span> <span class="kn">import</span> <span class="n">yaml_loader</span>
+<span class="kn">from</span> <span class="nn">typer_config.callbacks</span> <span class="kn">import</span> <span class="n">conf_callback_factory</span>
+<span class="kn">from</span> <span class="nn">typer_config.decorators</span> <span class="kn">import</span> <span class="n">use_config</span>
 
 
 <span class="k">class</span> <span class="nc">AppConfig</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
@@ -537,17 +550,11 @@
 
 
 <span class="nd">@app</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
+<span class="nd">@use_config</span><span class="p">(</span><span class="n">validator_callback</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">main</span><span class="p">(</span>
     <span class="n">arg1</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">opt1</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typer</span><span class="o">.</span><span class="n">Option</span><span class="p">()],</span>
     <span class="n">opt2</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typer</span><span class="o">.</span><span class="n">Option</span><span class="p">()]</span> <span class="o">=</span> <span class="s2">&quot;hello&quot;</span><span class="p">,</span>
-    <span class="n">config</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
-        <span class="nb">str</span><span class="p">,</span>
-        <span class="n">typer</span><span class="o">.</span><span class="n">Option</span><span class="p">(</span>
-            <span class="n">callback</span><span class="o">=</span><span class="n">validator_callback</span><span class="p">,</span>
-            <span class="n">is_eager</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># THIS IS REALLY IMPORTANT (1)</span>
-        <span class="p">),</span>
-    <span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
 <span class="p">):</span>
     <span class="n">typer</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">opt1</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">opt2</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">arg1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
@@ -555,10 +562,6 @@
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">app</span><span class="p">()</span>
 </code></pre></div></p>
-<ol>
-<li>You <em>must</em> use <code>is_eager=True</code> in the parameter definition because that will cause it to be processed first.
-   If you don't use <code>is_eager</code>, then your parameter values will depend on the order in which they were processed (read: unpredictably).</li>
-</ol>
 <p>With a config file:</p>
 <div class="highlight"><span class="filename">config.yml</span><pre><span></span><code><span class="nt">arg1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stuff</span>
 <span class="nt">opt1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">things</span>

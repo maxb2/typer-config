@@ -9,7 +9,7 @@
       
       
       
-        <link rel="prev" href="../decorator/">
+        <link rel="prev" href="../../how/">
       
       
         <link rel="next" href="../pyproject/">
@@ -357,20 +357,6 @@
               
   
   
-  
-    <li class="md-nav__item">
-      <a href="../decorator/" class="md-nav__link">
-        Decorator Syntax
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
     
   
   
@@ -427,6 +413,34 @@
     <li class="md-nav__item">
       <a href="../schema/" class="md-nav__link">
         Schema Validation Example
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../explicit_config/" class="md-nav__link">
+        Explicit Configuration Parameter
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../save_config/" class="md-nav__link">
+        Save Config Files
       </a>
     </li>
   
@@ -506,31 +520,22 @@
 
 
 <h1 id="simple-yaml-example">Simple YAML Example</h1>
-<blockquote>
-<p><strong>Note:</strong> This example uses an older and more verbose syntax. See <a href="../decorator">Decorator Syntax</a> for a cleaner way to write this.</p>
-</blockquote>
 <p>This simple example uses a <code>--config</code> option to load a configuration from a YAML file.</p>
 <p>An example typer app:
 <div class="highlight"><span class="filename">simple_app.py</span><pre><span></span><code><span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">Annotated</span>
 
 <span class="kn">import</span> <span class="nn">typer</span>
-<span class="kn">from</span> <span class="nn">typer_config</span> <span class="kn">import</span> <span class="n">yaml_conf_callback</span> <span class="c1"># other formats available (1)</span>
+<span class="kn">from</span> <span class="nn">typer_config.decorators</span> <span class="kn">import</span> <span class="n">use_yaml_config</span>  <span class="c1"># other formats available (1)</span>
 
 <span class="n">app</span> <span class="o">=</span> <span class="n">typer</span><span class="o">.</span><span class="n">Typer</span><span class="p">()</span>
 
 
 <span class="nd">@app</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
+<span class="nd">@use_yaml_config</span><span class="p">()</span>
 <span class="k">def</span> <span class="nf">main</span><span class="p">(</span>
     <span class="n">arg1</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">opt1</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typer</span><span class="o">.</span><span class="n">Option</span><span class="p">()],</span>
     <span class="n">opt2</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typer</span><span class="o">.</span><span class="n">Option</span><span class="p">()]</span> <span class="o">=</span> <span class="s2">&quot;hello&quot;</span><span class="p">,</span>
-    <span class="n">config</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
-        <span class="nb">str</span><span class="p">,</span>
-        <span class="n">typer</span><span class="o">.</span><span class="n">Option</span><span class="p">(</span>
-            <span class="n">callback</span><span class="o">=</span><span class="n">yaml_conf_callback</span><span class="p">,</span>
-            <span class="n">is_eager</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># THIS IS REALLY IMPORTANT (2)</span>
-        <span class="p">),</span>
-    <span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
 <span class="p">):</span>
     <span class="n">typer</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">opt1</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">opt2</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">arg1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
@@ -540,7 +545,7 @@
 </code></pre></div></p>
 <ol>
 <li>
-<p>This package also provides <code>json_conf_callback</code>, <code>toml_conf_callback</code>, and <code>dotenv_conf_callback</code> for those file formats.</p>
+<p>This package also provides <code>use_json_config</code>, <code>use_toml_config</code>, and <code>use_dotenv_config</code> for those file formats.</p>
 </li>
 <li>
 <p>You <em>must</em> use <code>is_eager=True</code> in the parameter definition because that will cause it to be processed first.

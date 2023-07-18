@@ -9,17 +9,17 @@
       
       
       
-        <link rel="prev" href="../../how/">
+        <link rel="prev" href="../schema/">
       
       
-        <link rel="next" href="../simple_yaml/">
+        <link rel="next" href="../save_config/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.14">
     
     
       
-        <title>Decorator Syntax - Typer Config</title>
+        <title>Explicit Configuration Parameter - Typer Config</title>
       
     
     
@@ -73,7 +73,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#decorator-syntax" class="md-skip">
+        <a href="#explicit-configuration-parameter" class="md-skip">
           Skip to content
         </a>
       
@@ -112,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Decorator Syntax
+              Explicit Configuration Parameter
             
           </span>
         </div>
@@ -357,68 +357,6 @@
               
   
   
-    
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Decorator Syntax
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
-        Decorator Syntax
-      </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#simple-yaml-example" class="md-nav__link">
-    Simple YAML Example
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#save-config-files" class="md-nav__link">
-    Save Config Files
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
   
     <li class="md-nav__item">
       <a href="../simple_yaml/" class="md-nav__link">
@@ -465,6 +403,75 @@
     <li class="md-nav__item">
       <a href="../schema/" class="md-nav__link">
         Schema Validation Example
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Explicit Configuration Parameter
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Explicit Configuration Parameter
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#simple-yaml-example" class="md-nav__link">
+    Simple YAML Example
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../save_config/" class="md-nav__link">
+        Save Config Files
       </a>
     </li>
   
@@ -540,13 +547,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#save-config-files" class="md-nav__link">
-    Save Config Files
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -565,27 +565,34 @@
   
 
 
-<h1 id="decorator-syntax">Decorator Syntax</h1>
-<p>✨ <strong>New in <a href="https://github.com/maxb2/typer-config/releases/tag/0.6.0">0.6.0</a></strong> ✨</p>
-<p>You can use a decorator to indicate that your <code>typer</code> command uses a config option.
-This is meant to reduce boiler-plate code (compare to the <a href="../simple_yaml">verbose example</a>).</p>
+<h1 id="explicit-configuration-parameter">Explicit Configuration Parameter</h1>
+<p>Instead of using the <code>@use_config()</code> decorator, you can explicitly add <code>config</code> to your typer command.
+However, you <strong>must</strong> include <code>is_eager=True</code>.</p>
 <h2 id="simple-yaml-example">Simple YAML Example</h2>
+<p>This simple example uses a <code>--config</code> option to load a configuration from a YAML file.</p>
 <p>An example typer app:
 <div class="highlight"><span class="filename">simple_app.py</span><pre><span></span><code><span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">Annotated</span>
 
 <span class="kn">import</span> <span class="nn">typer</span>
-<span class="kn">from</span> <span class="nn">typer_config</span> <span class="kn">import</span> <span class="n">use_yaml_config</span> <span class="c1"># other formats available (1)</span>
+<span class="kn">from</span> <span class="nn">typer_config.callbacks</span> <span class="kn">import</span> <span class="n">yaml_conf_callback</span>  <span class="c1"># other formats available (1)</span>
 
 <span class="n">app</span> <span class="o">=</span> <span class="n">typer</span><span class="o">.</span><span class="n">Typer</span><span class="p">()</span>
 
 
 <span class="nd">@app</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
-<span class="nd">@use_yaml_config</span><span class="p">()</span>  <span class="c1"># MUST BE AFTER @app.command() (2)</span>
 <span class="k">def</span> <span class="nf">main</span><span class="p">(</span>
     <span class="n">arg1</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">opt1</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typer</span><span class="o">.</span><span class="n">Option</span><span class="p">()],</span>
     <span class="n">opt2</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typer</span><span class="o">.</span><span class="n">Option</span><span class="p">()]</span> <span class="o">=</span> <span class="s2">&quot;hello&quot;</span><span class="p">,</span>
+    <span class="n">config</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
+        <span class="nb">str</span><span class="p">,</span>
+        <span class="n">typer</span><span class="o">.</span><span class="n">Option</span><span class="p">(</span>
+            <span class="n">callback</span><span class="o">=</span><span class="n">yaml_conf_callback</span><span class="p">,</span>
+            <span class="n">is_eager</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># THIS IS REALLY IMPORTANT (2)</span>
+        <span class="p">),</span>
+    <span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
 <span class="p">):</span>
+    <span class="c1"># possibly do something with config</span>
     <span class="n">typer</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">opt1</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">opt2</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">arg1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
 
@@ -594,15 +601,13 @@ This is meant to reduce boiler-plate code (compare to the <a href="../simple_yam
 </code></pre></div></p>
 <ol>
 <li>
-<p>This package also provides <code>use_json_config</code>, <code>use_toml_config</code>, and <code>use_dotenv_config</code> for those file formats.</p>
+<p>This package also provides <code>json_conf_callback</code>, <code>toml_conf_callback</code>, and <code>dotenv_conf_callback</code> for those file formats.</p>
 </li>
 <li>
-<p>The <code>app.command()</code> decorator registers the function object in a lookup table, so we must transform our command before registration.</p>
+<p>You <em>must</em> use <code>is_eager=True</code> in the parameter definition because that will cause it to be processed first.
+   If you don't use <code>is_eager</code>, then your parameter values will depend on the order in which they were processed (read: unpredictably).</p>
 </li>
 </ol>
-<p>This dynamically injects the <code>config</code> parameter into your command's signature such that <code>typer</code> is aware of it when parsing the command line.
-The <code>@use_*_config()</code> decorators take extra parameters, <code>param_name</code> and <code>param_help</code> to customize the appearance of the config parameter in the <code>typer</code> help menu. See the <a href="../../api/#typer_config.decorators.use_config">API reference</a> for more details.</p>
-<p>And for the sake of completeness, it works the same as the other example:</p>
 <p>With a config file:</p>
 <div class="highlight"><span class="filename">config.yml</span><pre><span></span><code><span class="nt">arg1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stuff</span>
 <span class="nt">opt1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">things</span>
@@ -641,74 +646,6 @@ people<span class="w"> </span>nothing<span class="w"> </span>stuff
 
 <span class="k">assert</span> <span class="n">result</span><span class="o">.</span><span class="n">exit_code</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Loading failed for </span><span class="si">{</span><span class="n">conf</span><span class="si">}</span><span class="se">\n\n</span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">stdout</span><span class="si">}</span><span class="s2">&quot;</span>
 <span class="k">assert</span> <span class="n">result</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;people nothing stuff&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Unexpected output for </span><span class="si">{</span><span class="n">conf</span><span class="si">}</span><span class="s2">&quot;</span>
-</code></pre></div>
---->
-
-<h2 id="save-config-files">Save Config Files</h2>
-<p>This example shows you how save the parameters of the invoked command to a configuration file using the <code>@dump_config</code> decorator which operates on Typer commands (requested in <a href="https://github.com/maxb2/typer-config/issues/25">issue #25</a>).</p>
-<p>An example typer app:
-<div class="highlight"><span class="filename">simple_app.py</span><pre><span></span><code><span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">Annotated</span>
-
-<span class="kn">import</span> <span class="nn">typer</span>
-<span class="kn">from</span> <span class="nn">typer_config.decorators</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">dump_json_config</span><span class="p">,</span> <span class="c1"># other formats available (1)</span>
-    <span class="n">use_json_config</span><span class="p">,</span>
-<span class="p">)</span>
-
-
-<span class="n">app</span> <span class="o">=</span> <span class="n">typer</span><span class="o">.</span><span class="n">Typer</span><span class="p">()</span>
-
-
-<span class="nd">@app</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
-<span class="nd">@use_json_config</span><span class="p">()</span>  <span class="c1"># before dump decorator (2)</span>
-<span class="nd">@dump_json_config</span><span class="p">(</span><span class="s2">&quot;./dumped.json&quot;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">main</span><span class="p">(</span>
-    <span class="n">arg1</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">opt1</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typer</span><span class="o">.</span><span class="n">Option</span><span class="p">()],</span>
-    <span class="n">opt2</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typer</span><span class="o">.</span><span class="n">Option</span><span class="p">()]</span> <span class="o">=</span> <span class="s2">&quot;hello&quot;</span><span class="p">,</span>
-<span class="p">):</span>
-    <span class="n">typer</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">opt1</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">opt2</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">arg1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-    <span class="n">app</span><span class="p">()</span>
-</code></pre></div></p>
-<ol>
-<li>
-<p>This package also provides <code>@dump_yaml_config</code> and <code>@dump_toml_config</code> for those file formats.</p>
-</li>
-<li>
-<p>If you put <code>@use_json_config</code> before <code>@dump_json_config</code>, you will not capture the <code>config</code> parameter in your config dump. You probably want this behavior to avoid cascading config files.</p>
-</li>
-</ol>
-<p>And invoked with python:</p>
-<div class="highlight"><span class="filename">Terminal</span><pre><span></span><code>$<span class="w"> </span>python<span class="w"> </span>simple_app.py<span class="w"> </span>--opt1<span class="w"> </span>foo<span class="w"> </span>--opt2<span class="w"> </span>bar<span class="w"> </span>baz
-foo<span class="w"> </span>bar<span class="w"> </span>baz
-
-$<span class="w"> </span>cat<span class="w"> </span>./dumped.json
-<span class="o">{</span><span class="s2">&quot;arg1&quot;</span>:<span class="w"> </span><span class="s2">&quot;baz&quot;</span>,<span class="w"> </span><span class="s2">&quot;opt1&quot;</span>:<span class="w"> </span><span class="s2">&quot;foo&quot;</span>,<span class="w"> </span><span class="s2">&quot;opt2&quot;</span>:<span class="w"> </span><span class="s2">&quot;bar&quot;</span><span class="o">}</span>
-</code></pre></div>
-<!---
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typer.testing</span> <span class="kn">import</span> <span class="n">CliRunner</span>
-
-<span class="kn">import</span> <span class="nn">json</span><span class="o">,</span> <span class="nn">os</span>
-
-<span class="n">RUNNER</span> <span class="o">=</span> <span class="n">CliRunner</span><span class="p">()</span>
-
-<span class="n">result</span> <span class="o">=</span> <span class="n">RUNNER</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;--opt1&quot;</span><span class="p">,</span> <span class="s2">&quot;foo&quot;</span><span class="p">,</span> <span class="s2">&quot;--opt2&quot;</span><span class="p">,</span> <span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="s2">&quot;baz&quot;</span><span class="p">])</span>
-
-<span class="k">assert</span> <span class="n">result</span><span class="o">.</span><span class="n">exit_code</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;Application failed&quot;</span>
-<span class="k">assert</span> <span class="n">result</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;foo bar baz&quot;</span><span class="p">,</span> <span class="s2">&quot;Unexpected output&quot;</span>
-
-
-<span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="s2">&quot;./dumped.json&quot;</span><span class="p">),</span> <span class="s2">&quot;Saved file does not exist&quot;</span>
-
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;./dumped.json&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-    <span class="k">assert</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="o">==</span> <span class="p">{</span>
-        <span class="s2">&quot;opt1&quot;</span><span class="p">:</span> <span class="s2">&quot;foo&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;opt2&quot;</span><span class="p">:</span> <span class="s2">&quot;bar&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;arg1&quot;</span><span class="p">:</span> <span class="s2">&quot;baz&quot;</span><span class="p">,</span>
-    <span class="p">},</span> <span class="s2">&quot;Saved file has wrong contents&quot;</span>
 </code></pre></div>
 --->
 
