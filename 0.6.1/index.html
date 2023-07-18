@@ -565,24 +565,29 @@ $<span class="w"> </span>my-typer-app<span class="w"> </span>--config<span class
 <h2 id="quickstart">Quickstart</h2>
 <p>You can use a decorator to quickly add a configuration parameter to your <code>typer</code> application:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">typer</span>
-<span class="kn">from</span> <span class="nn">typer_config</span> <span class="kn">import</span> <span class="n">use_yaml_config</span>
+<span class="kn">from</span> <span class="nn">typer_config</span> <span class="kn">import</span> <span class="n">use_yaml_config</span> <span class="c1"># other formats available (1)</span>
 
 <span class="n">app</span> <span class="o">=</span> <span class="n">typer</span><span class="o">.</span><span class="n">Typer</span><span class="p">()</span>
 
 
 <span class="nd">@app</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
-<span class="nd">@use_yaml_config</span><span class="p">()</span> <span class="c1"># MUST BE AFTER @app.command()</span>
+<span class="nd">@use_yaml_config</span><span class="p">()</span> <span class="c1"># MUST BE AFTER @app.command() (2)</span>
 <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="o">...</span><span class="p">):</span>
     <span class="o">...</span>
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">app</span><span class="p">()</span>
 </code></pre></div>
+<ol>
+<li>
+<p>This package also provides <code>@use_json_config</code>, <code>@use_toml_config</code>, and <code>@use_dotenv_config</code> for those file formats.
+   You can also use your own loader function and the <code>@use_config(loader_func)</code> decorator.</p>
+</li>
+<li>
+<p>The <code>app.command()</code> decorator registers the function object in a lookup table, so we must transform our command before registration.</p>
+</li>
+</ol>
 <p>Your typer command will now include a <code>--config CONFIG_FILE</code> option at the command line.</p>
-<blockquote>
-<p><strong>Note</strong>: this package also provides <code>@use_json_config</code>, <code>@use_toml_config</code>, and <code>@use_dotenv_config</code> for those file formats.
-You can also use your own loader function and the <code>@use_config(loader_func)</code> decorator.</p>
-</blockquote>
 <p>See <a href="examples/simple_yaml">Examples</a> for more use cases.</p>
 
 

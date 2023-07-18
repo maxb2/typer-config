@@ -568,19 +568,19 @@
 <h1 id="decorator-syntax">Decorator Syntax</h1>
 <p>✨ <strong>New in <a href="https://github.com/maxb2/typer-config/releases/tag/0.6.0">0.6.0</a></strong> ✨</p>
 <p>You can use a decorator to indicate that your <code>typer</code> command uses a config option.
-This is meant to reduce boiler-plate code (compare to the <a href="/examples/simple_yaml">verbose example</a>).</p>
+This is meant to reduce boiler-plate code (compare to the <a href="../simple_yaml">verbose example</a>).</p>
 <h2 id="simple-yaml-example">Simple YAML Example</h2>
 <p>An example typer app:
 <div class="highlight"><span class="filename">simple_app.py</span><pre><span></span><code><span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">Annotated</span>
 
 <span class="kn">import</span> <span class="nn">typer</span>
-<span class="kn">from</span> <span class="nn">typer_config</span> <span class="kn">import</span> <span class="n">use_yaml_config</span>
+<span class="kn">from</span> <span class="nn">typer_config</span> <span class="kn">import</span> <span class="n">use_yaml_config</span> <span class="c1"># other formats available (1)</span>
 
 <span class="n">app</span> <span class="o">=</span> <span class="n">typer</span><span class="o">.</span><span class="n">Typer</span><span class="p">()</span>
 
 
 <span class="nd">@app</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
-<span class="nd">@use_yaml_config</span><span class="p">()</span>  <span class="c1"># MUST BE AFTER @app.command() (1)</span>
+<span class="nd">@use_yaml_config</span><span class="p">()</span>  <span class="c1"># MUST BE AFTER @app.command() (2)</span>
 <span class="k">def</span> <span class="nf">main</span><span class="p">(</span>
     <span class="n">arg1</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">opt1</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typer</span><span class="o">.</span><span class="n">Option</span><span class="p">()],</span>
@@ -593,10 +593,15 @@ This is meant to reduce boiler-plate code (compare to the <a href="/examples/sim
     <span class="n">app</span><span class="p">()</span>
 </code></pre></div></p>
 <ol>
-<li>The <code>app.command()</code> decorator registers the function object in a lookup table, so we must transform our command before registration.</li>
+<li>
+<p>This package also provides <code>use_json_config</code>, <code>use_toml_config</code>, and <code>use_dotenv_config</code> for those file formats.</p>
+</li>
+<li>
+<p>The <code>app.command()</code> decorator registers the function object in a lookup table, so we must transform our command before registration.</p>
+</li>
 </ol>
 <p>This dynamically injects the <code>config</code> parameter into your command's signature such that <code>typer</code> is aware of it when parsing the command line.
-The <code>@use_*_config()</code> decorators take extra parameters, <code>param_name</code> and <code>param_help</code> to customize the appearance of the config parameter in the <code>typer</code> help menu. See the <a href="/api/#typer_config.decorators.use_config">API reference</a> for more details.</p>
+The <code>@use_*_config()</code> decorators take extra parameters, <code>param_name</code> and <code>param_help</code> to customize the appearance of the config parameter in the <code>typer</code> help menu. See the <a href="../../api/#typer_config.decorators.use_config">API reference</a> for more details.</p>
 <p>And for the sake of completeness, it works the same as the other example:</p>
 <p>With a config file:</p>
 <div class="highlight"><span class="filename">config.yml</span><pre><span></span><code><span class="nt">arg1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stuff</span>
@@ -613,9 +618,6 @@ things<span class="w"> </span>nothing<span class="w"> </span>others
 $<span class="w"> </span>python<span class="w"> </span>simple_app.py<span class="w"> </span>--config<span class="w"> </span>config.yml<span class="w"> </span>--opt1<span class="w"> </span>people
 people<span class="w"> </span>nothing<span class="w"> </span>stuff
 </code></pre></div>
-<blockquote>
-<p><strong>Note</strong>: this package also provides <code>use_json_config</code>, <code>use_toml_config</code>, and <code>use_dotenv_config</code> for those file formats.</p>
-</blockquote>
 <!---
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typer.testing</span> <span class="kn">import</span> <span class="n">CliRunner</span>
 
@@ -627,24 +629,18 @@ people<span class="w"> </span>nothing<span class="w"> </span>stuff
 <span class="n">result</span> <span class="o">=</span> <span class="n">RUNNER</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;--config&quot;</span><span class="p">,</span> <span class="n">conf</span><span class="p">])</span>
 
 <span class="k">assert</span> <span class="n">result</span><span class="o">.</span><span class="n">exit_code</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Loading failed for </span><span class="si">{</span><span class="n">conf</span><span class="si">}</span><span class="se">\n\n</span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">stdout</span><span class="si">}</span><span class="s2">&quot;</span>
-<span class="k">assert</span> <span class="p">(</span>
-    <span class="n">result</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;things nothing stuff&quot;</span>
-<span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Unexpected output for </span><span class="si">{</span><span class="n">conf</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="k">assert</span> <span class="n">result</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;things nothing stuff&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Unexpected output for </span><span class="si">{</span><span class="n">conf</span><span class="si">}</span><span class="s2">&quot;</span>
 
 
 <span class="n">result</span> <span class="o">=</span> <span class="n">RUNNER</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;--config&quot;</span><span class="p">,</span> <span class="n">conf</span><span class="p">,</span> <span class="s2">&quot;others&quot;</span><span class="p">])</span>
 
 <span class="k">assert</span> <span class="n">result</span><span class="o">.</span><span class="n">exit_code</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Loading failed for </span><span class="si">{</span><span class="n">conf</span><span class="si">}</span><span class="se">\n\n</span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">stdout</span><span class="si">}</span><span class="s2">&quot;</span>
-<span class="k">assert</span> <span class="p">(</span>
-    <span class="n">result</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;things nothing others&quot;</span>
-<span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Unexpected output for </span><span class="si">{</span><span class="n">conf</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="k">assert</span> <span class="n">result</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;things nothing others&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Unexpected output for </span><span class="si">{</span><span class="n">conf</span><span class="si">}</span><span class="s2">&quot;</span>
 
 <span class="n">result</span> <span class="o">=</span> <span class="n">RUNNER</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;--config&quot;</span><span class="p">,</span> <span class="n">conf</span><span class="p">,</span> <span class="s2">&quot;--opt1&quot;</span><span class="p">,</span> <span class="s2">&quot;people&quot;</span><span class="p">])</span>
 
 <span class="k">assert</span> <span class="n">result</span><span class="o">.</span><span class="n">exit_code</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Loading failed for </span><span class="si">{</span><span class="n">conf</span><span class="si">}</span><span class="se">\n\n</span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">stdout</span><span class="si">}</span><span class="s2">&quot;</span>
-<span class="k">assert</span> <span class="p">(</span>
-    <span class="n">result</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;people nothing stuff&quot;</span>
-<span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Unexpected output for </span><span class="si">{</span><span class="n">conf</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="k">assert</span> <span class="n">result</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;people nothing stuff&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Unexpected output for </span><span class="si">{</span><span class="n">conf</span><span class="si">}</span><span class="s2">&quot;</span>
 </code></pre></div>
 --->
 
@@ -654,14 +650,17 @@ people<span class="w"> </span>nothing<span class="w"> </span>stuff
 <div class="highlight"><span class="filename">simple_app.py</span><pre><span></span><code><span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">Annotated</span>
 
 <span class="kn">import</span> <span class="nn">typer</span>
-<span class="kn">from</span> <span class="nn">typer_config.decorators</span> <span class="kn">import</span> <span class="n">dump_json_config</span><span class="p">,</span> <span class="n">use_json_config</span>
+<span class="kn">from</span> <span class="nn">typer_config.decorators</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">dump_json_config</span><span class="p">,</span> <span class="c1"># other formats available (1)</span>
+    <span class="n">use_json_config</span><span class="p">,</span>
+<span class="p">)</span>
 
 
 <span class="n">app</span> <span class="o">=</span> <span class="n">typer</span><span class="o">.</span><span class="n">Typer</span><span class="p">()</span>
 
 
 <span class="nd">@app</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
-<span class="nd">@use_json_config</span><span class="p">()</span>  <span class="c1"># before dump decorator (1)</span>
+<span class="nd">@use_json_config</span><span class="p">()</span>  <span class="c1"># before dump decorator (2)</span>
 <span class="nd">@dump_json_config</span><span class="p">(</span><span class="s2">&quot;./dumped.json&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">main</span><span class="p">(</span>
     <span class="n">arg1</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -675,7 +674,12 @@ people<span class="w"> </span>nothing<span class="w"> </span>stuff
     <span class="n">app</span><span class="p">()</span>
 </code></pre></div></p>
 <ol>
-<li>If you put <code>@use_json_config</code> before <code>@dump_json_config</code>, you will not capture the <code>config</code> parameter in your config dump. You probably want this behavior to avoid cascading config files.</li>
+<li>
+<p>This package also provides <code>@dump_yaml_config</code> and <code>@dump_toml_config</code> for those file formats.</p>
+</li>
+<li>
+<p>If you put <code>@use_json_config</code> before <code>@dump_json_config</code>, you will not capture the <code>config</code> parameter in your config dump. You probably want this behavior to avoid cascading config files.</p>
+</li>
 </ol>
 <p>And invoked with python:</p>
 <div class="highlight"><span class="filename">Terminal</span><pre><span></span><code>$<span class="w"> </span>python<span class="w"> </span>simple_app.py<span class="w"> </span>--opt1<span class="w"> </span>foo<span class="w"> </span>--opt2<span class="w"> </span>bar<span class="w"> </span>baz
@@ -684,9 +688,6 @@ foo<span class="w"> </span>bar<span class="w"> </span>baz
 $<span class="w"> </span>cat<span class="w"> </span>./dumped.json
 <span class="o">{</span><span class="s2">&quot;arg1&quot;</span>:<span class="w"> </span><span class="s2">&quot;baz&quot;</span>,<span class="w"> </span><span class="s2">&quot;opt1&quot;</span>:<span class="w"> </span><span class="s2">&quot;foo&quot;</span>,<span class="w"> </span><span class="s2">&quot;opt2&quot;</span>:<span class="w"> </span><span class="s2">&quot;bar&quot;</span><span class="o">}</span>
 </code></pre></div>
-<blockquote>
-<p><strong>Note</strong>: this package also provides <code>yaml_dumper</code> and <code>toml_dumper</code> for those file formats.</p>
-</blockquote>
 <!---
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typer.testing</span> <span class="kn">import</span> <span class="n">CliRunner</span>
 
@@ -697,15 +698,17 @@ $<span class="w"> </span>cat<span class="w"> </span>./dumped.json
 <span class="n">result</span> <span class="o">=</span> <span class="n">RUNNER</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;--opt1&quot;</span><span class="p">,</span> <span class="s2">&quot;foo&quot;</span><span class="p">,</span> <span class="s2">&quot;--opt2&quot;</span><span class="p">,</span> <span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="s2">&quot;baz&quot;</span><span class="p">])</span>
 
 <span class="k">assert</span> <span class="n">result</span><span class="o">.</span><span class="n">exit_code</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;Application failed&quot;</span>
-<span class="k">assert</span> <span class="p">(</span>
-    <span class="n">result</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;foo bar baz&quot;</span>
-<span class="p">),</span> <span class="s2">&quot;Unexpected output&quot;</span>
+<span class="k">assert</span> <span class="n">result</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;foo bar baz&quot;</span><span class="p">,</span> <span class="s2">&quot;Unexpected output&quot;</span>
 
 
 <span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="s2">&quot;./dumped.json&quot;</span><span class="p">),</span> <span class="s2">&quot;Saved file does not exist&quot;</span>
 
 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;./dumped.json&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-    <span class="k">assert</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="o">==</span> <span class="p">{</span><span class="s2">&quot;opt1&quot;</span><span class="p">:</span> <span class="s2">&quot;foo&quot;</span><span class="p">,</span> <span class="s2">&quot;opt2&quot;</span><span class="p">:</span> <span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="s2">&quot;arg1&quot;</span><span class="p">:</span> <span class="s2">&quot;baz&quot;</span><span class="p">},</span> <span class="s2">&quot;Saved file has wrong contents&quot;</span>
+    <span class="k">assert</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="o">==</span> <span class="p">{</span>
+        <span class="s2">&quot;opt1&quot;</span><span class="p">:</span> <span class="s2">&quot;foo&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;opt2&quot;</span><span class="p">:</span> <span class="s2">&quot;bar&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;arg1&quot;</span><span class="p">:</span> <span class="s2">&quot;baz&quot;</span><span class="p">,</span>
+    <span class="p">},</span> <span class="s2">&quot;Saved file has wrong contents&quot;</span>
 </code></pre></div>
 --->
 

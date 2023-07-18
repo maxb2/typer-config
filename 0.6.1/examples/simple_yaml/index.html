@@ -507,14 +507,14 @@
 
 <h1 id="simple-yaml-example">Simple YAML Example</h1>
 <blockquote>
-<p><strong>Note:</strong> This example uses an older and more verbose syntax. See <a href="/examples/decorator">Decorator Syntax</a> for a cleaner way to write this.</p>
+<p><strong>Note:</strong> This example uses an older and more verbose syntax. See <a href="../decorator">Decorator Syntax</a> for a cleaner way to write this.</p>
 </blockquote>
 <p>This simple example uses a <code>--config</code> option to load a configuration from a YAML file.</p>
 <p>An example typer app:
 <div class="highlight"><span class="filename">simple_app.py</span><pre><span></span><code><span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">Annotated</span>
 
 <span class="kn">import</span> <span class="nn">typer</span>
-<span class="kn">from</span> <span class="nn">typer_config</span> <span class="kn">import</span> <span class="n">yaml_conf_callback</span>
+<span class="kn">from</span> <span class="nn">typer_config</span> <span class="kn">import</span> <span class="n">yaml_conf_callback</span> <span class="c1"># other formats available (1)</span>
 
 <span class="n">app</span> <span class="o">=</span> <span class="n">typer</span><span class="o">.</span><span class="n">Typer</span><span class="p">()</span>
 
@@ -528,7 +528,7 @@
         <span class="nb">str</span><span class="p">,</span>
         <span class="n">typer</span><span class="o">.</span><span class="n">Option</span><span class="p">(</span>
             <span class="n">callback</span><span class="o">=</span><span class="n">yaml_conf_callback</span><span class="p">,</span>
-            <span class="n">is_eager</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># THIS IS REALLY IMPORTANT (1)</span>
+            <span class="n">is_eager</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># THIS IS REALLY IMPORTANT (2)</span>
         <span class="p">),</span>
     <span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
 <span class="p">):</span>
@@ -539,8 +539,13 @@
     <span class="n">app</span><span class="p">()</span>
 </code></pre></div></p>
 <ol>
-<li>You <em>must</em> use <code>is_eager=True</code> in the parameter definition because that will cause it to be processed first.
-   If you don't use <code>is_eager</code>, then your parameter values will depend on the order in which they were processed (read: unpredictably).</li>
+<li>
+<p>This package also provides <code>json_conf_callback</code>, <code>toml_conf_callback</code>, and <code>dotenv_conf_callback</code> for those file formats.</p>
+</li>
+<li>
+<p>You <em>must</em> use <code>is_eager=True</code> in the parameter definition because that will cause it to be processed first.
+   If you don't use <code>is_eager</code>, then your parameter values will depend on the order in which they were processed (read: unpredictably).</p>
+</li>
 </ol>
 <p>With a config file:</p>
 <div class="highlight"><span class="filename">config.yml</span><pre><span></span><code><span class="nt">arg1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stuff</span>
@@ -557,9 +562,6 @@ things<span class="w"> </span>nothing<span class="w"> </span>others
 $<span class="w"> </span>python<span class="w"> </span>simple_app.py<span class="w"> </span>--config<span class="w"> </span>config.yml<span class="w"> </span>--opt1<span class="w"> </span>people
 people<span class="w"> </span>nothing<span class="w"> </span>stuff
 </code></pre></div>
-<blockquote>
-<p><strong>Note</strong>: this package also provides <code>json_conf_callback</code>, <code>toml_conf_callback</code>, and <code>dotenv_conf_callback</code> for those file formats.</p>
-</blockquote>
 <!---
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typer.testing</span> <span class="kn">import</span> <span class="n">CliRunner</span>
 
@@ -571,24 +573,18 @@ people<span class="w"> </span>nothing<span class="w"> </span>stuff
 <span class="n">result</span> <span class="o">=</span> <span class="n">RUNNER</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;--config&quot;</span><span class="p">,</span> <span class="n">conf</span><span class="p">])</span>
 
 <span class="k">assert</span> <span class="n">result</span><span class="o">.</span><span class="n">exit_code</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Loading failed for </span><span class="si">{</span><span class="n">conf</span><span class="si">}</span><span class="se">\n\n</span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">stdout</span><span class="si">}</span><span class="s2">&quot;</span>
-<span class="k">assert</span> <span class="p">(</span>
-    <span class="n">result</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;things nothing stuff&quot;</span>
-<span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Unexpected output for </span><span class="si">{</span><span class="n">conf</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="k">assert</span> <span class="n">result</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;things nothing stuff&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Unexpected output for </span><span class="si">{</span><span class="n">conf</span><span class="si">}</span><span class="s2">&quot;</span>
 
 
 <span class="n">result</span> <span class="o">=</span> <span class="n">RUNNER</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;--config&quot;</span><span class="p">,</span> <span class="n">conf</span><span class="p">,</span> <span class="s2">&quot;others&quot;</span><span class="p">])</span>
 
 <span class="k">assert</span> <span class="n">result</span><span class="o">.</span><span class="n">exit_code</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Loading failed for </span><span class="si">{</span><span class="n">conf</span><span class="si">}</span><span class="se">\n\n</span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">stdout</span><span class="si">}</span><span class="s2">&quot;</span>
-<span class="k">assert</span> <span class="p">(</span>
-    <span class="n">result</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;things nothing others&quot;</span>
-<span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Unexpected output for </span><span class="si">{</span><span class="n">conf</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="k">assert</span> <span class="n">result</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;things nothing others&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Unexpected output for </span><span class="si">{</span><span class="n">conf</span><span class="si">}</span><span class="s2">&quot;</span>
 
 <span class="n">result</span> <span class="o">=</span> <span class="n">RUNNER</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;--config&quot;</span><span class="p">,</span> <span class="n">conf</span><span class="p">,</span> <span class="s2">&quot;--opt1&quot;</span><span class="p">,</span> <span class="s2">&quot;people&quot;</span><span class="p">])</span>
 
 <span class="k">assert</span> <span class="n">result</span><span class="o">.</span><span class="n">exit_code</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Loading failed for </span><span class="si">{</span><span class="n">conf</span><span class="si">}</span><span class="se">\n\n</span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">stdout</span><span class="si">}</span><span class="s2">&quot;</span>
-<span class="k">assert</span> <span class="p">(</span>
-    <span class="n">result</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;people nothing stuff&quot;</span>
-<span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Unexpected output for </span><span class="si">{</span><span class="n">conf</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="k">assert</span> <span class="n">result</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;people nothing stuff&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Unexpected output for </span><span class="si">{</span><span class="n">conf</span><span class="si">}</span><span class="s2">&quot;</span>
 </code></pre></div>
 --->
 
