@@ -20,9 +20,3 @@ def try_import(module_name: str):
     if find_spec(module_name):
         return import_module(module_name)
     return None
-
-
-# REMOVE THIS
-# just want to check CodeCov
-if try_import("sdlfjksldfkj"):
-    print("doing nothing")
