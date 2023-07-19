@@ -40,13 +40,14 @@ def pyproject_loader(param_value: str) -> Dict[str, Any]:
     return conf
 
 
-### You can define the same loader using some provided combinators:
+### You can define the same loader using the loader_transformer combinator:
 #
-# from typer_config.loaders import default_value_loader, subpath_loader, toml_loader
-#
-# pyproject_loader = subpath_loader(
-#     default_value_loader(toml_loader, lambda: "pyproject.toml"),
-#     ["tool", "my_tool", "parameters"],
+# from typer_config.loaders import loader_transformer
+
+# pyproject_loader = loader_transformer(
+#     toml_loader,
+#     param_transformer=lambda param: param or "pyproject.toml",
+#     config_transformer=lambda config: config["tool"]["my_tool"]["parameters"],
 # )
 
 pyproject_callback = conf_callback_factory(pyproject_loader)
@@ -85,3 +86,61 @@ things nothing others
 $ python my_tool.py --config other.toml
 something else entirely
 ```
+
+<!--- Test the combinator
+
+```python title="my_tool.py"
+from typing import Any, Dict
+from typing_extensions import Annotated
+
+import typer
+from typer_config import conf_callback_factory
+from typer_config.loaders import toml_loader
+from typer_config.decorators import use_config
+
+
+### You can define the same loader using the loader_transformer combinator:
+#
+from typer_config.loaders import loader_transformer
+
+pyproject_loader = loader_transformer(
+    toml_loader,
+    param_transformer=lambda param: param or "pyproject.toml",
+    config_transformer=lambda config: config["tool"]["my_tool"]["parameters"],
+)
+
+pyproject_callback = conf_callback_factory(pyproject_loader)
+
+app = typer.Typer()
+
+
+@app.command()
+@use_config(pyproject_callback)
+def main(
+    arg1: str,
+    opt1: Annotated[str, typer.Option()],
+    opt2: Annotated[str, typer.Option()] = "hello",
+):
+    typer.echo(f"{opt1} {opt2} {arg1}")
+
+
+if __name__ == "__main__":
+    app()
+```
+
+```bash
+$ ls .
+my_tool.py
+other.toml
+pyproject.toml
+
+$ python my_tool.py
+things nothing stuff
+
+$ python my_tool.py others
+things nothing others
+
+$ python my_tool.py --config other.toml
+something else entirely
+```
+--->
