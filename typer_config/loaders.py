@@ -1,5 +1,4 @@
-"""
-Configuration File Loaders.
+"""Configuration File Loaders.
 
 These loaders must implement the `typer_config.__typing.ConfigLoader` interface.
 """
@@ -8,7 +7,7 @@ from configparser import ConfigParser
 from typing import Optional
 from warnings import warn
 
-from .__optional_imports import *  # pylint: disable=wildcard-import, unused-wildcard-import
+from .__optional_imports import try_import
 from .__typing import (
     ConfigDict,
     ConfigDictAccessorPath,
@@ -124,7 +123,7 @@ def subpath_loader(
         ConfigLoader: sub dictionary loader
     """
 
-    warn(
+    warn(  # noqa: B028
         "typer_config.loaders.subpath_loader is deprecated. "
         "Please use typer_config.loaders.loader_transformer instead.",
         DeprecationWarning,
@@ -169,7 +168,7 @@ def default_value_loader(
         ConfigLoader: modified loader
     """
 
-    warn(
+    warn(  # noqa: B028
         "typer_config.loaders.default_value_loader is deprecated. "
         "Please use typer_config.loaders.loader_transformer instead.",
         DeprecationWarning,
@@ -200,8 +199,11 @@ def yaml_loader(param_value: TyperParameterValue) -> ConfigDict:
         ConfigDict: dictionary loaded from file
     """
 
-    if YAML_MISSING:  # pragma: no cover
-        raise ModuleNotFoundError("Please install the pyyaml library.")
+    yaml = try_import("yaml")
+
+    if yaml is None:  # pragma: no cover
+        message = "Please install the pyyaml library."
+        raise ModuleNotFoundError(message)
 
     with open(param_value, "r", encoding="utf-8") as _file:
         conf: ConfigDict = yaml.safe_load(_file)
@@ -238,14 +240,22 @@ def toml_loader(param_value: TyperParameterValue) -> ConfigDict:
         ConfigDict: dictionary loaded from file
     """
 
-    if USING_TOMLLIB:  # pragma: no cover
-        with open(param_value, "rb") as _file:
-            return tomllib.load(_file)  # type: ignore
+    # try `tomllib` first
+    tomllib = try_import("tomllib")
 
-    if TOML_MISSING:  # pragma: no cover
-        raise ModuleNotFoundError("Please install the toml library.")
-    with open(param_value, "r", encoding="utf-8") as _file:  # pragma: no cover
-        return toml.load(_file)  # type: ignore
+    if tomllib is not None:
+        with open(param_value, "rb") as _file:
+            return tomllib.load(_file)
+
+    # couldn't find `tommllib`, so try `toml`
+    toml = try_import("toml")
+
+    if toml is None:  # pragma: no cover
+        message = "Please install the toml library."
+        raise ModuleNotFoundError(message)
+
+    with open(param_value, "r", encoding="utf-8") as _file:
+        return toml.load(_file)
 
 
 def dotenv_loader(param_value: TyperParameterValue) -> ConfigDict:
@@ -261,8 +271,11 @@ def dotenv_loader(param_value: TyperParameterValue) -> ConfigDict:
         ConfigDict: dictionary loaded from file
     """
 
-    if DOTENV_MISSING:  # pragma: no cover
-        raise ModuleNotFoundError("Please install the python-dotenv library.")
+    dotenv = try_import("dotenv")
+
+    if dotenv is None:  # pragma: no cover
+        message = "Please install the python-dotenv library."
+        raise ModuleNotFoundError(message)
 
     with open(param_value, "r", encoding="utf-8") as _file:
         # NOTE: I'm using a stream here so that the loader
@@ -273,7 +286,7 @@ def dotenv_loader(param_value: TyperParameterValue) -> ConfigDict:
 
 
 def ini_loader(param_value: TyperParameterValue) -> ConfigDict:
-    """INI file loader
+    """INI file loader.
 
     Note:
         INI files must have sections at the top level.

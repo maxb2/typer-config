@@ -1,3 +1,5 @@
+"""Test Config Dumpers."""
+
 from enum import Enum
 from pathlib import Path
 
@@ -7,7 +9,6 @@ from typer.testing import CliRunner
 
 import typer_config
 import typer_config.decorators as tcdec
-import typer_config.dumpers as tcdump
 
 RUNNER = CliRunner()
 
@@ -15,13 +16,17 @@ HERE = Path(__file__).parent.absolute()
 
 
 class Things(Enum):
+    """Dummy Enum."""
+
     a = "a"
     b = "b"
     c = "c"
 
 
-@pytest.fixture
+@pytest.fixture()
 def dumper_app():
+    """Dumper Typer App Fixture."""
+
     def _app(dump, location):
         app = typer.Typer()
 
@@ -65,6 +70,13 @@ DUMPERS = [
 
 @pytest.mark.parametrize("dumper", DUMPERS, ids=str)
 def test_dump_config(dumper_app, dumper):
+    """Test dump config.
+
+    Args:
+        dumper_app: dumper app factory
+        dumper: test tuple
+    """
+
     dump, location, loader = dumper
 
     _app = dumper_app(dump, location)

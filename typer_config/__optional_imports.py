@@ -1,46 +1,22 @@
-# pylint: disable=unused-import
+"""Handle optional imports."""
 
-"""
-Handle optional and version dependent imports.
-
-Note: Be careful with this file because other files wildcard import from here.
-
-"""
-
-import sys
-
-USING_TOMLLIB = False
-TOML_MISSING = True
-YAML_MISSING = True
-DOTENV_MISSING = True
+from functools import lru_cache
+from importlib import import_module
+from importlib.util import find_spec
 
 
-if sys.version_info >= (3, 11):  # pragma: no cover
-    import tomllib  # type: ignore
+@lru_cache()
+def try_import(module_name: str):  # noqa: ANN202 (no type for modules)
+    """Try to import a module by name.
 
-    USING_TOMLLIB = True
+    Note: caches the imported modules in a `functools.lru_cache`
 
-try:  # pragma: no cover
-    # Third-party toml parsing library
-    # Note: needed for writing TOML files
-    import toml
+    Args:
+        module_name (str): name of module to import
 
-    TOML_MISSING = False
-
-except ImportError:  # pragma: no cover
-    pass
-
-
-try:  # pragma: no cover
-    import yaml
-
-    YAML_MISSING = False
-except ImportError:  # pragma: no cover
-    pass
-
-try:  # pragma: no cover
-    import dotenv
-
-    DOTENV_MISSING = False
-except ImportError:  # pragma: no cover
-    pass
+    Returns:
+        Module: imported module
+    """
+    if find_spec(module_name):
+        return import_module(module_name)
+    return None

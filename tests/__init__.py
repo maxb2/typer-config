@@ -1,0 +1,1 @@
+"""Typer Config tests."""

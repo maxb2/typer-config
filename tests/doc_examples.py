@@ -1,5 +1,4 @@
-"""
-Test examples in docs.
+"""Test examples in docs.
 
 Note: heavily inspired by https://github.com/koaning/mktestdocs
 
@@ -97,12 +96,16 @@ FENCED_BLOCK_RE = re.compile(
 
 
 class Attr(NamedTuple):
+    """Attribute in a fence."""
+
     value: str
-    type: str
+    type_: str
 
 
 # @dataclass
 class Fence(NamedTuple):
+    """Markdown Fence."""
+
     fence: str = ""
     lang: Optional[str] = None
     attrs: "Optional[OrderedDict[str, Attr]]" = None
@@ -111,7 +114,7 @@ class Fence(NamedTuple):
     raw: Optional[str] = None
 
     def options_from_str(raw: str) -> Dict[str, Any]:
-        """Markdown fence options dict from string
+        """Markdown fence options dict from string.
 
         Args:
             raw (str): string of options
@@ -142,12 +145,12 @@ class Fence(NamedTuple):
 
         while raw:
             if match := CLASS_RE.match(raw):
-                attrs[match.groupdict()["class"]] = Attr(value=None, type="class")
+                attrs[match.groupdict()["class"]] = Attr(value=None, type_="class")
             elif match := ID_RE.match(raw):
-                attrs[match.groupdict()["id"]] = Attr(value=None, type="id")
+                attrs[match.groupdict()["id"]] = Attr(value=None, type_="id")
             elif match := KEY_VAL_RE.match(raw):
                 attrs[match.groupdict()["key"]] = Attr(
-                    value=match.groupdict()["value"], type="keyval"
+                    value=match.groupdict()["value"], type_="keyval"
                 )
             else:
                 break
@@ -155,7 +158,7 @@ class Fence(NamedTuple):
         return attrs
 
     def from_re_groups(groups: Tuple[str]) -> "Fence":
-        """Make Fence from regex groups
+        """Make Fence from regex groups.
 
         Notes:
             This is tightly coupled to `FENCED_BLOCK_RE`.
@@ -171,7 +174,7 @@ class Fence(NamedTuple):
 
         try:
             lang_attr = list(attrs.items())[0]
-            _lang = lang_attr[0] if lang_attr[1].type == "class" else None
+            _lang = lang_attr[0] if lang_attr[1].type_ == "class" else None
         except IndexError:
             _lang = None
 
@@ -187,7 +190,7 @@ class Fence(NamedTuple):
         )
 
     def from_str(raw: str) -> "Fence":
-        """Fence from markdown string
+        """Fence from markdown string.
 
         Args:
             raw (str): markdown string
@@ -202,16 +205,18 @@ class Fence(NamedTuple):
 
 
 class WorkingDirectory:
-    """Sets the cwd within the context"""
+    """Sets the cwd within the context."""
 
     def __init__(self, path: Path) -> None:
         self.path = path
         self.origin = Path().absolute()
 
     def __enter__(self):
+        """Enter context."""
         os.chdir(self.path)
 
     def __exit__(self, exc_type, exc_value, exc_traceback):
+        """Exit context."""
         os.chdir(self.origin)
 
 
@@ -219,7 +224,7 @@ _executors = {}
 
 
 def register_executor(lang, executor):
-    """Add a new executor for markdown code blocks
+    """Add a new executor for markdown code blocks.
 
     lang should be the tag used after the opening ```
     executor should be a callable that takes one argument:
@@ -229,7 +234,7 @@ def register_executor(lang, executor):
 
 
 def grab_fences(source: str) -> List[Fence]:
-    """Grab fences in  markdown
+    """Grab fences in  markdown.
 
     Args:
         source (str): markdown string
@@ -241,10 +246,11 @@ def grab_fences(source: str) -> List[Fence]:
 
 
 def exec_file_fence(fence: Fence, **kwargs):
-    """Executor that writes out file
+    """Executor that writes out file.
 
     Args:
         fence (Fence): markdown fence
+        **kwargs: not used
     """
     fname = fence.options.get("title", None) or fence.attrs.get("title", [None])[0]
     with open(fname, "w") as f:
@@ -256,19 +262,21 @@ register_executor("yml", exec_file_fence)
 register_executor("toml", exec_file_fence)
 
 
-def exec_python_fence(fence: Fence, globals: Dict = {}):
-    """Python fence executor
+def exec_python_fence(fence: Fence, globals_: Optional[Dict] = None):
+    """Python fence executor.
 
     Args:
         fence (Fence): markdown fence
-        globals (Dict, optional): python globals to pass to exec. Defaults to {}.
+        globals_ (Dict, optional): python globals to pass to exec. Defaults to {}.
     """
     if fence.options.get("title", False) or fence.attrs.get("title", False):
         exec_file_fence(fence)
     try:
-        exec(fence.contents, globals)
+        if globals_ is None:
+            globals_ = {}
+        exec(fence.contents, globals_)
     except Exception:
-        print(fence.contents)
+        print(fence.contents)  # noqa: T201
         raise
 
 
@@ -277,10 +285,11 @@ register_executor("py", exec_python_fence)
 
 
 def exec_bash_fence(fence: Fence, **kwargs):
-    """Bash fence executor
+    """Bash fence executor.
 
     Args:
         fence (Fence): markdown fence
+        **kwargs: not used
     """
     _cmds = fence.contents.split("$ ")
     commands: List[Dict] = []
@@ -299,7 +308,7 @@ register_executor("bash", exec_bash_fence)
 
 
 def check_typer_md_file(fpath: Path):
-    """Check a markdown file with typer apps defined in it
+    """Check a markdown file with typer apps defined in it.
 
     Args:
         fpath (Path): path to markdown file
@@ -308,9 +317,8 @@ def check_typer_md_file(fpath: Path):
         source = f.read()
     fences = grab_fences(source)
 
-    _globals = {"__MODULE__": "__main__"}
+    globals_ = {"__MODULE__": "__main__"}
 
-    with TemporaryDirectory() as td:
-        with WorkingDirectory(td) as wd:
-            for fence in fences:
-                _executors[fence.lang](fence, globals=_globals)
+    with TemporaryDirectory() as td, WorkingDirectory(td):
+        for fence in fences:
+            _executors[fence.lang](fence, globals_=globals_)
