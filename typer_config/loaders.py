@@ -8,7 +8,7 @@ from configparser import ConfigParser
 from typing import Optional
 from warnings import warn
 
-from .__optional_imports import *  # pylint: disable=wildcard-import, unused-wildcard-import
+from .__optional_imports import try_import
 from .__typing import (
     ConfigDict,
     ConfigDictAccessorPath,
@@ -200,7 +200,9 @@ def yaml_loader(param_value: TyperParameterValue) -> ConfigDict:
         ConfigDict: dictionary loaded from file
     """
 
-    if YAML_MISSING:  # pragma: no cover
+    yaml = try_import("yaml")
+
+    if yaml is None: # pragma: no cover
         raise ModuleNotFoundError("Please install the pyyaml library.")
 
     with open(param_value, "r", encoding="utf-8") as _file:
@@ -238,14 +240,21 @@ def toml_loader(param_value: TyperParameterValue) -> ConfigDict:
         ConfigDict: dictionary loaded from file
     """
 
-    if USING_TOMLLIB:  # pragma: no cover
-        with open(param_value, "rb") as _file:
-            return tomllib.load(_file)  # type: ignore
+    # try `tomllib` first
+    tomllib = try_import("tomllib")
 
-    if TOML_MISSING:  # pragma: no cover
+    if tomllib is not None:
+        with open(param_value, "rb") as _file:
+            return tomllib.load(_file)
+
+    # couldn't find `tommllib`, so try `toml`
+    toml = try_import("toml")
+
+    if toml is None: # pragma: no cover
         raise ModuleNotFoundError("Please install the toml library.")
-    with open(param_value, "r", encoding="utf-8") as _file:  # pragma: no cover
-        return toml.load(_file)  # type: ignore
+
+    with open(param_value, "r", encoding="utf-8") as _file:
+        return toml.load(_file)
 
 
 def dotenv_loader(param_value: TyperParameterValue) -> ConfigDict:
@@ -261,7 +270,9 @@ def dotenv_loader(param_value: TyperParameterValue) -> ConfigDict:
         ConfigDict: dictionary loaded from file
     """
 
-    if DOTENV_MISSING:  # pragma: no cover
+    dotenv = try_import("dotenv")
+
+    if dotenv is None: # pragma: no cover
         raise ModuleNotFoundError("Please install the python-dotenv library.")
 
     with open(param_value, "r", encoding="utf-8") as _file:

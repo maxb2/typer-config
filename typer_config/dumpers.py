@@ -2,7 +2,8 @@
 
 import json
 
-from .__optional_imports import *  # pylint: disable=wildcard-import,unused-wildcard-import
+# pylint: disable-next=wildcard-import,unused-wildcard-import
+from .__optional_imports import try_import
 from .__typing import ConfigDict, FilePath
 
 
@@ -28,7 +29,9 @@ def yaml_dumper(config: ConfigDict, location: FilePath):
         ModuleNotFoundError: pyyaml is required
     """
 
-    if YAML_MISSING:  # pragma: no cover
+    yaml = try_import("yaml")
+
+    if yaml is None:  # pragma: no cover
         raise ModuleNotFoundError("Please install the pyyaml library.")
 
     with open(location, "w", encoding="utf-8") as _file:
@@ -48,7 +51,9 @@ def toml_dumper(config: ConfigDict, location: FilePath):
         ModuleNotFoundError: toml library is required for writing files
     """
 
-    if TOML_MISSING:  # pragma: no cover
+    toml = try_import("toml")
+
+    if toml is None:  # pragma: no cover
         raise ModuleNotFoundError(
             "Please install the toml library to write TOML files."
         )
