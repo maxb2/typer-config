@@ -25,5 +25,4 @@ def try_import(module_name: str):
 # REMOVE THIS
 # just want to check CodeCov
 if try_import("sdlfjksldfkj"):
-    x = 2
     print("doing nothing")
