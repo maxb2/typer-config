@@ -311,6 +311,6 @@ def check_typer_md_file(fpath: Path):
     _globals = {"__MODULE__": "__main__"}
 
     with TemporaryDirectory() as td:
-        with WorkingDirectory(td) as wd:
+        with WorkingDirectory(td):
             for fence in fences:
                 _executors[fence.lang](fence, globals=_globals)

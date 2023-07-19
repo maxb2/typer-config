@@ -7,7 +7,6 @@ from typer.testing import CliRunner
 
 import typer_config
 import typer_config.decorators as tcdec
-import typer_config.dumpers as tcdump
 
 RUNNER = CliRunner()
 
