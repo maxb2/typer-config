@@ -1,7 +1,7 @@
 """Project Duties."""
 
 import os
-from typing import Tuple
+from typing import Optional, Tuple
 
 from duty import duty
 from duty.callables import blacken_docs, mkdocs, mypy
@@ -176,7 +176,7 @@ def changelog(ctx: Context):
 
 
 @duty()
-def release(ctx: Context, version: str = None):
+def release(ctx: Context, version: Optional[str] = None):
     """Release a new Python package.
 
     Args:

@@ -73,7 +73,7 @@ def use_config(
         new_sig = sig.replace(parameters=[*sig.parameters.values(), config_param])
 
         @wraps(cmd)
-        def wrapped(*args, **kwargs):
+        def wrapped(*args, **kwargs):  # noqa: ANN202,ANN002,ANN003
             # NOTE: need to delete the config parameter
             # to match the wrapped command's signature.
             if param_name in kwargs:
@@ -246,7 +246,7 @@ def dump_config(dumper: ConfigDumper, location: FilePath) -> TyperCommandDecorat
 
     def decorator(cmd: TyperCommand) -> TyperCommand:
         @wraps(cmd)
-        def inner(*args, **kwargs):
+        def inner(*args, **kwargs):  # noqa: ANN202,ANN002,ANN003
             # get a dictionary of the passed args
             bound_args = signature(cmd).bind(*args, **kwargs).arguments
 

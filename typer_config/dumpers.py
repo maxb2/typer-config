@@ -6,7 +6,7 @@ from .__optional_imports import try_import
 from .__typing import ConfigDict, FilePath
 
 
-def json_dumper(config: ConfigDict, location: FilePath):
+def json_dumper(config: ConfigDict, location: FilePath) -> None:
     """Dump config to JSON file.
 
     Args:
@@ -17,7 +17,7 @@ def json_dumper(config: ConfigDict, location: FilePath):
         json.dump(config, _file)
 
 
-def yaml_dumper(config: ConfigDict, location: FilePath):
+def yaml_dumper(config: ConfigDict, location: FilePath) -> None:
     """Dump config to YAML file.
 
     Args:
@@ -31,7 +31,8 @@ def yaml_dumper(config: ConfigDict, location: FilePath):
     yaml = try_import("yaml")
 
     if yaml is None:  # pragma: no cover
-        raise ModuleNotFoundError("Please install the pyyaml library.")
+        message = "Please install the pyyaml library."
+        raise ModuleNotFoundError(message)
 
     with open(location, "w", encoding="utf-8") as _file:
         # NOTE: we must convert config from OrderedDict to dict because
@@ -39,7 +40,7 @@ def yaml_dumper(config: ConfigDict, location: FilePath):
         yaml.dump(dict(config), _file)
 
 
-def toml_dumper(config: ConfigDict, location: FilePath):
+def toml_dumper(config: ConfigDict, location: FilePath) -> None:
     """Dump config to TOML file.
 
     Args:
@@ -53,9 +54,8 @@ def toml_dumper(config: ConfigDict, location: FilePath):
     toml = try_import("toml")
 
     if toml is None:  # pragma: no cover
-        raise ModuleNotFoundError(
-            "Please install the toml library to write TOML files."
-        )
+        message = "Please install the toml library to write TOML files."
+        raise ModuleNotFoundError(message)
 
     with open(location, "w", encoding="utf-8") as _file:
         toml.dump(config, _file)  # type: ignore

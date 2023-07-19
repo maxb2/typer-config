@@ -123,7 +123,7 @@ def subpath_loader(
         ConfigLoader: sub dictionary loader
     """
 
-    warn(
+    warn(  # noqa: B028
         "typer_config.loaders.subpath_loader is deprecated. "
         "Please use typer_config.loaders.loader_transformer instead.",
         DeprecationWarning,
@@ -168,7 +168,7 @@ def default_value_loader(
         ConfigLoader: modified loader
     """
 
-    warn(
+    warn(  # noqa: B028
         "typer_config.loaders.default_value_loader is deprecated. "
         "Please use typer_config.loaders.loader_transformer instead.",
         DeprecationWarning,
@@ -202,7 +202,8 @@ def yaml_loader(param_value: TyperParameterValue) -> ConfigDict:
     yaml = try_import("yaml")
 
     if yaml is None:  # pragma: no cover
-        raise ModuleNotFoundError("Please install the pyyaml library.")
+        message = "Please install the pyyaml library."
+        raise ModuleNotFoundError(message)
 
     with open(param_value, "r", encoding="utf-8") as _file:
         conf: ConfigDict = yaml.safe_load(_file)
@@ -250,7 +251,8 @@ def toml_loader(param_value: TyperParameterValue) -> ConfigDict:
     toml = try_import("toml")
 
     if toml is None:  # pragma: no cover
-        raise ModuleNotFoundError("Please install the toml library.")
+        message = "Please install the toml library."
+        raise ModuleNotFoundError(message)
 
     with open(param_value, "r", encoding="utf-8") as _file:
         return toml.load(_file)
@@ -272,7 +274,8 @@ def dotenv_loader(param_value: TyperParameterValue) -> ConfigDict:
     dotenv = try_import("dotenv")
 
     if dotenv is None:  # pragma: no cover
-        raise ModuleNotFoundError("Please install the python-dotenv library.")
+        message = "Please install the python-dotenv library."
+        raise ModuleNotFoundError(message)
 
     with open(param_value, "r", encoding="utf-8") as _file:
         # NOTE: I'm using a stream here so that the loader

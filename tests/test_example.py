@@ -14,7 +14,7 @@ RUNNER = CliRunner()
 HERE = Path(__file__).parent.absolute()
 
 
-@pytest.fixture
+@pytest.fixture()
 def simple_app():
     """Simple YAML app fixture (explicit config)."""
 
@@ -39,7 +39,7 @@ def simple_app():
     return _app
 
 
-@pytest.fixture
+@pytest.fixture()
 def simple_app_decorated():
     """Simple YAML app fixture (decorator)."""
 

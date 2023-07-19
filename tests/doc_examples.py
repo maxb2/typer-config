@@ -99,7 +99,7 @@ class Attr(NamedTuple):
     """Attribute in a fence."""
 
     value: str
-    type: str
+    type_: str
 
 
 # @dataclass
@@ -145,12 +145,12 @@ class Fence(NamedTuple):
 
         while raw:
             if match := CLASS_RE.match(raw):
-                attrs[match.groupdict()["class"]] = Attr(value=None, type="class")
+                attrs[match.groupdict()["class"]] = Attr(value=None, type_="class")
             elif match := ID_RE.match(raw):
-                attrs[match.groupdict()["id"]] = Attr(value=None, type="id")
+                attrs[match.groupdict()["id"]] = Attr(value=None, type_="id")
             elif match := KEY_VAL_RE.match(raw):
                 attrs[match.groupdict()["key"]] = Attr(
-                    value=match.groupdict()["value"], type="keyval"
+                    value=match.groupdict()["value"], type_="keyval"
                 )
             else:
                 break
@@ -174,7 +174,7 @@ class Fence(NamedTuple):
 
         try:
             lang_attr = list(attrs.items())[0]
-            _lang = lang_attr[0] if lang_attr[1].type == "class" else None
+            _lang = lang_attr[0] if lang_attr[1].type_ == "class" else None
         except IndexError:
             _lang = None
 
@@ -208,11 +208,6 @@ class WorkingDirectory:
     """Sets the cwd within the context."""
 
     def __init__(self, path: Path) -> None:
-        """Create a new WorkingDirectory.
-
-        Args:
-            path (Path): working directory
-        """
         self.path = path
         self.origin = Path().absolute()
 
@@ -267,19 +262,21 @@ register_executor("yml", exec_file_fence)
 register_executor("toml", exec_file_fence)
 
 
-def exec_python_fence(fence: Fence, globals: Dict = {}):
+def exec_python_fence(fence: Fence, globals_: Optional[Dict] = None):
     """Python fence executor.
 
     Args:
         fence (Fence): markdown fence
-        globals (Dict, optional): python globals to pass to exec. Defaults to {}.
+        globals_ (Dict, optional): python globals to pass to exec. Defaults to {}.
     """
     if fence.options.get("title", False) or fence.attrs.get("title", False):
         exec_file_fence(fence)
     try:
-        exec(fence.contents, globals)
+        if globals_ is None:
+            globals_ = {}
+        exec(fence.contents, globals_)
     except Exception:
-        print(fence.contents)
+        print(fence.contents)  # noqa: T201
         raise
 
 
@@ -320,9 +317,8 @@ def check_typer_md_file(fpath: Path):
         source = f.read()
     fences = grab_fences(source)
 
-    _globals = {"__MODULE__": "__main__"}
+    globals_ = {"__MODULE__": "__main__"}
 
-    with TemporaryDirectory() as td:
-        with WorkingDirectory(td):
-            for fence in fences:
-                _executors[fence.lang](fence, globals=_globals)
+    with TemporaryDirectory() as td, WorkingDirectory(td):
+        for fence in fences:
+            _executors[fence.lang](fence, globals_=globals_)
