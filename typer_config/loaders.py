@@ -202,7 +202,7 @@ def yaml_loader(param_value: TyperParameterValue) -> ConfigDict:
 
     yaml = try_import("yaml")
 
-    if yaml is None: # pragma: no cover
+    if yaml is None:  # pragma: no cover
         raise ModuleNotFoundError("Please install the pyyaml library.")
 
     with open(param_value, "r", encoding="utf-8") as _file:
@@ -250,7 +250,7 @@ def toml_loader(param_value: TyperParameterValue) -> ConfigDict:
     # couldn't find `tommllib`, so try `toml`
     toml = try_import("toml")
 
-    if toml is None: # pragma: no cover
+    if toml is None:  # pragma: no cover
         raise ModuleNotFoundError("Please install the toml library.")
 
     with open(param_value, "r", encoding="utf-8") as _file:
@@ -272,7 +272,7 @@ def dotenv_loader(param_value: TyperParameterValue) -> ConfigDict:
 
     dotenv = try_import("dotenv")
 
-    if dotenv is None: # pragma: no cover
+    if dotenv is None:  # pragma: no cover
         raise ModuleNotFoundError("Please install the python-dotenv library.")
 
     with open(param_value, "r", encoding="utf-8") as _file:
