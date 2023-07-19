@@ -40,7 +40,7 @@ def fmt_docs(ctx: Context):
     ctx.run(
         blacken_docs.run("docs/", exts=[".md"]),
         nofail=True,
-        title="Formatting docs",
+        title="Formatting docs (blacken-docs)",
     )
 
 
@@ -51,8 +51,8 @@ def fmt(ctx: Context):
     Args:
         ctx (Context): the context instance (passed automatically).
     """
-    ctx.run("isort --ca --profile=black .", title="Sorting imports")
-    ctx.run("black .", title="Formatting code")
+    ctx.run("isort --ca --profile=black .", title="Sorting imports (isort)")
+    ctx.run("black .", title="Formatting code (black)")
 
 
 @duty(aliases=["check_deps"])
@@ -63,7 +63,8 @@ def check_dependencies(ctx: Context):
         ctx (Context): the context instance (passed automatically).
     """
     ctx.run(
-        "poetry export --only main | safety check --stdin", title="Dependency checking"
+        "poetry export --only main | safety check --stdin",
+        title="Dependency checking (safety)",
     )
 
 
@@ -74,17 +75,36 @@ def check_types(ctx: Context):
     Args:
         ctx (Context): the context instance (passed automatically).
     """
-    ctx.run(mypy.run("typer_config"), title="Type checking", pty=PTY)
+    ctx.run(mypy.run("typer_config"), title="Type checking (mypy)", pty=PTY)
 
 
 @duty
+def pylint(ctx: Context):
+    """Run pylint code linting.
+
+    Args:
+        ctx (Context): the context instance (passed automatically).
+    """
+    ctx.run("pylint typer_config", title="Code linting (pylint)")
+
+
+@duty
+def ruff(ctx: Context):
+    """Run ruff code linting.
+
+    Args:
+        ctx (Context): the context instance (passed automatically).
+    """
+    ctx.run("ruff .", title="Code linting (ruff)")
+
+
+@duty(pre=["pylint"])
 def check_quality(ctx: Context):
     """Check the code quality.
 
     Args:
         ctx (Context): the context instance (passed automatically).
     """
-    ctx.run("pylint typer_config", title="Code Linting")
 
 
 @duty
@@ -98,7 +118,7 @@ def check_api(ctx: Context) -> None:
 
     ctx.run(
         lambda: g_check("typer_config"),
-        title="Checking for API breaking changes",
+        title="Checking for API breaking changes (griffe)",
         nofail=True,
     )
 
@@ -119,7 +139,7 @@ def test(ctx: Context):
     Args:
         ctx (Context): the context instance (passed automatically).
     """
-    ctx.run("pytest --cov=typer_config --cov-report=xml", title="Testing")
+    ctx.run("pytest --cov=typer_config --cov-report=xml", title="Testing (pytest)")
 
 
 @duty
@@ -136,7 +156,7 @@ def docs(ctx: Context, host: str = "127.0.0.1", port: int = 8000) -> None:
             dev_addr=f"{host}:{port}",
             watch=["docs", "typer_config", "docs_gen_files.py"],
         ),
-        title="Serving documentation",
+        title="Serving documentation (mkdocs)",
         capture=False,
     )
 
@@ -148,7 +168,7 @@ def changelog(ctx: Context):
     Args:
         ctx (Context): the context instance (passed automatically).
     """
-    ctx.run(_changelog, title="Generating changelog")
+    ctx.run(_changelog, title="Generating changelog (git-changelog)")
 
 
 @duty()
@@ -163,18 +183,18 @@ def release(ctx: Context, version: str = None):
     if version is None:
         res: Tuple[Changelog, str] = _changelog()
         version: str = res[0].versions_list[0].planned_tag
-    ctx.run(f"poetry version {version}", title="Bumping version")
-    ctx.run("git add pyproject.toml CHANGELOG.md", title="Staging files")
+    ctx.run(f"poetry version {version}", title="Bumping version (poetry)")
+    ctx.run("git add pyproject.toml CHANGELOG.md", title="Staging files (git)")
     ctx.run(
         ["git", "commit", "-m", f"chore: Prepare release {version}"],
-        title="Committing changes",
+        title="Committing changes (git)",
         pty=PTY,
     )
-    ctx.run("poetry publish --build", title="Publish package")
+    ctx.run("poetry publish --build", title="Publish package (poetry)")
     ctx.run(
         f"mike deploy --push --update-aliases {version} latest",
-        title="Deploying documentation",
+        title="Deploying documentation (mike)",
     )
-    ctx.run(f"git tag {version}", title="Tagging commit", pty=PTY)
-    ctx.run("git push", title="Pushing commits", pty=False)
-    ctx.run("git push --tags", title="Pushing tags", pty=False)
+    ctx.run(f"git tag {version}", title="Tagging commit (git)", pty=PTY)
+    ctx.run("git push", title="Pushing commits (git)", pty=False)
+    ctx.run("git push --tags", title="Pushing tags (git)", pty=False)

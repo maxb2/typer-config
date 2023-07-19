@@ -2,7 +2,6 @@
 
 import json
 
-# pylint: disable-next=wildcard-import,unused-wildcard-import
 from .__optional_imports import try_import
 from .__typing import ConfigDict, FilePath
 
