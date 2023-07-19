@@ -1,6 +1,4 @@
-"""
-Typer Configuration Utilities
-"""
+"""Typer Configuration Utilities."""
 
 from .callbacks import (
     conf_callback_factory,

@@ -83,6 +83,13 @@ profile = "black"
 [tool.pylint.format]
 max-line-length = "88"
 
+[tool.ruff]
+select = ["E", "F", "PL", "D"]
+ignore = ["D202", "D205"]
+
+[tool.ruff.pydocstyle]
+convention = "google"  # Accepts: "google", "numpy", or "pep257".
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"

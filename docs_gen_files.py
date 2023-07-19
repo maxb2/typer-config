@@ -1,3 +1,5 @@
+"""Generate files for mkdocs."""
+
 from pathlib import Path
 
 import mkdocs_gen_files
@@ -16,6 +18,8 @@ def copy_file(source: Path, out: Path):
 
 
 def main():
+    """Copy files to docs folder."""
+
     # Copy changelog to docs
     copy_file("CHANGELOG.md", "changelog.md")
 

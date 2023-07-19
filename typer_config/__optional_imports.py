@@ -12,7 +12,7 @@ def try_import(module_name: str):
     Note: caches the imported modules in a `functools.lru_cache`
 
     Args:
-        pkg_name (str): name of module to import
+        module_name (str): name of module to import
 
     Returns:
         Module: imported module

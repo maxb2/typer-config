@@ -1,5 +1,4 @@
-"""
-Configuration File Loaders.
+"""Configuration File Loaders.
 
 These loaders must implement the `typer_config.__typing.ConfigLoader` interface.
 """
@@ -284,7 +283,7 @@ def dotenv_loader(param_value: TyperParameterValue) -> ConfigDict:
 
 
 def ini_loader(param_value: TyperParameterValue) -> ConfigDict:
-    """INI file loader
+    """INI file loader.
 
     Note:
         INI files must have sections at the top level.

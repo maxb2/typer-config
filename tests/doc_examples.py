@@ -1,5 +1,4 @@
-"""
-Test examples in docs.
+"""Test examples in docs.
 
 Note: heavily inspired by https://github.com/koaning/mktestdocs
 
@@ -97,12 +96,16 @@ FENCED_BLOCK_RE = re.compile(
 
 
 class Attr(NamedTuple):
+    """Attribute in a fence."""
+
     value: str
     type: str
 
 
 # @dataclass
 class Fence(NamedTuple):
+    """Markdown Fence."""
+
     fence: str = ""
     lang: Optional[str] = None
     attrs: "Optional[OrderedDict[str, Attr]]" = None
@@ -111,7 +114,7 @@ class Fence(NamedTuple):
     raw: Optional[str] = None
 
     def options_from_str(raw: str) -> Dict[str, Any]:
-        """Markdown fence options dict from string
+        """Markdown fence options dict from string.
 
         Args:
             raw (str): string of options
@@ -155,7 +158,7 @@ class Fence(NamedTuple):
         return attrs
 
     def from_re_groups(groups: Tuple[str]) -> "Fence":
-        """Make Fence from regex groups
+        """Make Fence from regex groups.
 
         Notes:
             This is tightly coupled to `FENCED_BLOCK_RE`.
@@ -187,7 +190,7 @@ class Fence(NamedTuple):
         )
 
     def from_str(raw: str) -> "Fence":
-        """Fence from markdown string
+        """Fence from markdown string.
 
         Args:
             raw (str): markdown string
@@ -202,16 +205,23 @@ class Fence(NamedTuple):
 
 
 class WorkingDirectory:
-    """Sets the cwd within the context"""
+    """Sets the cwd within the context."""
 
     def __init__(self, path: Path) -> None:
+        """Create a new WorkingDirectory.
+
+        Args:
+            path (Path): working directory
+        """
         self.path = path
         self.origin = Path().absolute()
 
     def __enter__(self):
+        """Enter context."""
         os.chdir(self.path)
 
     def __exit__(self, exc_type, exc_value, exc_traceback):
+        """Exit context."""
         os.chdir(self.origin)
 
 
@@ -219,7 +229,7 @@ _executors = {}
 
 
 def register_executor(lang, executor):
-    """Add a new executor for markdown code blocks
+    """Add a new executor for markdown code blocks.
 
     lang should be the tag used after the opening ```
     executor should be a callable that takes one argument:
@@ -229,7 +239,7 @@ def register_executor(lang, executor):
 
 
 def grab_fences(source: str) -> List[Fence]:
-    """Grab fences in  markdown
+    """Grab fences in  markdown.
 
     Args:
         source (str): markdown string
@@ -241,10 +251,11 @@ def grab_fences(source: str) -> List[Fence]:
 
 
 def exec_file_fence(fence: Fence, **kwargs):
-    """Executor that writes out file
+    """Executor that writes out file.
 
     Args:
         fence (Fence): markdown fence
+        **kwargs: not used
     """
     fname = fence.options.get("title", None) or fence.attrs.get("title", [None])[0]
     with open(fname, "w") as f:
@@ -257,7 +268,7 @@ register_executor("toml", exec_file_fence)
 
 
 def exec_python_fence(fence: Fence, globals: Dict = {}):
-    """Python fence executor
+    """Python fence executor.
 
     Args:
         fence (Fence): markdown fence
@@ -277,10 +288,11 @@ register_executor("py", exec_python_fence)
 
 
 def exec_bash_fence(fence: Fence, **kwargs):
-    """Bash fence executor
+    """Bash fence executor.
 
     Args:
         fence (Fence): markdown fence
+        **kwargs: not used
     """
     _cmds = fence.contents.split("$ ")
     commands: List[Dict] = []
@@ -299,7 +311,7 @@ register_executor("bash", exec_bash_fence)
 
 
 def check_typer_md_file(fpath: Path):
-    """Check a markdown file with typer apps defined in it
+    """Check a markdown file with typer apps defined in it.
 
     Args:
         fpath (Path): path to markdown file

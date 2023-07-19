@@ -1,6 +1,4 @@
-"""
-Data and Function types.
-"""
+"""Data and Function types."""
 
 import sys
 from pathlib import Path

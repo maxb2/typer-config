@@ -1,3 +1,5 @@
+"""Project Duties."""
+
 import os
 from typing import Tuple
 
@@ -82,6 +84,8 @@ def check_types(ctx: Context):
 def pylint(ctx: Context):
     """Run pylint code linting.
 
+    Deprecated: use ruff instead of pylint.
+
     Args:
         ctx (Context): the context instance (passed automatically).
     """
@@ -98,7 +102,7 @@ def ruff(ctx: Context):
     ctx.run("ruff .", title="Code linting (ruff)")
 
 
-@duty(pre=["pylint"])
+@duty(pre=["ruff"])
 def check_quality(ctx: Context):
     """Check the code quality.
 
@@ -174,7 +178,6 @@ def changelog(ctx: Context):
 @duty()
 def release(ctx: Context, version: str = None):
     """Release a new Python package.
-
 
     Args:
         ctx (Context): The context instance (passed automatically).

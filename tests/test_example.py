@@ -1,3 +1,5 @@
+"""Test Simple YAML Example."""
+
 import functools
 from pathlib import Path
 
@@ -14,6 +16,8 @@ HERE = Path(__file__).parent.absolute()
 
 @pytest.fixture
 def simple_app():
+    """Simple YAML app fixture (explicit config)."""
+
     def _app(callback):
         app = typer.Typer()
 
@@ -37,6 +41,8 @@ def simple_app():
 
 @pytest.fixture
 def simple_app_decorated():
+    """Simple YAML app fixture (decorator)."""
+
     def _app(decorator):
         app = typer.Typer()
 
@@ -95,6 +101,8 @@ CONFS = [
 
 @pytest.mark.parametrize("confs", CONFS, ids=str)
 def test_simple_example(simple_app, confs):
+    """Test Simple YAML app (explicit config)."""
+
     conf, callback, _ = confs
     _app = simple_app(callback)
 
@@ -128,6 +136,8 @@ def test_simple_example(simple_app, confs):
 
 @pytest.mark.parametrize("confs", CONFS, ids=str)
 def test_simple_example_decorated(simple_app_decorated, confs):
+    """Test Simple YAML app (decorator)."""
+
     conf, _, dec = confs
     _app = simple_app_decorated(dec)
 
@@ -160,6 +170,8 @@ def test_simple_example_decorated(simple_app_decorated, confs):
 
 
 def test_pyproject_example_deprecated(simple_app):
+    """Test pyproject example (deprecated loader combinators)."""
+
     from typer_config.loaders import default_value_loader, subpath_loader, toml_loader
 
     pyproject_loader = subpath_loader(
@@ -197,6 +209,8 @@ def test_pyproject_example_deprecated(simple_app):
 
 
 def test_pyproject_example(simple_app):
+    """Test pyproject example."""
+
     from typer_config.loaders import loader_transformer, toml_loader
 
     pyproject_loader = loader_transformer(
