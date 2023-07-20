@@ -63,9 +63,7 @@ def simple_app_decorated():
 # Have to make one dynamically because of the required INI section
 INI_CALLBACK = typer_config.conf_callback_factory(
     typer_config.loaders.loader_transformer(
-        typer_config.loaders.subpath_loader(
-            typer_config.loaders.ini_loader, ["simple_app"]
-        ),
+        lambda config: typer_config.loaders.ini_loader(config)["simple_app"],
         loader_conditional=lambda param_value: param_value,
     )
 )
@@ -167,45 +165,6 @@ def test_simple_example_decorated(simple_app_decorated, confs):
     result = RUNNER.invoke(_app, ["--config", conf + ".non_existent"])
     assert result.exit_code != 0, f"Should have failed for {conf}\n\n{result.stdout}"
     assert "No such file" in result.stdout, f"Wrong error message for {conf}"
-
-
-def test_pyproject_example_deprecated(simple_app):
-    """Test pyproject example (deprecated loader combinators)."""
-
-    from typer_config.loaders import default_value_loader, subpath_loader, toml_loader
-
-    pyproject_loader = subpath_loader(
-        default_value_loader(toml_loader, lambda: str(HERE.joinpath("pyproject.toml"))),
-        ["tool", "my_tool", "parameters"],
-    )
-
-    pyproject_callback = typer_config.conf_callback_factory(pyproject_loader)
-
-    _app = simple_app(pyproject_callback)
-
-    result = RUNNER.invoke(_app, ["--help"])
-
-    assert result.exit_code == 0, f"{result.stdout}"
-
-    result = RUNNER.invoke(_app)
-
-    assert result.exit_code == 0, f"{result.stdout}"
-    assert result.stdout.strip() == "things nothing stuff"
-
-    result = RUNNER.invoke(_app, ["others"])
-
-    assert result.exit_code == 0, f"{result.stdout}"
-    assert result.stdout.strip() == "things nothing others"
-
-    result = RUNNER.invoke(_app, ["--opt1", "people"])
-
-    assert result.exit_code == 0, f"{result.stdout}"
-    assert result.stdout.strip() == "people nothing stuff"
-
-    result = RUNNER.invoke(_app, ["--config", str(HERE.joinpath("other.toml"))])
-
-    assert result.exit_code == 0, f"{result.stdout}"
-    assert result.stdout.strip() == "something else entirely"
 
 
 def test_pyproject_example(simple_app):

@@ -2,7 +2,7 @@
 
 import sys
 from pathlib import Path
-from typing import Any, Callable, Dict, Iterable, Union
+from typing import Any, Callable, Dict, Union
 
 from typer import CallbackParam, Context
 
@@ -22,8 +22,6 @@ TyperParameterValue: TypeAlias = Any
 ConfigDict: TypeAlias = Dict[TyperParameterName, Any]
 """Configuration dictionary to be applied to the click context default map."""
 
-ConfigDictAccessorPath: TypeAlias = Iterable[str]
-"""Configuration dictionary accessor path."""
 
 FilePath: TypeAlias = Union[Path, str]
 """File path"""
@@ -47,9 +45,6 @@ ConfigParameterCallback: TypeAlias = Callable[
     [Context, CallbackParam, TyperParameterValue], TyperParameterValue
 ]
 """Typer config parameter callback function."""
-
-NoArgCallable: TypeAlias = Callable[[], Any]
-"""No argument callable."""
 
 ConfigDumper: TypeAlias = Callable[[ConfigDict, FilePath], None]
 """Configuration dumper function."""

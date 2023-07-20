@@ -5,16 +5,13 @@ These loaders must implement the `typer_config.__typing.ConfigLoader` interface.
 import json
 from configparser import ConfigParser
 from typing import Optional
-from warnings import warn
 
 from .__optional_imports import try_import
 from .__typing import (
     ConfigDict,
-    ConfigDictAccessorPath,
     ConfigDictTransformer,
     ConfigLoader,
     ConfigLoaderConditional,
-    NoArgCallable,
     TyperParameterValue,
     TyperParameterValueTransformer,
 )
@@ -85,101 +82,6 @@ def loader_transformer(
         # Transform output
         if config_transformer is not None:
             conf = config_transformer(conf)
-
-        return conf
-
-    return _loader
-
-
-def subpath_loader(
-    loader: ConfigLoader, dictpath: ConfigDictAccessorPath
-) -> ConfigLoader:
-    """Modify a loader to return a subpath of the dictionary from file.
-
-    Warns:
-        DeprecationWarning: This function is deprecated. Please use
-            typer_config.loaders.loader_transformer instead.
-
-    Examples:
-        The following example reads the values from the `my_app` section in
-        a YAML file structured like this:
-        ```yaml
-        tools:
-            my_app:
-                ... # use these values
-            others: # ignore
-        stuff: # ignore
-        ```
-
-        ```py
-        my_loader = subpath_loader(yaml_loader, ["tools", "my_app"])
-        ```
-
-    Args:
-        loader (ConfigLoader): loader to modify
-        dictpath (ConfigDictAccessorPath): path to the section of dictionary
-
-    Returns:
-        ConfigLoader: sub dictionary loader
-    """
-
-    warn(  # noqa: B028
-        "typer_config.loaders.subpath_loader is deprecated. "
-        "Please use typer_config.loaders.loader_transformer instead.",
-        DeprecationWarning,
-    )
-
-    def _loader(param_value: str) -> ConfigDict:
-        # get original ConfigDict
-        conf: ConfigDict = loader(param_value)
-
-        # get subpath of dictionary
-        for path in dictpath:
-            conf = conf.get(path, {})
-        return conf
-
-    return _loader
-
-
-def default_value_loader(
-    loader: ConfigLoader, value_getter: NoArgCallable
-) -> ConfigLoader:
-    """Modify a loader to use a default value if the passed value is false-ish.
-
-    Warns:
-        DeprecationWarning: This function is deprecated. Please use
-            typer_config.loaders.loader_transformer instead.
-
-    Examples:
-        The following example lets a user specify a config file, but will load
-        the `pyproject.toml` if they don't.
-
-        ```py
-        pyproject_loader = default_value_loader(toml_loader, lambda: "pyproject.toml")
-        ```
-
-    Args:
-        loader (ConfigLoader): loader to modify
-        value_getter (NoArgCallable): function that returns default value
-
-
-
-    Returns:
-        ConfigLoader: modified loader
-    """
-
-    warn(  # noqa: B028
-        "typer_config.loaders.default_value_loader is deprecated. "
-        "Please use typer_config.loaders.loader_transformer instead.",
-        DeprecationWarning,
-    )
-
-    def _loader(param_value: str) -> ConfigDict:
-        # parameter value was not specified by user
-        if not param_value:
-            param_value = value_getter()
-
-        conf: ConfigDict = loader(param_value)
 
         return conf
 
