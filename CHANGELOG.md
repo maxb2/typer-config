@@ -6,6 +6,18 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.0.0](https://github.com/maxb2/typer-config/releases/tag/1.0.0) - 2023-07-19
+
+<small>[Compare with 0.6.1](https://github.com/maxb2/typer-config/compare/0.6.1...1.0.0)</small>
+
+### Breaking Changes
+
+- removed deprecated code ([e363a80](https://github.com/maxb2/typer-config/commit/e363a80a510abccbe6538acf50ca43a755f710bd) by Matthew Anderson).
+
+### Code Refactoring
+
+- ruff linting (#44) ([a79245a](https://github.com/maxb2/typer-config/commit/a79245a0c8e02513c62437bf56d117b910f9a1a5) by Matthew Anderson).
+
 ## [0.6.1](https://github.com/maxb2/typer-config/releases/tag/0.6.1) - 2023-07-17
 
 <small>[Compare with 0.6.0](https://github.com/maxb2/typer-config/compare/0.6.0...0.6.1)</small>
