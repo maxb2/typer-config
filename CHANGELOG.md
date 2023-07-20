@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Breaking Changes
 
-- removed deprecated code ([e363a80](https://github.com/maxb2/typer-config/commit/e363a80a510abccbe6538acf50ca43a755f710bd) by Matthew Anderson).
+- remove deprecated code (#45) ([e363a80](https://github.com/maxb2/typer-config/commit/e363a80a510abccbe6538acf50ca43a755f710bd) by Matthew Anderson).
 
 ### Code Refactoring
 
