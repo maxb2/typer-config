@@ -54,7 +54,7 @@ yaml = ["pyyaml"]
 all = ["toml", "pyyaml", "python-dotenv"]
 
 [tool.poetry.group.dev.dependencies]
-ruff = ">=0.0.263,<0.0.279"
+ruff = ">=0.0.263,<0.0.281"
 pylint = "^2.17.3"
 black = "^23.3.0"
 isort = "^5.12.0"
@@ -122,7 +122,7 @@ extend-select = [ # https://beta.ruff.rs/docs/rules/
 extend-ignore = ["D202", "D205", "D107"]
 
 [tool.ruff.extend-per-file-ignores]
-"tests/*.py" = ["ANN", "S", "ARG001", "B008"]
+"tests/*.py" = ["ANN", "S", "ARG001", "B008", "RUF015"]
 "docs_gen_files.py" = ["ANN201"]
 "duties.py" = ["ANN201", "ARG001"]
 
