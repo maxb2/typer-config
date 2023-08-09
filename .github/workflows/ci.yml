@@ -42,9 +42,9 @@ jobs:
         name: Define a cache for the virtual environment
         with:
           path: ./.venv
-          key: venv-${{ matrix.os }}-${{ matrix.python-version }}-${{ hashFiles('package-lock.json') }}
+          key: venv-${{ matrix.os }}-${{ matrix.python-version }}-${{ hashFiles('poetry.lock') }}
           restore-keys: |
-            venv-${{ matrix.os }}-${{ matrix.python-version }}-${{ hashFiles('package-lock.json') }}
+            venv-${{ matrix.os }}-${{ matrix.python-version }}-${{ hashFiles('poetry.lock') }}
             venv-${{ matrix.os }}-${{ matrix.python-version }}
 
       - name: Install Dependencies
