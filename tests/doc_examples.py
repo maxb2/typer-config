@@ -9,6 +9,8 @@ https://github.com/maxb2/mktestdocs/tree/feat/superfences
 For now, it works.
 """
 
+from __future__ import annotations
+
 import os
 import re
 from collections import OrderedDict

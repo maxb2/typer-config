@@ -1,13 +1,17 @@
 """Project Duties."""
 
+from __future__ import annotations
+
 import os
-from typing import Optional, Tuple
+from typing import TYPE_CHECKING, Optional, Tuple
 
 from duty import duty
 from duty.callables import blacken_docs, mkdocs, mypy
-from duty.context import Context
-from git_changelog import Changelog
 from git_changelog.cli import build_and_render
+
+if TYPE_CHECKING:
+    from duty.context import Context
+    from git_changelog import Changelog
 
 CI = os.environ.get("CI", "0") in {"1", "true", "yes", ""}
 WINDOWS = os.name == "nt"
