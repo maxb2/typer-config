@@ -10,7 +10,7 @@ from typing import TYPE_CHECKING, Optional
 
 from .__optional_imports import try_import
 
-if TYPE_CHECKING: # pragma: no cover
+if TYPE_CHECKING:  # pragma: no cover
     from .__typing import (
         ConfigDict,
         ConfigDictTransformer,
