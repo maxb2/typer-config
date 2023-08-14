@@ -9,7 +9,8 @@ https://github.com/maxb2/mktestdocs/tree/feat/superfences
 For now, it works.
 """
 
-from __future__ import annotations
+# NOTE: using "from __future__ import annotations" completely breaks
+# this file for some reason.
 
 import os
 import re
