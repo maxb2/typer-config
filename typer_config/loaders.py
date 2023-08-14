@@ -2,19 +2,23 @@
 
 These loaders must implement the `typer_config.__typing.ConfigLoader` interface.
 """
+from __future__ import annotations
+
 import json
 from configparser import ConfigParser
-from typing import Optional
+from typing import TYPE_CHECKING, Optional
 
 from .__optional_imports import try_import
-from .__typing import (
-    ConfigDict,
-    ConfigDictTransformer,
-    ConfigLoader,
-    ConfigLoaderConditional,
-    TyperParameterValue,
-    TyperParameterValueTransformer,
-)
+
+if TYPE_CHECKING:  # pragma: no cover
+    from .__typing import (
+        ConfigDict,
+        ConfigDictTransformer,
+        ConfigLoader,
+        ConfigLoaderConditional,
+        TyperParameterValue,
+        TyperParameterValueTransformer,
+    )
 
 
 def loader_transformer(
