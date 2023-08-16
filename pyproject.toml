@@ -74,7 +74,7 @@ mkdocstrings = {extras = ["python"], version = ">=0.21.2,<0.23.0"}
 mike = "^1.1.2"
 mkdocs-gen-files = "^0.5.0"
 pydantic = ">=1.10.7,<3.0.0"
-blacken-docs = { git = "https://github.com/maxb2/blacken-docs.git", rev = "81051e16aadfd6e6b67b0f498bf70978bce02e03" }
+blacken-docs = { git = "https://github.com/maxb2/blacken-docs.git", rev = "9d0db610cecec35f6b317816246916e75a5d0366" }
 schema = "^0.7.5"
 
 [tool.isort]

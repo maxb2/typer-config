@@ -112,8 +112,8 @@ black = ">=22.1.0"
 [package.source]
 type = "git"
 url = "https://github.com/maxb2/blacken-docs.git"
-reference = "81051e16aadfd6e6b67b0f498bf70978bce02e03"
-resolved_reference = "81051e16aadfd6e6b67b0f498bf70978bce02e03"
+reference = "9d0db610cecec35f6b317816246916e75a5d0366"
+resolved_reference = "9d0db610cecec35f6b317816246916e75a5d0366"
 
 [[package]]
 name = "certifi"
@@ -1817,4 +1817,4 @@ yaml = ["pyyaml"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "ea9e11bb2cde977a86db0c0ae4620d68086032522263795ef85e1f100fbec5f2"
+content-hash = "c3e9f8ffa3aedc51acc536696a37af218a6f10818a257e7167015cfad623fbeb"
