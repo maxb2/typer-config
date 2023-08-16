@@ -44,7 +44,7 @@ def fmt_docs(ctx: Context):
         ctx (Context): the context instance (passed automatically).
     """
     ctx.run(
-        blacken_docs.run("docs/", exts=[".md"]),
+        blacken_docs.run("./", exts=[".md"]),
         nofail=True,
         title="Formatting docs (blacken-docs)",
     )

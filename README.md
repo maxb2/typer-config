@@ -41,9 +41,10 @@ app = typer.Typer()
 
 
 @app.command()
-@use_yaml_config() # MUST BE AFTER @app.command()
-def main(...):
+@use_yaml_config()  # MUST BE AFTER @app.command()
+def main(foo: FooType):
     ...
+
 
 if __name__ == "__main__":
     app()
