@@ -5,7 +5,10 @@ description = "Utilities for working with configuration files in typer CLIs. "
 authors = ["Matt Anderson <matt@manderscience.com>"]
 readme = "README.md"
 license = "MIT"
-packages = [{include = "typer_config"}]
+packages = [
+        {include = "typer_config"},
+        {include = "typer_config/py.typed"}
+    ]
 repository = "https://github.com/maxb2/typer-config"
 documentation = "https://maxb2.github.io/typer-config/"
 homepage = "https://maxb2.github.io/typer-config/"
