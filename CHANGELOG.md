@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.0.1](https://github.com/maxb2/typer-config/releases/tag/1.0.1) - 2023-08-23
+
+<small>[Compare with 1.0.0](https://github.com/maxb2/typer-config/compare/1.0.0...1.0.1)</small>
+
+### Bug Fixes
+
+- add py.typed so mypy will use our annotations ([ac56f1c](https://github.com/maxb2/typer-config/commit/ac56f1c02f5e549cd1713f4eb3c7d147a139b5ab) by Matt Anderson).
+
 ## [1.0.0](https://github.com/maxb2/typer-config/releases/tag/1.0.0) - 2023-07-19
 
 <small>[Compare with 0.6.1](https://github.com/maxb2/typer-config/compare/0.6.1...1.0.0)</small>
