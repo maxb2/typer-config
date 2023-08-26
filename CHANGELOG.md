@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.1.0](https://github.com/maxb2/typer-config/releases/tag/1.1.0) - 2023-08-25
+
+<small>[Compare with 1.0.1](https://github.com/maxb2/typer-config/compare/1.0.1...1.1.0)</small>
+
+### Features
+
+- add default values to config decorators (#67) ([19d10b7](https://github.com/maxb2/typer-config/commit/19d10b782387d910c89f763550cfdfb8126f866d) by Matthew Anderson).
+
 ## [1.0.1](https://github.com/maxb2/typer-config/releases/tag/1.0.1) - 2023-08-23
 
 <small>[Compare with 1.0.0](https://github.com/maxb2/typer-config/compare/1.0.0...1.0.1)</small>
