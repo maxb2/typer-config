@@ -139,7 +139,8 @@ def use_json_config(
         callback = conf_callback_factory(
             loader_transformer(
                 json_loader,
-                loader_conditional=lambda param_value: param_value
+                loader_conditional=lambda param_value: param_value,
+                param_transformer=lambda param_value: param_value
                 if param_value
                 else default_value,
             )
@@ -185,7 +186,8 @@ def use_yaml_config(
         callback = conf_callback_factory(
             loader_transformer(
                 yaml_loader,
-                loader_conditional=lambda param_value: param_value
+                loader_conditional=lambda param_value: param_value,
+                param_transformer=lambda param_value: param_value
                 if param_value
                 else default_value,
             )
@@ -231,7 +233,8 @@ def use_toml_config(
         callback = conf_callback_factory(
             loader_transformer(
                 toml_loader,
-                loader_conditional=lambda param_value: param_value
+                loader_conditional=lambda param_value: param_value,
+                param_transformer=lambda param_value: param_value
                 if param_value
                 else default_value,
             )
@@ -277,7 +280,8 @@ def use_dotenv_config(
         callback = conf_callback_factory(
             loader_transformer(
                 dotenv_loader,
-                loader_conditional=lambda param_value: param_value
+                loader_conditional=lambda param_value: param_value,
+                param_transformer=lambda param_value: param_value
                 if param_value
                 else default_value,
             )

@@ -43,11 +43,11 @@ def simple_app():
 def simple_app_decorated():
     """Simple YAML app fixture (decorator)."""
 
-    def _app(decorator):
+    def _app(decorator, **dec_kwargs):
         app = typer.Typer()
 
         @app.command()
-        @decorator()
+        @decorator(**dec_kwargs)
         def main(
             arg1: str,
             opt1: str = typer.Option(...),
@@ -143,6 +143,52 @@ def test_simple_example_decorated(simple_app_decorated, confs):
     assert (
         result.exit_code == 0
     ), f"Couldn't get to `--help` for {conf}\n\n{result.stdout}"
+
+    result = RUNNER.invoke(_app, ["--config", conf])
+    assert result.exit_code == 0, f"Loading failed for {conf}\n\n{result.stdout}"
+    assert (
+        result.stdout.strip() == "things nothing stuff"
+    ), f"Unexpected output for {conf}"
+
+    result = RUNNER.invoke(_app, ["--config", conf, "others"])
+    assert result.exit_code == 0, f"Loading failed for {conf}\n\n{result.stdout}"
+    assert (
+        result.stdout.strip() == "things nothing others"
+    ), f"Unexpected output for {conf}"
+
+    result = RUNNER.invoke(_app, ["--config", conf, "--opt1", "people"])
+    assert result.exit_code == 0, f"Loading failed for {conf}\n\n{result.stdout}"
+    assert (
+        result.stdout.strip() == "people nothing stuff"
+    ), f"Unexpected output for {conf}"
+
+    result = RUNNER.invoke(_app, ["--config", conf + ".non_existent"])
+    assert result.exit_code != 0, f"Should have failed for {conf}\n\n{result.stdout}"
+    assert "No such file" in result.stdout, f"Wrong error message for {conf}"
+
+
+@pytest.mark.parametrize("confs", CONFS, ids=str)
+def test_simple_example_decorated_default(simple_app_decorated, confs):
+    """Test Simple YAML app (decorator)."""
+
+    conf, _, dec = confs
+
+    # skip ini config
+    if conf.endswith(".ini"):
+        return
+
+    _app = simple_app_decorated(dec, default_value=conf)
+
+    result = RUNNER.invoke(_app, ["--help"])
+    assert (
+        result.exit_code == 0
+    ), f"Couldn't get to `--help` for {conf}\n\n{result.stdout}"
+
+    result = RUNNER.invoke(_app)  # default config value
+    assert result.exit_code == 0, f"Loading failed for {conf}\n\n{result.stdout}"
+    assert (
+        result.stdout.strip() == "things nothing stuff"
+    ), f"Unexpected output for {conf}"
 
     result = RUNNER.invoke(_app, ["--config", conf])
     assert result.exit_code == 0, f"Loading failed for {conf}\n\n{result.stdout}"
