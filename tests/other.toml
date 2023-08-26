@@ -1,4 +1,3 @@
-[tool.my_tool.parameters]
-arg1 = "entirely"
-opt1 = "something"
-opt2 = "else"
+arg1 = "baz"
+opt1 = "foo"
+opt2 = "bar"

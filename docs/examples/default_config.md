@@ -1,6 +1,6 @@
-# Simple YAML Example
+# Default Config File Example
 
-This simple example uses a `--config` option to load a configuration from a YAML file.
+This example loads a configuration from a default YAML file if `--config` is not given.
 
 An example typer app:
 ```{.python title="simple_app.py" test="true"}
@@ -13,7 +13,7 @@ app = typer.Typer()
 
 
 @app.command()
-@use_yaml_config()
+@use_yaml_config(default_value="config.yml")
 def main(
     arg1: str,
     opt1: Annotated[str, typer.Option()],
@@ -36,17 +36,28 @@ opt1: things
 opt2: nothing
 ```
 
+<!--- This is here for the doc tests to pass.
+```yaml title="other.yml"
+arg1: baz
+opt1: foo
+opt2: bar
+```
+--->
+
 And invoked with python:
 
 ```{.bash title="Terminal"}
-$ python simple_app.py --config config.yml
+$ python simple_app.py # these all use config.yml by default
 things nothing stuff
 
-$ python simple_app.py --config config.yml others
+$ python simple_app.py others
 things nothing others
 
-$ python simple_app.py --config config.yml --opt1 people
+$ python simple_app.py --opt1 people
 people nothing stuff
+
+$ python simple_app.py --config other.yml # use a different config
+foo bar baz
 ```
 
 
@@ -60,18 +71,18 @@ RUNNER = CliRunner()
 conf = "config.yml"
 
 
-result = RUNNER.invoke(app, ["--config", conf])
+result = RUNNER.invoke(app)
 
 assert result.exit_code == 0, f"Loading failed for {conf}\n\n{result.stdout}"
 assert result.stdout.strip() == "things nothing stuff", f"Unexpected output for {conf}"
 
 
-result = RUNNER.invoke(app, ["--config", conf, "others"])
+result = RUNNER.invoke(app, ["others"])
 
 assert result.exit_code == 0, f"Loading failed for {conf}\n\n{result.stdout}"
 assert result.stdout.strip() == "things nothing others", f"Unexpected output for {conf}"
 
-result = RUNNER.invoke(app, ["--config", conf, "--opt1", "people"])
+result = RUNNER.invoke(app, ["--opt1", "people"])
 
 assert result.exit_code == 0, f"Loading failed for {conf}\n\n{result.stdout}"
 assert result.stdout.strip() == "people nothing stuff", f"Unexpected output for {conf}"

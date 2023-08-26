@@ -1,0 +1,4 @@
+[tool.my_tool.parameters]
+arg1 = "entirely"
+opt1 = "something"
+opt2 = "else"

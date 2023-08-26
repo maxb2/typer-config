@@ -196,17 +196,22 @@ def test_simple_example_decorated_default(simple_app_decorated, confs):
         result.stdout.strip() == "things nothing stuff"
     ), f"Unexpected output for {conf}"
 
-    result = RUNNER.invoke(_app, ["--config", conf, "others"])
+    result = RUNNER.invoke(_app, ["others"])
     assert result.exit_code == 0, f"Loading failed for {conf}\n\n{result.stdout}"
     assert (
         result.stdout.strip() == "things nothing others"
     ), f"Unexpected output for {conf}"
 
-    result = RUNNER.invoke(_app, ["--config", conf, "--opt1", "people"])
+    result = RUNNER.invoke(_app, ["--opt1", "people"])
     assert result.exit_code == 0, f"Loading failed for {conf}\n\n{result.stdout}"
     assert (
         result.stdout.strip() == "people nothing stuff"
     ), f"Unexpected output for {conf}"
+
+    other_conf = str(Path(conf).with_stem("other"))
+    result = RUNNER.invoke(_app, ["--config", other_conf])
+    assert result.exit_code == 0, f"Loading failed for {other_conf}\n\n{result.stdout}"
+    assert result.stdout.strip() == "foo bar baz", f"Unexpected output for {conf}"
 
     result = RUNNER.invoke(_app, ["--config", conf + ".non_existent"])
     assert result.exit_code != 0, f"Should have failed for {conf}\n\n{result.stdout}"
@@ -245,7 +250,9 @@ def test_pyproject_example(simple_app):
     assert result.exit_code == 0, f"{result.stdout}"
     assert result.stdout.strip() == "people nothing stuff"
 
-    result = RUNNER.invoke(_app, ["--config", str(HERE.joinpath("other.toml"))])
+    result = RUNNER.invoke(
+        _app, ["--config", str(HERE.joinpath("other-pyproject.toml"))]
+    )
 
     assert result.exit_code == 0, f"{result.stdout}"
     assert result.stdout.strip() == "something else entirely"
