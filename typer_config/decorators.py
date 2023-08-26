@@ -1,21 +1,14 @@
 """Typer Config decorators."""
 
+from __future__ import annotations
+
 from enum import Enum
 from functools import wraps
 from inspect import Parameter, signature
-from typing import Optional
+from typing import TYPE_CHECKING, Optional
 
 from typer import Option
 
-from .__typing import (
-    ConfigDumper,
-    ConfigParameterCallback,
-    FilePath,
-    TyperCommand,
-    TyperCommandDecorator,
-    TyperParameterName,
-    TyperParameterValue,
-)
 from .callbacks import (
     conf_callback_factory,
     dotenv_conf_callback,
@@ -31,6 +24,17 @@ from .loaders import (
     toml_loader,
     yaml_loader,
 )
+
+if TYPE_CHECKING:
+    from .__typing import (
+        ConfigDumper,
+        ConfigParameterCallback,
+        FilePath,
+        TyperCommand,
+        TyperCommandDecorator,
+        TyperParameterName,
+        TyperParameterValue,
+    )
 
 
 def use_config(
