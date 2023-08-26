@@ -129,7 +129,7 @@ def use_json_config(
         param_help (str, optional): config parameter help string.
             Defaults to "Configuration file.".
         default_value (TyperParameterValue, optional): default config parameter value.
-            Defaults to "Configuration file.".
+            Defaults to None.
 
     Returns:
         TyperCommandDecorator: decorator to apply to command
@@ -176,7 +176,7 @@ def use_yaml_config(
         param_help (str, optional): config parameter help string.
             Defaults to "Configuration file.".
         default_value (TyperParameterValue, optional): default config parameter value.
-            Defaults to "Configuration file.".
+            Defaults to None.
 
     Returns:
         TyperCommandDecorator: decorator to apply to command
@@ -223,7 +223,7 @@ def use_toml_config(
         param_help (str, optional): config parameter help string.
             Defaults to "Configuration file.".
         default_value (TyperParameterValue, optional): default config parameter value.
-            Defaults to "Configuration file.".
+            Defaults to None.
 
     Returns:
         TyperCommandDecorator: decorator to apply to command
@@ -270,7 +270,7 @@ def use_dotenv_config(
         param_help (str, optional): config parameter help string.
             Defaults to "Configuration file.".
         default_value (TyperParameterValue, optional): default config parameter value.
-            Defaults to "Configuration file.".
+            Defaults to None.
 
     Returns:
         TyperCommandDecorator: decorator to apply to command
