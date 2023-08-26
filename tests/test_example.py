@@ -208,7 +208,8 @@ def test_simple_example_decorated_default(simple_app_decorated, confs):
         result.stdout.strip() == "people nothing stuff"
     ), f"Unexpected output for {conf}"
 
-    other_conf = str(Path(conf).with_stem("other"))
+    # NOTE: python<3.9 doesn't support Path.with_stem(), so this mess emulates that.
+    other_conf = str(Path(conf).with_name("other" + str(Path(conf).suffix)))
     result = RUNNER.invoke(_app, ["--config", other_conf])
     assert result.exit_code == 0, f"Loading failed for {other_conf}\n\n{result.stdout}"
     assert result.stdout.strip() == "foo bar baz", f"Unexpected output for {conf}"

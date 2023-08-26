@@ -47,7 +47,7 @@ opt2: bar
 And invoked with python:
 
 ```{.bash title="Terminal"}
-$ python simple_app.py # these all use config.yml by default
+$ python simple_app.py
 things nothing stuff
 
 $ python simple_app.py others
@@ -56,7 +56,7 @@ things nothing others
 $ python simple_app.py --opt1 people
 people nothing stuff
 
-$ python simple_app.py --config other.yml # use a different config
+$ python simple_app.py --config other.yml
 foo bar baz
 ```
 
