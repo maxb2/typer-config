@@ -25,7 +25,7 @@ from .loaders import (
     yaml_loader,
 )
 
-if TYPE_CHECKING:
+if TYPE_CHECKING:  # pragma: no cover
     from .__typing import (
         ConfigDumper,
         ConfigParameterCallback,
