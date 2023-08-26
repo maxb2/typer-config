@@ -27,6 +27,7 @@ nav:
     - how.md
   - Examples:
     - 'examples/simple_yaml.md'
+    - 'examples/default_config.md'
     - 'examples/pyproject.md'
     - 'examples/pydantic.md'
     - 'examples/schema.md'

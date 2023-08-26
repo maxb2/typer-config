@@ -39,9 +39,6 @@ if __name__ == "__main__":
     app()
 ```
 
-1. You _must_ use `is_eager=True` in the parameter definition because that will cause it to be processed first.
-   If you don't use `is_eager`, then your parameter values will depend on the order in which they were processed (read: unpredictably).
-
 With a config file:
 
 ```yaml title="config.yml"

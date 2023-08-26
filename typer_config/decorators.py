@@ -1,26 +1,40 @@
 """Typer Config decorators."""
 
+from __future__ import annotations
+
 from enum import Enum
 from functools import wraps
 from inspect import Parameter, signature
+from typing import TYPE_CHECKING, Optional
 
 from typer import Option
 
-from .__typing import (
-    ConfigDumper,
-    ConfigParameterCallback,
-    FilePath,
-    TyperCommand,
-    TyperCommandDecorator,
-    TyperParameterName,
-)
 from .callbacks import (
+    conf_callback_factory,
     dotenv_conf_callback,
     json_conf_callback,
     toml_conf_callback,
     yaml_conf_callback,
 )
 from .dumpers import json_dumper, toml_dumper, yaml_dumper
+from .loaders import (
+    dotenv_loader,
+    json_loader,
+    loader_transformer,
+    toml_loader,
+    yaml_loader,
+)
+
+if TYPE_CHECKING:  # pragma: no cover
+    from .__typing import (
+        ConfigDumper,
+        ConfigParameterCallback,
+        FilePath,
+        TyperCommand,
+        TyperCommandDecorator,
+        TyperParameterName,
+        TyperParameterValue,
+    )
 
 
 def use_config(
@@ -92,6 +106,7 @@ def use_config(
 def use_json_config(
     param_name: TyperParameterName = "config",
     param_help: str = "Configuration file.",
+    default_value: Optional[TyperParameterValue] = None,
 ) -> TyperCommandDecorator:
     """Decorator for using JSON configuration on a typer command.
 
@@ -113,18 +128,33 @@ def use_json_config(
             Defaults to "config".
         param_help (str, optional): config parameter help string.
             Defaults to "Configuration file.".
+        default_value (TyperParameterValue, optional): default config parameter value.
+            Defaults to "Configuration file.".
 
     Returns:
         TyperCommandDecorator: decorator to apply to command
     """
-    return use_config(
-        callback=json_conf_callback, param_name=param_name, param_help=param_help
-    )
+
+    if default_value is not None:
+        callback = conf_callback_factory(
+            loader_transformer(
+                json_loader,
+                loader_conditional=lambda param_value: param_value,
+                param_transformer=lambda param_value: param_value
+                if param_value
+                else default_value,
+            )
+        )
+    else:
+        callback = json_conf_callback
+
+    return use_config(callback=callback, param_name=param_name, param_help=param_help)
 
 
 def use_yaml_config(
     param_name: TyperParameterName = "config",
     param_help: str = "Configuration file.",
+    default_value: Optional[TyperParameterValue] = None,
 ) -> TyperCommandDecorator:
     """Decorator for using YAML configuration on a typer command.
 
@@ -145,18 +175,33 @@ def use_yaml_config(
         param_name (str, optional): name of config parameter. Defaults to "config".
         param_help (str, optional): config parameter help string.
             Defaults to "Configuration file.".
+        default_value (TyperParameterValue, optional): default config parameter value.
+            Defaults to "Configuration file.".
 
     Returns:
         TyperCommandDecorator: decorator to apply to command
     """
-    return use_config(
-        callback=yaml_conf_callback, param_name=param_name, param_help=param_help
-    )
+
+    if default_value is not None:
+        callback = conf_callback_factory(
+            loader_transformer(
+                yaml_loader,
+                loader_conditional=lambda param_value: param_value,
+                param_transformer=lambda param_value: param_value
+                if param_value
+                else default_value,
+            )
+        )
+    else:
+        callback = yaml_conf_callback
+
+    return use_config(callback=callback, param_name=param_name, param_help=param_help)
 
 
 def use_toml_config(
     param_name: TyperParameterName = "config",
     param_help: str = "Configuration file.",
+    default_value: Optional[TyperParameterValue] = None,
 ) -> TyperCommandDecorator:
     """Decorator for using TOML configuration on a typer command.
 
@@ -177,18 +222,33 @@ def use_toml_config(
         param_name (str, optional): name of config parameter. Defaults to "config".
         param_help (str, optional): config parameter help string.
             Defaults to "Configuration file.".
+        default_value (TyperParameterValue, optional): default config parameter value.
+            Defaults to "Configuration file.".
 
     Returns:
         TyperCommandDecorator: decorator to apply to command
     """
-    return use_config(
-        callback=toml_conf_callback, param_name=param_name, param_help=param_help
-    )
+
+    if default_value is not None:
+        callback = conf_callback_factory(
+            loader_transformer(
+                toml_loader,
+                loader_conditional=lambda param_value: param_value,
+                param_transformer=lambda param_value: param_value
+                if param_value
+                else default_value,
+            )
+        )
+    else:
+        callback = toml_conf_callback
+
+    return use_config(callback=callback, param_name=param_name, param_help=param_help)
 
 
 def use_dotenv_config(
     param_name: TyperParameterName = "config",
     param_help: str = "Configuration file.",
+    default_value: Optional[TyperParameterValue] = None,
 ) -> TyperCommandDecorator:
     """Decorator for using dotenv configuration on a typer command.
 
@@ -209,13 +269,27 @@ def use_dotenv_config(
         param_name (str, optional): name of config parameter. Defaults to "config".
         param_help (str, optional): config parameter help string.
             Defaults to "Configuration file.".
+        default_value (TyperParameterValue, optional): default config parameter value.
+            Defaults to "Configuration file.".
 
     Returns:
         TyperCommandDecorator: decorator to apply to command
     """
-    return use_config(
-        callback=dotenv_conf_callback, param_name=param_name, param_help=param_help
-    )
+
+    if default_value is not None:
+        callback = conf_callback_factory(
+            loader_transformer(
+                dotenv_loader,
+                loader_conditional=lambda param_value: param_value,
+                param_transformer=lambda param_value: param_value
+                if param_value
+                else default_value,
+            )
+        )
+    else:
+        callback = dotenv_conf_callback
+
+    return use_config(callback=callback, param_name=param_name, param_help=param_help)
 
 
 def dump_config(dumper: ConfigDumper, location: FilePath) -> TyperCommandDecorator:
