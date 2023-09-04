@@ -468,13 +468,13 @@ semver = ">=2.13"
 
 [[package]]
 name = "griffe"
-version = "0.35.2"
+version = "0.36.0"
 description = "Signatures for entire Python programs. Extract the structure, the frame, the skeleton of your project, to generate API documentation or find breaking changes in your API."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "griffe-0.35.2-py3-none-any.whl", hash = "sha256:9650d6d0369c22f29f2c1bec9548ddc7f448f8ca38698a5799f92f736824e749"},
-    {file = "griffe-0.35.2.tar.gz", hash = "sha256:84ecfe3df17454993b8dd485201566609ac6706a2eb22e3f402da2a39f9f6b5f"},
+    {file = "griffe-0.36.0-py3-none-any.whl", hash = "sha256:4235df397b7b56192cbfda601e458526279bdaf3bf1f59d0be368abac72bf42d"},
+    {file = "griffe-0.36.0.tar.gz", hash = "sha256:ccf062126041d19cc4d9850ca46a555a656e738f5e83feb78f36b05fec5974ad"},
 ]
 
 [package.dependencies]
@@ -2077,4 +2077,4 @@ yaml = ["pyyaml"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "b7cdf6f238a1af5dde17f64827443f24b53b6dbf6b89eb6867b6ae6c855172df"
+content-hash = "e13f03bc8149b6fb985de918b2be85b7ff480d2162367280e0ed5a6a67a45276"
