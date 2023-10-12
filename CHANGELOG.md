@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.2.0](https://github.com/maxb2/typer-config/releases/tag/1.2.0) - 2023-10-12
+
+<small>[Compare with 1.1.0](https://github.com/maxb2/typer-config/compare/1.1.0...1.2.0)</small>
+
+### Features
+
+- ini decorator (#102) ([80bab13](https://github.com/maxb2/typer-config/commit/80bab13a855a46e167507e105c524cc35b18cc34) by Matthew Anderson). * chore: include ini in default value tests
+
 ## [1.1.0](https://github.com/maxb2/typer-config/releases/tag/1.1.0) - 2023-08-25
 
 <small>[Compare with 1.0.1](https://github.com/maxb2/typer-config/compare/1.0.1...1.1.0)</small>
