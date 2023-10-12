@@ -196,10 +196,14 @@ def ini_loader(param_value: TyperParameterValue) -> ConfigDict:
 
     Note:
         INI files must have sections at the top level.
-        You probably want to combine this with `subpath_loader`.
+        You probably want to combine this with `loader_transformer`
+        to extract the correct section.
         For example:
         ```py
-        ini_section_loader = subpath_loader(ini_loader, ["section"])
+        ini_section_loader = loader_transformer(
+            ini_loader,
+            config_transformer=lambda config: config["section"],
+        )
         ```
 
     Args:
