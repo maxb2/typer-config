@@ -39,8 +39,10 @@ if __name__ == "__main__":
     app()
 ```
 
-1. This package also provides `@use_json_config`, `@use_toml_config`, and `@use_dotenv_config` for those file formats.
+1. This package also provides `use_json_config`, `use_toml_config`, `use_ini_config`, and `use_dotenv_config` for those file formats.
    You can also use your own loader function and the `@use_config(loader_func)` decorator.
+   > Note that since INI requires a top-level section `use_ini_config` requires a list of strings that express the path to the section
+   you wish to use, e.g. `@use_ini_config(["section", "subsection", ...])`. 
 
 2. The `app.command()` decorator registers the function object in a lookup table, so we must transform our command before registration.
 

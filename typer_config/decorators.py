@@ -5,7 +5,7 @@ from __future__ import annotations
 from enum import Enum
 from functools import wraps
 from inspect import Parameter, signature
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, List, Optional
 
 from typer import Option
 
@@ -19,6 +19,7 @@ from .callbacks import (
 from .dumpers import json_dumper, toml_dumper, yaml_dumper
 from .loaders import (
     dotenv_loader,
+    ini_loader,
     json_loader,
     loader_transformer,
     toml_loader,
@@ -27,6 +28,7 @@ from .loaders import (
 
 if TYPE_CHECKING:  # pragma: no cover
     from .__typing import (
+        ConfigDict,
         ConfigDumper,
         ConfigParameterCallback,
         FilePath,
@@ -288,6 +290,68 @@ def use_dotenv_config(
         )
     else:
         callback = dotenv_conf_callback
+
+    return use_config(callback=callback, param_name=param_name, param_help=param_help)
+
+
+def use_ini_config(
+    section: List[str],
+    param_name: TyperParameterName = "config",
+    param_help: str = "Configuration file.",
+    default_value: Optional[TyperParameterValue] = None,
+) -> TyperCommandDecorator:
+    """Decorator for using INI configuration on a typer command.
+
+    Usage:
+        ```py
+        import typer
+        from typer_config.decorators import use_ini_config
+
+        app = typer.Typer()
+
+        @app.command()
+        @use_ini_config(["section", "subsection"])
+        def main(...):
+            ...
+        ```
+
+    Args:
+        section (List[str]): List of nested sections to access in the INI file.
+        param_name (str, optional): name of config parameter. Defaults to "config".
+        param_help (str, optional): config parameter help string.
+            Defaults to "Configuration file.".
+        default_value (TyperParameterValue, optional): default config parameter value.
+            Defaults to None.
+
+    Returns:
+        TyperCommandDecorator: decorator to apply to command
+    """
+
+    def _get_section(_section: List[str], config: ConfigDict) -> ConfigDict:
+        for sect in _section:
+            config = config.get(sect, {})
+
+        return config
+
+    if default_value is not None:
+        callback = conf_callback_factory(
+            loader_transformer(
+                ini_loader,
+                loader_conditional=lambda param_value: param_value,
+                param_transformer=lambda param_value: param_value
+                if param_value
+                else default_value,
+                config_transformer=lambda config: _get_section(section, config),
+            )
+        )
+    else:
+        callback = conf_callback_factory(
+            loader_transformer(
+                ini_loader,
+                loader_conditional=lambda param_value: param_value,
+                config_transformer=lambda config: _get_section(section, config),
+            )
+        )
 
     return use_config(callback=callback, param_name=param_name, param_help=param_help)
 

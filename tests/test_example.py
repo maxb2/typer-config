@@ -92,7 +92,9 @@ CONFS = [
     (
         str(HERE.joinpath("config.ini")),
         INI_CALLBACK,
-        functools.partial(typer_config.decorators.use_config, callback=INI_CALLBACK),
+        functools.partial(
+            typer_config.decorators.use_ini_config, section=["simple_app"]
+        ),
     ),
 ]
 
