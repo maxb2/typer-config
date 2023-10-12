@@ -175,10 +175,6 @@ def test_simple_example_decorated_default(simple_app_decorated, confs):
 
     conf, _, dec = confs
 
-    # skip ini config
-    if conf.endswith(".ini"):
-        return
-
     _app = simple_app_decorated(dec, default_value=conf)
 
     result = RUNNER.invoke(_app, ["--help"])
