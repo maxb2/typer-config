@@ -92,7 +92,9 @@ CONFS = [
     (
         str(HERE.joinpath("config.ini")),
         INI_CALLBACK,
-        functools.partial(typer_config.decorators.use_config, callback=INI_CALLBACK),
+        functools.partial(
+            typer_config.decorators.use_ini_config, section=["simple_app"]
+        ),
     ),
 ]
 
@@ -172,10 +174,6 @@ def test_simple_example_decorated_default(simple_app_decorated, confs):
     """Test Simple YAML app (decorator)."""
 
     conf, _, dec = confs
-
-    # skip ini config
-    if conf.endswith(".ini"):
-        return
 
     _app = simple_app_decorated(dec, default_value=conf)
 
