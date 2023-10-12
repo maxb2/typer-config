@@ -7,7 +7,13 @@ from .callbacks import (
     toml_conf_callback,
     yaml_conf_callback,
 )
-from .decorators import use_config, use_json_config, use_toml_config, use_yaml_config
+from .decorators import (
+    use_config,
+    use_ini_config,
+    use_json_config,
+    use_toml_config,
+    use_yaml_config,
+)
 from .loaders import dotenv_loader, ini_loader, json_loader, toml_loader, yaml_loader
 
 __all__ = [
@@ -17,6 +23,7 @@ __all__ = [
     "toml_conf_callback",
     "yaml_conf_callback",
     "use_config",
+    "use_ini_config",
     "use_json_config",
     "use_toml_config",
     "use_yaml_config",
