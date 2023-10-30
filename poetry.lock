@@ -426,20 +426,20 @@ dev = ["flake8", "markdown", "twine", "wheel"]
 
 [[package]]
 name = "git-changelog"
-version = "2.3.1"
+version = "2.3.2"
 description = "Automatic Changelog generator using Jinja2 templates."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "git_changelog-2.3.1-py3-none-any.whl", hash = "sha256:76a4125e2d25eac48996eb8f97b4b01bc9913a6bc0e4748413e7ca8789c0b6e6"},
-    {file = "git_changelog-2.3.1.tar.gz", hash = "sha256:3f25fbb1227d6a43c4b083403857db45b15d65aa563ccfe1ebb0c27c2b1f91b3"},
+    {file = "git_changelog-2.3.2-py3-none-any.whl", hash = "sha256:8a402831f836e9948d34db7c7500dd663af9c22a3654f581b9313c16c5b22378"},
+    {file = "git_changelog-2.3.2.tar.gz", hash = "sha256:bf0da607fd02ff7395013771544d7cee65708605017a09b677962461ddc4f1e0"},
 ]
 
 [package.dependencies]
-appdirs = "*"
-Jinja2 = ">=2.10,<4"
+appdirs = ">=1.4"
+Jinja2 = ">=2.10"
 semver = ">=2.13"
-toml = ">=0.10"
+tomli = {version = ">=2.0", markers = "python_version < \"3.11\""}
 
 [[package]]
 name = "griffe"
@@ -1593,7 +1593,7 @@ files = [
 name = "toml"
 version = "0.10.2"
 description = "Python Library for Tom's Obvious, Minimal Language"
-optional = false
+optional = true
 python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*"
 files = [
     {file = "toml-0.10.2-py2.py3-none-any.whl", hash = "sha256:806143ae5bfb6a3c6e736a764057db0e6a0e05e338b5630894a5f779cabb4f9b"},
