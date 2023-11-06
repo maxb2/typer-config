@@ -1,5 +1,10 @@
 {
     "arg1": "stuff",
     "opt1": "things",
-    "opt2": "nothing"
+    "opt2": "nothing", 
+    "simple_app": {
+        "arg1": "stuff2",
+        "opt1": "things2",
+        "opt2": "nothing2" 
+    }
 }
