@@ -9,13 +9,7 @@ from typing import TYPE_CHECKING, List, Optional
 
 from typer import Option
 
-from .callbacks import (
-    conf_callback_factory,
-    dotenv_conf_callback,
-    json_conf_callback,
-    toml_conf_callback,
-    yaml_conf_callback,
-)
+from .callbacks import conf_callback_factory
 from .dumpers import json_dumper, toml_dumper, yaml_dumper
 from .loaders import (
     dotenv_loader,
@@ -25,10 +19,10 @@ from .loaders import (
     toml_loader,
     yaml_loader,
 )
+from .utils import get_dict_section
 
 if TYPE_CHECKING:  # pragma: no cover
     from .__typing import (
-        ConfigDict,
         ConfigDumper,
         ConfigParameterCallback,
         FilePath,
@@ -106,6 +100,7 @@ def use_config(
 
 # default decorators
 def use_json_config(
+    section: Optional[List[str]] = None,
     param_name: TyperParameterName = "config",
     param_help: str = "Configuration file.",
     default_value: Optional[TyperParameterValue] = None,
@@ -126,6 +121,8 @@ def use_json_config(
         ```
 
     Args:
+        section (List[str], optional): List of nested sections to access in the config.
+            Defaults to None.
         param_name (TyperParameterName, optional): name of config parameter.
             Defaults to "config".
         param_help (str, optional): config parameter help string.
@@ -137,23 +134,24 @@ def use_json_config(
         TyperCommandDecorator: decorator to apply to command
     """
 
-    if default_value is not None:
-        callback = conf_callback_factory(
-            loader_transformer(
-                json_loader,
-                loader_conditional=lambda param_value: param_value,
-                param_transformer=lambda param_value: param_value
-                if param_value
-                else default_value,
+    callback = conf_callback_factory(
+        loader_transformer(
+            json_loader,
+            loader_conditional=lambda param_value: param_value,
+            param_transformer=(
+                lambda param_value: param_value if param_value else default_value
             )
+            if default_value is not None
+            else None,
+            config_transformer=lambda config: get_dict_section(config, section),
         )
-    else:
-        callback = json_conf_callback
+    )
 
     return use_config(callback=callback, param_name=param_name, param_help=param_help)
 
 
 def use_yaml_config(
+    section: Optional[List[str]] = None,
     param_name: TyperParameterName = "config",
     param_help: str = "Configuration file.",
     default_value: Optional[TyperParameterValue] = None,
@@ -174,6 +172,8 @@ def use_yaml_config(
         ```
 
     Args:
+        section (List[str], optional): List of nested sections to access in the config.
+            Defaults to None.
         param_name (str, optional): name of config parameter. Defaults to "config".
         param_help (str, optional): config parameter help string.
             Defaults to "Configuration file.".
@@ -184,23 +184,24 @@ def use_yaml_config(
         TyperCommandDecorator: decorator to apply to command
     """
 
-    if default_value is not None:
-        callback = conf_callback_factory(
-            loader_transformer(
-                yaml_loader,
-                loader_conditional=lambda param_value: param_value,
-                param_transformer=lambda param_value: param_value
-                if param_value
-                else default_value,
+    callback = conf_callback_factory(
+        loader_transformer(
+            yaml_loader,
+            loader_conditional=lambda param_value: param_value,
+            param_transformer=(
+                lambda param_value: param_value if param_value else default_value
             )
+            if default_value is not None
+            else None,
+            config_transformer=lambda config: get_dict_section(config, section),
         )
-    else:
-        callback = yaml_conf_callback
+    )
 
     return use_config(callback=callback, param_name=param_name, param_help=param_help)
 
 
 def use_toml_config(
+    section: Optional[List[str]] = None,
     param_name: TyperParameterName = "config",
     param_help: str = "Configuration file.",
     default_value: Optional[TyperParameterValue] = None,
@@ -221,6 +222,8 @@ def use_toml_config(
         ```
 
     Args:
+        section (List[str], optional): List of nested sections to access in the config.
+            Defaults to None.
         param_name (str, optional): name of config parameter. Defaults to "config".
         param_help (str, optional): config parameter help string.
             Defaults to "Configuration file.".
@@ -231,23 +234,24 @@ def use_toml_config(
         TyperCommandDecorator: decorator to apply to command
     """
 
-    if default_value is not None:
-        callback = conf_callback_factory(
-            loader_transformer(
-                toml_loader,
-                loader_conditional=lambda param_value: param_value,
-                param_transformer=lambda param_value: param_value
-                if param_value
-                else default_value,
+    callback = conf_callback_factory(
+        loader_transformer(
+            toml_loader,
+            loader_conditional=lambda param_value: param_value,
+            param_transformer=(
+                lambda param_value: param_value if param_value else default_value
             )
+            if default_value is not None
+            else None,
+            config_transformer=lambda config: get_dict_section(config, section),
         )
-    else:
-        callback = toml_conf_callback
+    )
 
     return use_config(callback=callback, param_name=param_name, param_help=param_help)
 
 
 def use_dotenv_config(
+    section: Optional[List[str]] = None,
     param_name: TyperParameterName = "config",
     param_help: str = "Configuration file.",
     default_value: Optional[TyperParameterValue] = None,
@@ -268,6 +272,8 @@ def use_dotenv_config(
         ```
 
     Args:
+        section (List[str], optional): List of nested sections to access in the config.
+            Defaults to None.
         param_name (str, optional): name of config parameter. Defaults to "config".
         param_help (str, optional): config parameter help string.
             Defaults to "Configuration file.".
@@ -278,18 +284,18 @@ def use_dotenv_config(
         TyperCommandDecorator: decorator to apply to command
     """
 
-    if default_value is not None:
-        callback = conf_callback_factory(
-            loader_transformer(
-                dotenv_loader,
-                loader_conditional=lambda param_value: param_value,
-                param_transformer=lambda param_value: param_value
-                if param_value
-                else default_value,
+    callback = conf_callback_factory(
+        loader_transformer(
+            dotenv_loader,
+            loader_conditional=lambda param_value: param_value,
+            param_transformer=(
+                lambda param_value: param_value if param_value else default_value
             )
+            if default_value is not None
+            else None,
+            config_transformer=lambda config: get_dict_section(config, section),
         )
-    else:
-        callback = dotenv_conf_callback
+    )
 
     return use_config(callback=callback, param_name=param_name, param_help=param_help)
 
@@ -327,31 +333,18 @@ def use_ini_config(
         TyperCommandDecorator: decorator to apply to command
     """
 
-    def _get_section(_section: List[str], config: ConfigDict) -> ConfigDict:
-        for sect in _section:
-            config = config.get(sect, {})
-
-        return config
-
-    if default_value is not None:
-        callback = conf_callback_factory(
-            loader_transformer(
-                ini_loader,
-                loader_conditional=lambda param_value: param_value,
-                param_transformer=lambda param_value: param_value
-                if param_value
-                else default_value,
-                config_transformer=lambda config: _get_section(section, config),
+    callback = conf_callback_factory(
+        loader_transformer(
+            ini_loader,
+            loader_conditional=lambda param_value: param_value,
+            param_transformer=(
+                lambda param_value: param_value if param_value else default_value
             )
+            if default_value is not None
+            else None,
+            config_transformer=lambda config: get_dict_section(config, section),
         )
-    else:
-        callback = conf_callback_factory(
-            loader_transformer(
-                ini_loader,
-                loader_conditional=lambda param_value: param_value,
-                config_transformer=lambda config: _get_section(section, config),
-            )
-        )
+    )
 
     return use_config(callback=callback, param_name=param_name, param_help=param_help)
 

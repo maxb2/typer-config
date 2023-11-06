@@ -217,6 +217,46 @@ def test_simple_example_decorated_default(simple_app_decorated, confs):
     assert "No such file" in result.stdout, f"Wrong error message for {conf}"
 
 
+@pytest.mark.parametrize("confs", CONFS, ids=str)
+def test_simple_example_decorated_section(simple_app_decorated, confs):
+    """Test Simple YAML app (decorator)."""
+
+    conf, _, dec = confs
+
+    # skip tests that won't work
+    if conf.split(".")[-1] in ["ini", "env"]:
+        return
+
+    _app = simple_app_decorated(dec, section=["simple_app"])
+
+    result = RUNNER.invoke(_app, ["--help"])
+    assert (
+        result.exit_code == 0
+    ), f"Couldn't get to `--help` for {conf}\n\n{result.stdout}"
+
+    result = RUNNER.invoke(_app, ["--config", conf])
+    assert result.exit_code == 0, f"Loading failed for {conf}\n\n{result.stdout}"
+    assert (
+        result.stdout.strip() == "things2 nothing2 stuff2"
+    ), f"Unexpected output for {conf}"
+
+    result = RUNNER.invoke(_app, ["--config", conf, "others2"])
+    assert result.exit_code == 0, f"Loading failed for {conf}\n\n{result.stdout}"
+    assert (
+        result.stdout.strip() == "things2 nothing2 others2"
+    ), f"Unexpected output for {conf}"
+
+    result = RUNNER.invoke(_app, ["--config", conf, "--opt1", "people2"])
+    assert result.exit_code == 0, f"Loading failed for {conf}\n\n{result.stdout}"
+    assert (
+        result.stdout.strip() == "people2 nothing2 stuff2"
+    ), f"Unexpected output for {conf}"
+
+    result = RUNNER.invoke(_app, ["--config", conf + ".non_existent"])
+    assert result.exit_code != 0, f"Should have failed for {conf}\n\n{result.stdout}"
+    assert "No such file" in result.stdout, f"Wrong error message for {conf}"
+
+
 def test_pyproject_example(simple_app):
     """Test pyproject example."""
 
