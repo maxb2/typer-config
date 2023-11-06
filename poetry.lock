@@ -364,17 +364,17 @@ pipenv = ["pipenv (<=2022.12.19)"]
 
 [[package]]
 name = "duty"
-version = "1.0.0"
+version = "1.1.0"
 description = "A simple task runner."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "duty-1.0.0-py3-none-any.whl", hash = "sha256:105e9131e4933900e78a7549b253426c297877cc2a7e71b4384f9f6f059a44bf"},
-    {file = "duty-1.0.0.tar.gz", hash = "sha256:39bfa7b95d4fd844414c7c7f6cbf8f199678696f9da1340d6c90ddc7fc8317af"},
+    {file = "duty-1.1.0-py3-none-any.whl", hash = "sha256:1e81cba60c53def66e199aab084fdcbd3dc9124686c562b100bb49b787bf60a2"},
+    {file = "duty-1.1.0.tar.gz", hash = "sha256:6e0e0754c5600de9da432d1f194f782c08988b982f3748f5bf9766ea479adc76"},
 ]
 
 [package.dependencies]
-failprint = ">=0.11"
+failprint = ">=0.11,<1.0.0 || >1.0.0"
 
 [[package]]
 name = "exceptiongroup"
@@ -1770,4 +1770,4 @@ yaml = ["pyyaml"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "4e1b1a1a1518c90764ad9deca85305a22c324b27b846c06a706411d5757db832"
+content-hash = "c79298f0594d96a9029cc437e3c150210fc0bf49b4868235299541eb012ffe1d"
