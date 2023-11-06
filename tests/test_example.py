@@ -223,7 +223,8 @@ def test_simple_example_decorated_section(simple_app_decorated, confs):
 
     conf, _, dec = confs
 
-    if conf.split('.')[-1] in ["ini", "env"]:
+    # skip tests that won't work
+    if conf.split(".")[-1] in ["ini", "env"]:
         return
 
     _app = simple_app_decorated(dec, section=["simple_app"])
@@ -254,6 +255,7 @@ def test_simple_example_decorated_section(simple_app_decorated, confs):
     result = RUNNER.invoke(_app, ["--config", conf + ".non_existent"])
     assert result.exit_code != 0, f"Should have failed for {conf}\n\n{result.stdout}"
     assert "No such file" in result.stdout, f"Wrong error message for {conf}"
+
 
 def test_pyproject_example(simple_app):
     """Test pyproject example."""
