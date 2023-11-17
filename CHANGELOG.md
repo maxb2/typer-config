@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.4.0](https://github.com/maxb2/typer-config/releases/tag/1.4.0) - 2023-11-17
+
+<small>[Compare with 1.3.0](https://github.com/maxb2/typer-config/compare/1.3.0...1.4.0)</small>
+
+### Features
+
+- list argument callback (#129) ([aabeee2](https://github.com/maxb2/typer-config/commit/aabeee26bbb2179270b0ef984ac00babc0ac72f3) by Matthew Anderson). * fix: windows line ends
+
 ## [1.3.0](https://github.com/maxb2/typer-config/releases/tag/1.3.0) - 2023-11-06
 
 <small>[Compare with 1.2.1](https://github.com/maxb2/typer-config/compare/1.2.1...1.3.0)</small>
