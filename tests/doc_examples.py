@@ -304,7 +304,12 @@ def exec_bash_fence(fence: Fence, **kwargs):
 
     for command in commands:
         result = run(command["input"], shell=True, check=True, capture_output=True)
-        assert result.stdout.decode().strip() == command["output"].strip()
+        assert (
+            result.stdout.decode()
+            .strip()
+            .replace("\r", "")  # NOTE: fixing windows line ends
+            == command["output"].strip()
+        )
 
 
 register_executor("bash", exec_bash_fence)
