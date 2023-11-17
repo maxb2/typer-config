@@ -33,6 +33,7 @@ nav:
     - 'examples/schema.md'
     - 'examples/explicit_config.md'
     - 'examples/save_config.md'
+  - Known Issues: known_issues.md
   - API Reference: api.md
   - Changelog: changelog.md
 
