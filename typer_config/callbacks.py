@@ -1,8 +1,18 @@
 """Typer Configuration Parameter Callbacks."""
 
+from __future__ import annotations
+
+from typing import List, Optional
+
 from typer import BadParameter, CallbackParam, Context
 
-from .__typing import ConfigLoader, ConfigParameterCallback, TyperParameterValue
+# NOTE: I'm not sure why, but these types must be imported at runtime
+# for the tests to pass...
+from .__typing import (  # noqa: TCH001
+    ConfigLoader,
+    ConfigParameterCallback,
+    TyperParameterValue,
+)
 from .loaders import (
     dotenv_loader,
     json_loader,
@@ -126,3 +136,25 @@ Raises:
 Returns:
     TyperParameterValue: must return back the given parameter
 """
+
+
+def argument_list_callback(
+    ctx: Context, param: CallbackParam, param_value: Optional[List[str]]
+) -> List[str]:
+    """Argument list callback.
+
+    Note:
+        This is a shim to fix list arguments in a config.
+        See [maxb2/typer-config#124](https://github.com/maxb2/typer-config/issues/124).
+
+    Args:
+        ctx (typer.Context): typer context
+        param (typer.CallbackParam): typer parameter
+        param_value (Optional[List[str]]): typer parameter value
+
+    Returns:
+        List[str]: argument list
+    """
+    ctx.default_map = ctx.default_map or {}
+    default = ctx.default_map.get(param.name, []) if param.name else []
+    return param_value if param_value else default
