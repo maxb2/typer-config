@@ -57,7 +57,7 @@ yaml = ["pyyaml"]
 all = ["toml", "pyyaml", "python-dotenv"]
 
 [tool.poetry.group.dev.dependencies]
-ruff = ">=0.0.263,<0.1.6"
+ruff = ">=0.0.263,<0.1.7"
 pylint = ">=2.17.3,<4.0.0"
 black = "^23.3.0"
 isort = "^5.12.0"
