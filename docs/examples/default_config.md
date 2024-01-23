@@ -15,7 +15,7 @@ app = typer.Typer()
 @app.command()
 @use_yaml_config(default_value="config.yml")
 def main(
-    arg1: str,
+    arg1:      str,
     opt1: Annotated[str, typer.Option()],
     opt2: Annotated[str, typer.Option()] = "hello",
 ):

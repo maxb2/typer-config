@@ -50,70 +50,6 @@ def fmt_docs(ctx: Context):
     )
 
 
-@duty(aliases=["format"], pre=["fmt_docs"])
-def fmt(ctx: Context):
-    """Format source code.
-
-    Args:
-        ctx (Context): the context instance (passed automatically).
-    """
-    ctx.run("isort --ca --profile=black .", title="Sorting imports (isort)")
-    ctx.run("black .", title="Formatting code (black)")
-
-
-@duty(aliases=["check_deps"])
-def check_dependencies(ctx: Context):
-    """Check for vulnerabilities in dependencies.
-
-    Args:
-        ctx (Context): the context instance (passed automatically).
-    """
-    ctx.run(
-        "poetry export --only main | safety check --stdin",
-        title="Dependency checking (safety)",
-    )
-
-
-@duty
-def check_types(ctx: Context):
-    """Check that the code is correctly typed.
-
-    Args:
-        ctx (Context): the context instance (passed automatically).
-    """
-    ctx.run(mypy.run("typer_config"), title="Type checking (mypy)", pty=PTY)
-
-
-@duty
-def pylint(ctx: Context):
-    """Run pylint code linting.
-
-    Deprecated: use ruff instead of pylint.
-
-    Args:
-        ctx (Context): the context instance (passed automatically).
-    """
-    ctx.run("pylint typer_config", title="Code linting (pylint)")
-
-
-@duty
-def ruff(ctx: Context):
-    """Run ruff code linting.
-
-    Args:
-        ctx (Context): the context instance (passed automatically).
-    """
-    ctx.run("ruff .", title="Code linting (ruff)")
-
-
-@duty(pre=["ruff"])
-def check_quality(ctx: Context):
-    """Check the code quality.
-
-    Args:
-        ctx (Context): the context instance (passed automatically).
-    """
-
 
 @duty
 def check_api(ctx: Context) -> None:
@@ -128,44 +64,6 @@ def check_api(ctx: Context) -> None:
         lambda: g_check("typer_config"),
         title="Checking for API breaking changes (griffe)",
         nofail=True,
-    )
-
-
-@duty(pre=["check_types", "check_quality", "check_dependencies"])
-def check(ctx: Context):
-    """Check it all!
-
-    Args:
-        ctx (Context): the context instance (passed automatically).
-    """
-
-
-@duty
-def test(ctx: Context):
-    """Run the test suite.
-
-    Args:
-        ctx (Context): the context instance (passed automatically).
-    """
-    ctx.run("pytest --cov=typer_config --cov-report=xml", title="Testing (pytest)")
-
-
-@duty
-def docs(ctx: Context, host: str = "127.0.0.1", port: int = 8000) -> None:
-    """Serve the documentation (localhost:8000).
-
-    Args:
-        ctx (Context): The context instance (passed automatically).
-        host (str, optional): The host to serve the docs from. Defaults to "127.0.0.1".
-        port (int, optional): The port to serve the docs on. Defaults to 8000.
-    """
-    ctx.run(
-        mkdocs.serve(
-            dev_addr=f"{host}:{port}",
-            watch=["docs", "typer_config", "docs_gen_files.py"],
-        ),
-        title="Serving documentation (mkdocs)",
-        capture=False,
     )
 
 
