@@ -19,7 +19,7 @@ from .loaders import (
     toml_loader,
     yaml_loader,
 )
-from .utils import get_dict_section
+from .utils import get_dict_section, search_path_parents
 
 if TYPE_CHECKING:  # pragma: no cover
     from .__typing import (
@@ -30,6 +30,7 @@ if TYPE_CHECKING:  # pragma: no cover
         TyperCommandDecorator,
         TyperParameterName,
         TyperParameterValue,
+        TyperParameterValueTransformer,
     )
 
 
@@ -104,6 +105,7 @@ def use_json_config(
     param_name: TyperParameterName = "config",
     param_help: str = "Configuration file.",
     default_value: Optional[TyperParameterValue] = None,
+    search_parents: bool = False,
 ) -> TyperCommandDecorator:
     """Decorator for using JSON configuration on a typer command.
 
@@ -129,21 +131,39 @@ def use_json_config(
             Defaults to "Configuration file.".
         default_value (TyperParameterValue, optional): default config parameter value.
             Defaults to None.
+        search_parents (bool): whether to search parent directories for parameter value.
+            Defaults to False.
 
     Returns:
         TyperCommandDecorator: decorator to apply to command
     """
 
+    param_transformer: Optional[TyperParameterValueTransformer] = None
+
+    if default_value is not None:
+        param_transformer = (
+            lambda param_value: param_value if param_value else default_value
+        )
+
+    if search_parents:
+        if param_transformer is not None:
+            param_transformer = lambda param_value: search_path_parents(
+                param_transformer(param_value)  # type: ignore
+            )
+        else:
+            param_transformer = lambda param_value: search_path_parents(param_value)
+
+    config_transformer = None
+
+    if section is not None:
+        config_transformer = lambda config: get_dict_section(config, section)
+
     callback = conf_callback_factory(
         loader_transformer(
             json_loader,
             loader_conditional=lambda param_value: param_value,
-            param_transformer=(
-                lambda param_value: param_value if param_value else default_value
-            )
-            if default_value is not None
-            else None,
-            config_transformer=lambda config: get_dict_section(config, section),
+            param_transformer=param_transformer,
+            config_transformer=config_transformer,
         )
     )
 
@@ -155,6 +175,7 @@ def use_yaml_config(
     param_name: TyperParameterName = "config",
     param_help: str = "Configuration file.",
     default_value: Optional[TyperParameterValue] = None,
+    search_parents: bool = False,
 ) -> TyperCommandDecorator:
     """Decorator for using YAML configuration on a typer command.
 
@@ -179,21 +200,39 @@ def use_yaml_config(
             Defaults to "Configuration file.".
         default_value (TyperParameterValue, optional): default config parameter value.
             Defaults to None.
+        search_parents (bool): whether to search parent directories for parameter value.
+            Defaults to False.
 
     Returns:
         TyperCommandDecorator: decorator to apply to command
     """
 
+    param_transformer = None
+
+    if default_value is not None:
+        param_transformer = (
+            lambda param_value: param_value if param_value else default_value
+        )
+
+    if search_parents:
+        if param_transformer is not None:
+            param_transformer = lambda param_value: search_path_parents(
+                param_transformer(param_value)  # type: ignore
+            )
+        else:
+            param_transformer = lambda param_value: search_path_parents(param_value)
+
+    config_transformer = None
+
+    if section is not None:
+        config_transformer = lambda config: get_dict_section(config, section)
+
     callback = conf_callback_factory(
         loader_transformer(
             yaml_loader,
             loader_conditional=lambda param_value: param_value,
-            param_transformer=(
-                lambda param_value: param_value if param_value else default_value
-            )
-            if default_value is not None
-            else None,
-            config_transformer=lambda config: get_dict_section(config, section),
+            param_transformer=param_transformer,
+            config_transformer=config_transformer,
         )
     )
 
@@ -205,6 +244,7 @@ def use_toml_config(
     param_name: TyperParameterName = "config",
     param_help: str = "Configuration file.",
     default_value: Optional[TyperParameterValue] = None,
+    search_parents: bool = False,
 ) -> TyperCommandDecorator:
     """Decorator for using TOML configuration on a typer command.
 
@@ -229,21 +269,39 @@ def use_toml_config(
             Defaults to "Configuration file.".
         default_value (TyperParameterValue, optional): default config parameter value.
             Defaults to None.
+        search_parents (bool): whether to search parent directories for parameter value.
+            Defaults to False.
 
     Returns:
         TyperCommandDecorator: decorator to apply to command
     """
 
+    param_transformer = None
+
+    if default_value is not None:
+        param_transformer = (
+            lambda param_value: param_value if param_value else default_value
+        )
+
+    if search_parents:
+        if param_transformer is not None:
+            param_transformer = lambda param_value: search_path_parents(
+                param_transformer(param_value)  # type: ignore
+            )
+        else:
+            param_transformer = lambda param_value: search_path_parents(param_value)
+
+    config_transformer = None
+
+    if section is not None:
+        config_transformer = lambda config: get_dict_section(config, section)
+
     callback = conf_callback_factory(
         loader_transformer(
             toml_loader,
             loader_conditional=lambda param_value: param_value,
-            param_transformer=(
-                lambda param_value: param_value if param_value else default_value
-            )
-            if default_value is not None
-            else None,
-            config_transformer=lambda config: get_dict_section(config, section),
+            param_transformer=param_transformer,
+            config_transformer=config_transformer,
         )
     )
 
@@ -255,6 +313,7 @@ def use_dotenv_config(
     param_name: TyperParameterName = "config",
     param_help: str = "Configuration file.",
     default_value: Optional[TyperParameterValue] = None,
+    search_parents: bool = False,
 ) -> TyperCommandDecorator:
     """Decorator for using dotenv configuration on a typer command.
 
@@ -279,21 +338,39 @@ def use_dotenv_config(
             Defaults to "Configuration file.".
         default_value (TyperParameterValue, optional): default config parameter value.
             Defaults to None.
+        search_parents (bool): whether to search parent directories for parameter value.
+            Defaults to False.
 
     Returns:
         TyperCommandDecorator: decorator to apply to command
     """
 
+    param_transformer = None
+
+    if default_value is not None:
+        param_transformer = (
+            lambda param_value: param_value if param_value else default_value
+        )
+
+    if search_parents:
+        if param_transformer is not None:
+            param_transformer = lambda param_value: search_path_parents(
+                param_transformer(param_value)  # type: ignore
+            )
+        else:
+            param_transformer = lambda param_value: search_path_parents(param_value)
+
+    config_transformer = None
+
+    if section is not None:
+        config_transformer = lambda config: get_dict_section(config, section)
+
     callback = conf_callback_factory(
         loader_transformer(
             dotenv_loader,
             loader_conditional=lambda param_value: param_value,
-            param_transformer=(
-                lambda param_value: param_value if param_value else default_value
-            )
-            if default_value is not None
-            else None,
-            config_transformer=lambda config: get_dict_section(config, section),
+            param_transformer=param_transformer,
+            config_transformer=config_transformer,
         )
     )
 
@@ -305,6 +382,7 @@ def use_ini_config(
     param_name: TyperParameterName = "config",
     param_help: str = "Configuration file.",
     default_value: Optional[TyperParameterValue] = None,
+    search_parents: bool = False,
 ) -> TyperCommandDecorator:
     """Decorator for using INI configuration on a typer command.
 
@@ -328,21 +406,36 @@ def use_ini_config(
             Defaults to "Configuration file.".
         default_value (TyperParameterValue, optional): default config parameter value.
             Defaults to None.
+        search_parents (bool): whether to search parent directories for parameter value.
+            Defaults to False.
 
     Returns:
         TyperCommandDecorator: decorator to apply to command
     """
 
+    param_transformer = None
+
+    if default_value is not None:
+        param_transformer = (
+            lambda param_value: param_value if param_value else default_value
+        )
+
+    if search_parents:
+        if param_transformer is not None:
+            param_transformer = lambda param_value: search_path_parents(
+                param_transformer(param_value)  # type: ignore
+            )
+        else:
+            param_transformer = lambda param_value: search_path_parents(param_value)
+
+    config_transformer = lambda config: get_dict_section(config, section)
+
     callback = conf_callback_factory(
         loader_transformer(
             ini_loader,
             loader_conditional=lambda param_value: param_value,
-            param_transformer=(
-                lambda param_value: param_value if param_value else default_value
-            )
-            if default_value is not None
-            else None,
-            config_transformer=lambda config: get_dict_section(config, section),
+            param_transformer=param_transformer,
+            config_transformer=config_transformer,
         )
     )
 

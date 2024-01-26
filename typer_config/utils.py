@@ -1,7 +1,8 @@
 """Utilities."""
 from __future__ import annotations
 
-from typing import Any, Dict, List, Optional
+from pathlib import Path
+from typing import Any, Dict, List, Optional, Union
 
 
 def get_dict_section(
@@ -21,3 +22,26 @@ def get_dict_section(
             _dict = _dict.get(key, {})
 
     return _dict
+
+
+def search_path_parents(filename: Union[str, Path]) -> Path:
+    """Search parent directories for a file.
+
+    Args:
+        filename (Union[str, Path]): name of file to search
+
+    Raises:
+        FileNotFoundError: could not find file in any parents
+
+    Returns:
+        Path: found file path
+    """
+    path = Path(filename).absolute()
+
+    for _dir in path.parents:
+        _path = _dir.joinpath(path.name)
+        if _path.exists():
+            return _path
+
+    msg = f"Could not find {path.name} in {path.parent} or any of its parents."
+    raise FileNotFoundError(msg)
