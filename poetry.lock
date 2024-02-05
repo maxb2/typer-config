@@ -370,13 +370,13 @@ poetry = ["poetry"]
 
 [[package]]
 name = "duty"
-version = "1.1.0"
+version = "1.2.0"
 description = "A simple task runner."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "duty-1.1.0-py3-none-any.whl", hash = "sha256:1e81cba60c53def66e199aab084fdcbd3dc9124686c562b100bb49b787bf60a2"},
-    {file = "duty-1.1.0.tar.gz", hash = "sha256:6e0e0754c5600de9da432d1f194f782c08988b982f3748f5bf9766ea479adc76"},
+    {file = "duty-1.2.0-py3-none-any.whl", hash = "sha256:43b99c44a51c56f3196d1309c2810365173ddcd4e06c612234e138aa779b0c74"},
+    {file = "duty-1.2.0.tar.gz", hash = "sha256:4d2063aad22ea55553e815dbbb2a52496a91c10ddf4bcb8a38a22542dc882507"},
 ]
 
 [package.dependencies]
@@ -1785,4 +1785,4 @@ yaml = ["pyyaml"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "92eeff6124838e8c6a9d222acccb228f0bf16443647ecdde5d33af0bea56e9cb"
+content-hash = "3fd967a043e6cb3e93ef12c2eb3c08f249ee7af6296bf4d541676674885648e6"
