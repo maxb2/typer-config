@@ -579,18 +579,19 @@ dev = ["flake8", "markdown", "twine", "wheel"]
 
 [[package]]
 name = "git-changelog"
-version = "2.4.1"
+version = "2.5.2"
 description = "Automatic Changelog generator using Jinja2 templates."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "git_changelog-2.4.1-py3-none-any.whl", hash = "sha256:faac569e4f671ff81ccda49b07081bbfb7a4e78374b27a65c3ea80678e01b41b"},
-    {file = "git_changelog-2.4.1.tar.gz", hash = "sha256:9edbe513df5671897e78782dfaf45e108b8019713eacbbefa8da68a9952f5a10"},
+    {file = "git_changelog-2.5.2-py3-none-any.whl", hash = "sha256:82eca31bd80fbd85e6b252fece82fe450706a7796b92c9d2c7f17c5944fe9ca7"},
+    {file = "git_changelog-2.5.2.tar.gz", hash = "sha256:b71a404a524dc0b14a34f92d306ae011a05c5fcf7c78ee5b484af50ac44ced65"},
 ]
 
 [package.dependencies]
 appdirs = ">=1.4"
 Jinja2 = ">=2.10"
+packaging = ">=24.0"
 semver = ">=2.13"
 tomli = {version = ">=2.0", markers = "python_version < \"3.11\""}
 
@@ -1108,13 +1109,13 @@ files = [
 
 [[package]]
 name = "packaging"
-version = "23.0"
+version = "24.0"
 description = "Core utilities for Python packages"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "packaging-23.0-py3-none-any.whl", hash = "sha256:714ac14496c3e68c99c29b00845f7a2b85f3bb6f1078fd9f72fd20f0570002b2"},
-    {file = "packaging-23.0.tar.gz", hash = "sha256:b6ad297f8907de0fa2fe1ccbd26fdaf387f5f47c7275fedf8cce89f99446cf97"},
+    {file = "packaging-24.0-py3-none-any.whl", hash = "sha256:2ddfb553fdf02fb784c234c7ba6ccc288296ceabec964ad2eae3777778130bc5"},
+    {file = "packaging-24.0.tar.gz", hash = "sha256:eb82c5e3e56209074766e6885bb04b8c38a0c015d0a30036ebe7ece34c9989e9"},
 ]
 
 [[package]]
