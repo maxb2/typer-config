@@ -139,10 +139,10 @@ def use_json_config(
             json_loader,
             loader_conditional=lambda param_value: param_value,
             param_transformer=(
-                lambda param_value: param_value if param_value else default_value
-            )
-            if default_value is not None
-            else None,
+                (lambda param_value: param_value if param_value else default_value)
+                if default_value is not None
+                else None
+            ),
             config_transformer=lambda config: get_dict_section(config, section),
         )
     )
@@ -189,10 +189,10 @@ def use_yaml_config(
             yaml_loader,
             loader_conditional=lambda param_value: param_value,
             param_transformer=(
-                lambda param_value: param_value if param_value else default_value
-            )
-            if default_value is not None
-            else None,
+                (lambda param_value: param_value if param_value else default_value)
+                if default_value is not None
+                else None
+            ),
             config_transformer=lambda config: get_dict_section(config, section),
         )
     )
@@ -239,10 +239,10 @@ def use_toml_config(
             toml_loader,
             loader_conditional=lambda param_value: param_value,
             param_transformer=(
-                lambda param_value: param_value if param_value else default_value
-            )
-            if default_value is not None
-            else None,
+                (lambda param_value: param_value if param_value else default_value)
+                if default_value is not None
+                else None
+            ),
             config_transformer=lambda config: get_dict_section(config, section),
         )
     )
@@ -289,10 +289,10 @@ def use_dotenv_config(
             dotenv_loader,
             loader_conditional=lambda param_value: param_value,
             param_transformer=(
-                lambda param_value: param_value if param_value else default_value
-            )
-            if default_value is not None
-            else None,
+                (lambda param_value: param_value if param_value else default_value)
+                if default_value is not None
+                else None
+            ),
             config_transformer=lambda config: get_dict_section(config, section),
         )
     )
@@ -338,10 +338,10 @@ def use_ini_config(
             ini_loader,
             loader_conditional=lambda param_value: param_value,
             param_transformer=(
-                lambda param_value: param_value if param_value else default_value
-            )
-            if default_value is not None
-            else None,
+                (lambda param_value: param_value if param_value else default_value)
+                if default_value is not None
+                else None
+            ),
             config_transformer=lambda config: get_dict_section(config, section),
         )
     )
