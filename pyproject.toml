@@ -57,7 +57,7 @@ yaml = ["pyyaml"]
 all = ["toml", "pyyaml", "python-dotenv"]
 
 [tool.poetry.group.dev.dependencies]
-ruff = ">=0.0.263,<0.4.2"
+ruff = ">=0.0.263,<0.4.9"
 pylint = ">=2.17.3,<4.0.0"
 black = ">=23.3,<25.0"
 isort = "^5.12.0"
@@ -86,7 +86,7 @@ profile = "black"
 [tool.pylint.format]
 max-line-length = "88"
 
-[tool.ruff]
+[tool.ruff.lint]
 extend-select = [ # https://beta.ruff.rs/docs/rules/
     "A", 
     "ANN",
@@ -124,13 +124,13 @@ extend-select = [ # https://beta.ruff.rs/docs/rules/
     "YTT"]
 extend-ignore = ["D202", "D205", "D107"]
 
-[tool.ruff.extend-per-file-ignores]
+[tool.ruff.lint.extend-per-file-ignores]
 "tests/*.py" = ["ANN", "S", "ARG001", "B008", "RUF015"]
 "tests/doc_examples.py" = ["FA100"]
 "docs_gen_files.py" = ["ANN201"]
 "duties.py" = ["ANN201", "ARG001"]
 
-[tool.ruff.pydocstyle]
+[tool.ruff.lint.pydocstyle]
 convention = "google"  # Accepts: "google", "numpy", or "pep257".
 
 [build-system]

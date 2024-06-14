@@ -103,7 +103,7 @@ def ruff(ctx: Context):
     Args:
         ctx (Context): the context instance (passed automatically).
     """
-    ctx.run("ruff .", title="Code linting (ruff)")
+    ctx.run("ruff check .", title="Code linting (ruff)")
 
 
 @duty(pre=["ruff"])

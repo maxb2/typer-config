@@ -55,7 +55,7 @@ def conf_callback_factory(loader: ConfigLoader) -> ConfigParameterCallback:
             conf = loader(param_value)  # Load config file
             ctx.default_map = ctx.default_map or {}  # Initialize the default map
             ctx.default_map.update(conf)  # Merge the config Dict into default_map
-        except Exception as ex:  # noqa: BLE001 (reraising to typer framework)
+        except Exception as ex:
             raise BadParameter(str(ex), ctx=ctx, param=param) from ex
         return param_value
 
