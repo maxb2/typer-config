@@ -2,6 +2,7 @@
 
 These loaders must implement the `typer_config.__typing.ConfigLoader` interface.
 """
+
 from __future__ import annotations
 
 import json

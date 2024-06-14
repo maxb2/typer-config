@@ -264,9 +264,9 @@ def test_pyproject_example(simple_app):
 
     pyproject_loader = loader_transformer(
         toml_loader,
-        param_transformer=lambda param: param
-        if param
-        else str(HERE.joinpath("pyproject.toml")),
+        param_transformer=lambda param: (
+            param if param else str(HERE.joinpath("pyproject.toml"))
+        ),
         config_transformer=lambda config: config["tool"]["my_tool"]["parameters"],
     )
 

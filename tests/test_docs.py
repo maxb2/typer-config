@@ -1,4 +1,5 @@
 """Test examples in documentation."""
+
 from pathlib import Path
 
 import pytest
