@@ -601,13 +601,13 @@ tomli = {version = ">=2.0", markers = "python_version < \"3.11\""}
 
 [[package]]
 name = "griffe"
-version = "0.42.1"
+version = "0.47.0"
 description = "Signatures for entire Python programs. Extract the structure, the frame, the skeleton of your project, to generate API documentation or find breaking changes in your API."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "griffe-0.42.1-py3-none-any.whl", hash = "sha256:7e805e35617601355edcac0d3511cedc1ed0cb1f7645e2d336ae4b05bbae7b3b"},
-    {file = "griffe-0.42.1.tar.gz", hash = "sha256:57046131384043ed078692b85d86b76568a686266cc036b9b56b704466f803ce"},
+    {file = "griffe-0.47.0-py3-none-any.whl", hash = "sha256:07a2fd6a8c3d21d0bbb0decf701d62042ccc8a576645c7f8799fe1f10de2b2de"},
+    {file = "griffe-0.47.0.tar.gz", hash = "sha256:95119a440a3c932b13293538bdbc405bee4c36428547553dc6b327e7e7d35e5a"},
 ]
 
 [package.dependencies]
@@ -2070,4 +2070,4 @@ yaml = ["pyyaml"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "0ec0700b4a352ee5dbc21a90807579bc2a135613ba35e14c173debc68b610449"
+content-hash = "ffb0dc59d0d1e79b6cc462fa6798cf92228dcf4ab528899bed812ba31193b2f9"
