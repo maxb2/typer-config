@@ -23,7 +23,7 @@ class Things(Enum):
     c = "c"
 
 
-@pytest.fixture()
+@pytest.fixture
 def dumper_app():
     """Dumper Typer App Fixture."""
 
