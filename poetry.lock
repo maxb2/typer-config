@@ -501,18 +501,19 @@ poetry = ["poetry"]
 
 [[package]]
 name = "duty"
-version = "1.3.0"
+version = "1.4.2"
 description = "A simple task runner."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "duty-1.3.0-py3-none-any.whl", hash = "sha256:4ea3d11b345170ed81e631cd65886c983f56deb4e1958ddf53678b6afeed308c"},
-    {file = "duty-1.3.0.tar.gz", hash = "sha256:103d1d014096c8d87ed4e8a1aa9608272a836769b4b248ba2cfb23e7c260fe84"},
+    {file = "duty-1.4.2-py3-none-any.whl", hash = "sha256:9027f181cc83febfda2aa6bbd19df1e5c771e4ef253ad1cba4786bee2090fc00"},
+    {file = "duty-1.4.2.tar.gz", hash = "sha256:b06c0bb5527c19c6add398fc1942c99d3bc2bc66a0db7fc957c20e5e309c240f"},
 ]
 
 [package.dependencies]
 eval-type-backport = {version = "*", markers = "python_version < \"3.10\""}
 failprint = ">=0.11,<1.0.0 || >1.0.0"
+typing-extensions = {version = ">=4.0", markers = "python_version < \"3.11\""}
 
 [[package]]
 name = "eval-type-backport"
@@ -2112,4 +2113,4 @@ yaml = ["pyyaml"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "37bc8a4993b9683c61aa2bc1cf0a6f633758dc64a3d0310f932c567ed8e5af96"
+content-hash = "2c48c04e1fd62c95d0f5fb2394422a30f5a2df5c69feaa292bba12bea92af180"
