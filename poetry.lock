@@ -480,13 +480,13 @@ poetry = ["poetry"]
 
 [[package]]
 name = "duty"
-version = "1.4.2"
+version = "1.4.3"
 description = "A simple task runner."
 optional = false
-python-versions = ">=3.8"
+python-versions = ">=3.9"
 files = [
-    {file = "duty-1.4.2-py3-none-any.whl", hash = "sha256:9027f181cc83febfda2aa6bbd19df1e5c771e4ef253ad1cba4786bee2090fc00"},
-    {file = "duty-1.4.2.tar.gz", hash = "sha256:b06c0bb5527c19c6add398fc1942c99d3bc2bc66a0db7fc957c20e5e309c240f"},
+    {file = "duty-1.4.3-py3-none-any.whl", hash = "sha256:84094a5df227fcaf158c90e00d13b16e3cfb45e53c789f32e858e2e514ab3244"},
+    {file = "duty-1.4.3.tar.gz", hash = "sha256:92f3955b6d0ce3779b7389daf7f1de5d0cd603fbf56983480b568baedf90edff"},
 ]
 
 [package.dependencies]
