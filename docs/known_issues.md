@@ -111,11 +111,15 @@ import sys
 
 RUNNER = CliRunner()
 
-result = RUNNER.invoke(app, ["foo"])
 
 if sys.version_info < (3, 10):
-    assert result.exit_code != 0, "Should have failed!"
+    try:
+        result = RUNNER.invoke(app, ["foo"])
+        raise Exception("Should have failed!")
+    except RuntimeError:
+        pass
 else:
+    result = RUNNER.invoke(app, ["foo"])
     assert result.exit_code == 0, "Custom Types with Annotated[] failed!"
     assert (
         result.stdout.strip() == "<CustomClass: value=foofoo>"
