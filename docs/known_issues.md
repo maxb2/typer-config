@@ -134,7 +134,7 @@ else:
 ```
 --->
 
-Alternatively, you can use the non-annotated way to define typer arguments/options:
+Alternatively, you can use the non-annotated way to define typer arguments/options which will work for all python versions:
 
 ```{.python title="non-annotated.py"}
 from __future__ import annotations
@@ -159,7 +159,7 @@ def parse_custom_class(value: str):
 
 app = typer.Typer()
 
-
+# NOTE: works for all versions of python
 @app.command()
 @use_yaml_config()
 def main(foo: CustomClass = typer.Argument(parser=parse_custom_class)):
@@ -171,7 +171,6 @@ if __name__ == "__main__":
 ```
 
 ```{.bash title="Terminal"}
-# works for  all python versions
 $ python non-annotated.py foo
 <CustomClass: value=foofoo>
 ```
