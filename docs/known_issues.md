@@ -62,7 +62,7 @@ from __future__ import annotations
 from typing_extensions import Annotated
 
 import typer
-from typer_config import use_yaml_config  # other formats available
+from typer_config import use_yaml_config
 
 
 class CustomClass:
@@ -77,6 +77,7 @@ def parse_custom_class(value: str):
     return CustomClass(value * 2)
 
 
+# NOTE: only works for python 3.10+
 FooType = Annotated[CustomClass, typer.Argument(parser=parse_custom_class)]
 
 app = typer.Typer()

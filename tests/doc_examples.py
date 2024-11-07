@@ -207,6 +207,11 @@ class Fence(NamedTuple):
         return Fence.from_re_groups(FENCED_BLOCK_RE.match(raw).groups())
 
     def should_exec(self) -> bool:
+        """Whether fence should be executed.
+
+        Returns:
+            bool: fence should execute
+        """
 
         exec_attr = self.attrs.get("exec", None)
 
@@ -218,7 +223,9 @@ class Fence(NamedTuple):
         if exec_attr is not None and exec_attr.value.strip().lower() == "false":
             return False
 
-        if exec_option is not None and exec_option.strip().lower() == "false":
+        if (  # noqa: SIM103
+            exec_option is not None and exec_option.strip().lower() == "false"
+        ):
             return False
 
         return True
