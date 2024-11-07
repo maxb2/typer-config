@@ -53,3 +53,71 @@ $ python arg_list.py strawberry bear wolf snake tiger --config config.yml
 apple pear strawberry
 ['bear', 'wolf', 'snake', 'tiger']
 ```
+
+## Custom Types with `Annotated` and `from __future__ import annotations`
+
+```{.python title="annotated.py"}
+from __future__ import annotations
+
+from typing_extensions import Annotated
+
+import typer
+from typer_config import use_yaml_config  # other formats available
+
+
+class CustomClass:
+    def __init__(self, value: str):
+        self.value = value
+
+    def __str__(self):
+        return f"<CustomClass: value={self.value}>"
+
+
+def parse_custom_class(value: str):
+    return CustomClass(value * 2)
+
+
+FooType = Annotated[CustomClass, typer.Argument(parser=parse_custom_class)]
+
+app = typer.Typer()
+
+
+@app.command()
+@use_yaml_config()
+def main(foo: FooType = 1):
+    print(foo)
+
+
+if __name__ == "__main__":
+    app()
+```
+
+```{.bash title="Terminal" exec="false"}
+# fails for python 3.9 or below
+$ python3.9 annotated.py foo
+RuntimeError: ...
+
+# works for python 3.10 or above
+$ python3.10 annotated.py foo
+<CustomClass: value=foofoo>
+```
+
+<!---
+```{.python exec="true" write="false"}
+from typer.testing import CliRunner
+
+import sys
+
+RUNNER = CliRunner()
+
+result = RUNNER.invoke(app, ["foo"])
+
+if sys.version_info < (3, 10):
+    assert result.exit_code != 0, "Should have failed!"
+else:
+    assert result.exit_code == 0, "Custom Types with Annotated[] failed!"
+    assert (
+        result.stdout.strip() == "<CustomClass: value=foofoo>"
+    ), f"Unexpected output for Annotated[] example"
+```
+--->

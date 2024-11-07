@@ -206,6 +206,23 @@ class Fence(NamedTuple):
         """
         return Fence.from_re_groups(FENCED_BLOCK_RE.match(raw).groups())
 
+    def should_exec(self) -> bool:
+
+        exec_attr = self.attrs.get("exec", None)
+
+        exec_option = self.options.get("exec", None)
+
+        if exec_attr is None and exec_option is None:
+            return True
+
+        if exec_attr is not None and exec_attr.value.strip().lower() == "false":
+            return False
+
+        if exec_option is not None and exec_option.strip().lower() == "false":
+            return False
+
+        return True
+
 
 class WorkingDirectory:
     """Sets the cwd within the context."""
@@ -329,4 +346,5 @@ def check_typer_md_file(fpath: Path):
 
     with TemporaryDirectory() as td, WorkingDirectory(td):
         for fence in fences:
-            _executors[fence.lang](fence, globals_=globals_)
+            if fence.should_exec():
+                _executors[fence.lang](fence, globals_=globals_)
