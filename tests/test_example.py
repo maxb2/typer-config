@@ -9,7 +9,7 @@ from typer.testing import CliRunner
 
 import typer_config
 
-RUNNER = CliRunner()
+RUNNER = CliRunner(mix_stderr=False)
 
 HERE = Path(__file__).parent.absolute()
 
@@ -131,7 +131,7 @@ def test_simple_example(simple_app, confs):
 
     result = RUNNER.invoke(_app, ["--config", conf + ".non_existent"])
     assert result.exit_code != 0, f"Should have failed for {conf}\n\n{result.stdout}"
-    assert "No such file" in result.stdout, f"Wrong error message for {conf}"
+    assert "No such file" in result.stderr, f"Wrong error message for {conf}"
 
 
 @pytest.mark.parametrize("confs", CONFS, ids=str)
@@ -166,7 +166,7 @@ def test_simple_example_decorated(simple_app_decorated, confs):
 
     result = RUNNER.invoke(_app, ["--config", conf + ".non_existent"])
     assert result.exit_code != 0, f"Should have failed for {conf}\n\n{result.stdout}"
-    assert "No such file" in result.stdout, f"Wrong error message for {conf}"
+    assert "No such file" in result.stderr, f"Wrong error message for {conf}"
 
 
 @pytest.mark.parametrize("confs", CONFS, ids=str)
@@ -214,7 +214,26 @@ def test_simple_example_decorated_default(simple_app_decorated, confs):
 
     result = RUNNER.invoke(_app, ["--config", conf + ".non_existent"])
     assert result.exit_code != 0, f"Should have failed for {conf}\n\n{result.stdout}"
-    assert "No such file" in result.stdout, f"Wrong error message for {conf}"
+    assert "No such file" in result.stderr, f"Wrong error message for {conf}"
+
+
+def test_simple_example_decorated_default_non_existent(simple_app_decorated):
+    """Test Simple YAML app (decorator)."""
+
+    conf = "no-config.yml"
+
+    _app = simple_app_decorated(
+        typer_config.decorators.use_yaml_config, default_value=conf
+    )
+
+    result = RUNNER.invoke(_app, ["--help"])
+    assert (
+        result.exit_code == 0
+    ), f"Couldn't get to `--help` for {conf}\n\n{result.stdout}"
+
+    result = RUNNER.invoke(_app)
+    assert result.exit_code != 0, ""
+    assert "No such file" in result.stderr, ""
 
 
 @pytest.mark.parametrize("confs", CONFS, ids=str)
@@ -254,7 +273,7 @@ def test_simple_example_decorated_section(simple_app_decorated, confs):
 
     result = RUNNER.invoke(_app, ["--config", conf + ".non_existent"])
     assert result.exit_code != 0, f"Should have failed for {conf}\n\n{result.stdout}"
-    assert "No such file" in result.stdout, f"Wrong error message for {conf}"
+    assert "No such file" in result.stderr, f"Wrong error message for {conf}"
 
 
 def test_pyproject_example(simple_app):

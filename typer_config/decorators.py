@@ -20,7 +20,7 @@ from .loaders import (
     toml_loader,
     yaml_loader,
 )
-from .utils import get_dict_section
+from .utils import file_exists_and_warn, get_dict_section
 
 if TYPE_CHECKING:  # pragma: no cover
     from .__typing import (
@@ -141,7 +141,9 @@ def use_json_config(
     callback = conf_callback_factory(
         loader_transformer(
             json_loader,
-            loader_conditional=lambda param_value: param_value,
+            loader_conditional=lambda param_value: (
+                file_exists_and_warn(param_value) if param_value else param_value
+            ),
             param_transformer=(
                 (lambda param_value: param_value if param_value else default_value)
                 if default_value is not None
@@ -191,7 +193,9 @@ def use_yaml_config(
     callback = conf_callback_factory(
         loader_transformer(
             yaml_loader,
-            loader_conditional=lambda param_value: param_value,
+            loader_conditional=lambda param_value: (
+                file_exists_and_warn(param_value) if param_value else param_value
+            ),
             param_transformer=(
                 (lambda param_value: param_value if param_value else default_value)
                 if default_value is not None
@@ -241,7 +245,9 @@ def use_toml_config(
     callback = conf_callback_factory(
         loader_transformer(
             toml_loader,
-            loader_conditional=lambda param_value: param_value,
+            loader_conditional=lambda param_value: (
+                file_exists_and_warn(param_value) if param_value else param_value
+            ),
             param_transformer=(
                 (lambda param_value: param_value if param_value else default_value)
                 if default_value is not None
@@ -291,7 +297,9 @@ def use_dotenv_config(
     callback = conf_callback_factory(
         loader_transformer(
             dotenv_loader,
-            loader_conditional=lambda param_value: param_value,
+            loader_conditional=lambda param_value: (
+                file_exists_and_warn(param_value) if param_value else param_value
+            ),
             param_transformer=(
                 (lambda param_value: param_value if param_value else default_value)
                 if default_value is not None
@@ -340,7 +348,9 @@ def use_ini_config(
     callback = conf_callback_factory(
         loader_transformer(
             ini_loader,
-            loader_conditional=lambda param_value: param_value,
+            loader_conditional=lambda param_value: (
+                file_exists_and_warn(param_value) if param_value else param_value
+            ),
             param_transformer=(
                 (lambda param_value: param_value if param_value else default_value)
                 if default_value is not None

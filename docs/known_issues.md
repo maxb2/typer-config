@@ -159,6 +159,7 @@ def parse_custom_class(value: str):
 
 app = typer.Typer()
 
+
 # NOTE: works for all versions of python
 @app.command()
 @use_yaml_config()
