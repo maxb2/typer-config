@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.4.1](https://github.com/maxb2/typer-config/releases/tag/1.4.1) - 2024-11-07
+
+<small>[Compare with 1.4.0](https://github.com/maxb2/typer-config/compare/1.4.0...1.4.1)</small>
+
+### Bug Fixes
+
+- future annotations with custom types (#296) ([eb2f252](https://github.com/maxb2/typer-config/commit/eb2f2524ccd5d62b5b07f4f5580bb9e210af63bb) by Matthew Anderson). Co-authored-by: Matthew Anderson <matt@mandersience.com>
+- drop py3.8 (#287) ([2321757](https://github.com/maxb2/typer-config/commit/232175749581ba8d4f420b28d0133958f280f593) by Matthew Anderson). Co-authored-by: Matthew Anderson <matt@mandersience.com>
+
 ## [1.4.0](https://github.com/maxb2/typer-config/releases/tag/1.4.0) - 2023-11-17
 
 <small>[Compare with 1.3.0](https://github.com/maxb2/typer-config/compare/1.3.0...1.4.0)</small>
