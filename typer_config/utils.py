@@ -5,7 +5,7 @@ from __future__ import annotations
 import warnings
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Union
-from warnings import showwarning, warn
+from warnings import showwarning
 
 ORIGINAL_WARNING_FORMATTER = warnings.formatwarning
 
@@ -32,12 +32,17 @@ def get_dict_section(
 class SimpleWarningFormat:
     """Simple Warning Formatter."""
 
-    def __enter__(self):
+    def __enter__(self: SimpleWarningFormat) -> None:  # noqa: D105
         warnings.formatwarning = (
-            lambda msg, category, *args, **kwargs: f"{category.__name__}: {msg}\n"
+            lambda msg, category, *args, **kwargs: f"{category.__name__}: {msg}\n"  # noqa: ARG005
         )
 
-    def __exit__(self, exc_type, exc_value, exc_tb):
+    def __exit__(  # noqa: D105
+        self: SimpleWarningFormat,
+        exc_type: Any,  # noqa: ANN401
+        exc_value: Any,  # noqa: ANN401
+        exc_tb: Any,  # noqa: ANN401
+    ) -> None:
         warnings.formatwarning = ORIGINAL_WARNING_FORMATTER
 
 
