@@ -136,3 +136,6 @@ convention = "google"  # Accepts: "google", "numpy", or "pep257".
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+addopts = "-p no:warnings"
