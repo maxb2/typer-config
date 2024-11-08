@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.4.2](https://github.com/maxb2/typer-config/releases/tag/1.4.2) - 2024-11-07
+
+<small>[Compare with 1.4.1](https://github.com/maxb2/typer-config/compare/1.4.1...1.4.2)</small>
+
+### Bug Fixes
+
+- emit warnings when config files are missing (#297) ([0e072df](https://github.com/maxb2/typer-config/commit/0e072df5a06e1f86d81fe338f2996cc254181dd4) by Matthew Anderson). Co-authored-by: Matthew Anderson <matt@mandersience.com>
+
 ## [1.4.1](https://github.com/maxb2/typer-config/releases/tag/1.4.1) - 2024-11-07
 
 <small>[Compare with 1.4.0](https://github.com/maxb2/typer-config/compare/1.4.0...1.4.1)</small>
