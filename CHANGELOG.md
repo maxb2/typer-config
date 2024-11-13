@@ -2,29 +2,6 @@
 
 All notable changes to this project will be documented in this file.
 
-## Unreleased
-
-### Bug Fixes
-
-- git-cliff settings ([4fa224d](https://github.com/maxb2/typer-config/commit/4fa224dd07dc4619252ed270501abab406990e9f))
-
-### Documentation
-
-- remove unreleased section of changelog ([0035316](https://github.com/maxb2/typer-config/commit/0035316efde7f33043f6e0946a065e58bf5308cd))
-
-### Features
-
-- add makefile ([a9ac94e](https://github.com/maxb2/typer-config/commit/a9ac94eee7ca8d9d0310ef262b5554ad9fd7adca))
-
-### Miscellaneous Tasks
-
-- remove unused dependencies ([0375a75](https://github.com/maxb2/typer-config/commit/0375a758b9cfc5455507d24ab5b6f7248f9027da))
-- remove unused file ([4d38ee6](https://github.com/maxb2/typer-config/commit/4d38ee669f9fb9003b8836e2d212ed6b1dcd5687))
-
-### Tools
-
-- add git-cliff ([6fabfe4](https://github.com/maxb2/typer-config/commit/6fabfe456cc7fc8896746e53ebfa59672266778e))
-
 ## [1.4.2](https://github.com/maxb2/typer-config/releases/tag/1.4.2) - 2024-11-08
 
 <small>[Compare with 1.4.1](https://github.com/maxb2/typer-config/compare/1.4.1...1.4.2)</small>
