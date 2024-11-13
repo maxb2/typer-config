@@ -40,11 +40,11 @@ jobs:
       
       - name: Linting and Type checking
         run: |
-          poetry run duty check
+          make check
       
       - name: Testing
         run: |
-          poetry run duty test
+          make test
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
