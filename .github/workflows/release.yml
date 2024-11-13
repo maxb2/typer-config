@@ -15,9 +15,9 @@ jobs:
     - name: Setup Python
       uses: actions/setup-python@v4
     - name: Install git-changelog
-      run: pip install git-changelog
+      run: pip install git-cliff
     - name: Prepare release notes
-      run: git-changelog --release-notes > release-notes.md
+      run: git-cliff -l -s all > release-notes.md
     - name: Create GitHub release
       uses: softprops/action-gh-release@v1
       with:

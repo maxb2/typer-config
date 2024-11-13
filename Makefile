@@ -7,10 +7,6 @@ fmt:
 	poetry run isort --ca --profile=black .
 	poetry run black .
 
-PHONY=check-dependencies
-check-dependencies:
-	poetry export --only main | poetry run safety check --stdin
-
 PHONY=check-types
 check-types:
 	poetry run mypy typer_config
