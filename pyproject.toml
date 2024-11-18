@@ -64,7 +64,7 @@ pytest = ">=7.3.1,<9.0.0"
 mypy = "^1.2.0"
 types-toml = "^0.10.8.6"
 types-pyyaml = "^6.0.12.9"
-pytest-cov = ">=4,<6"
+pytest-cov = ">=4,<7"
 griffe = ">=0.32.2,<1.6.0"
 git-cliff = "^2.6.1"
 
