@@ -8,7 +8,7 @@ from typer import BadParameter, CallbackParam, Context
 
 # NOTE: I'm not sure why, but these types must be imported at runtime
 # for the tests to pass...
-from .__typing import (  # noqa: TCH001
+from .__typing import (  # noqa: TC001
     ConfigLoader,
     ConfigParameterCallback,
     TyperParameterValue,
