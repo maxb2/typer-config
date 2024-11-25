@@ -349,21 +349,21 @@ dev = ["flake8", "markdown", "twine", "wheel"]
 
 [[package]]
 name = "git-cliff"
-version = "2.6.1"
+version = "2.7.0"
 description = "A highly customizable changelog generator ⛰️"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "git_cliff-2.6.1-py3-none-macosx_10_12_x86_64.whl", hash = "sha256:c7bf47e3cccc5aaab360231428efc3e5fc868b16add6188947dbfd397e0b752f"},
-    {file = "git_cliff-2.6.1-py3-none-macosx_11_0_arm64.whl", hash = "sha256:6ba81968e13f2d91a3da062313c04818c5d9b8eb65a0fa799668d4217182fe1e"},
-    {file = "git_cliff-2.6.1-py3-none-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:903dddef02eea4a77a8d20242a9a78c09e3cf8132fd447eb40ee4f90d5705199"},
-    {file = "git_cliff-2.6.1-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:be626d41b461b889c4e6a6944115bd1df37bd16428881680d12ffde57c460a2d"},
-    {file = "git_cliff-2.6.1-py3-none-manylinux_2_28_aarch64.whl", hash = "sha256:56636d2c1a73ba687a528befbef96dcc79cdd94ec7c166d17362ce4e336a6538"},
-    {file = "git_cliff-2.6.1-py3-none-manylinux_2_5_i686.manylinux1_i686.whl", hash = "sha256:401acf2f65d7fab41afacc72d7c225a8a58b127821b7e23ec7420e61407d1df2"},
-    {file = "git_cliff-2.6.1-py3-none-manylinux_2_5_x86_64.manylinux1_x86_64.whl", hash = "sha256:f18d6c485f7198fe4e430fc059488d033ea9ccca122427c7647617ae1d3f4d33"},
-    {file = "git_cliff-2.6.1-py3-none-win32.whl", hash = "sha256:f5b943b071bfdbdf1027ba0da529590305ec1be018d4236f0bacf5cf31e60b86"},
-    {file = "git_cliff-2.6.1-py3-none-win_amd64.whl", hash = "sha256:59fb3f42b51eb23cf32686f5bb72f4d82b63e28c09c41db8706c9cfee3e9fab6"},
-    {file = "git_cliff-2.6.1.tar.gz", hash = "sha256:5a6ab41efb547c01d09d0354f4132aa3a46e2aab5e60c576bca1def6f6efec9f"},
+    {file = "git_cliff-2.7.0-py3-none-macosx_10_12_x86_64.whl", hash = "sha256:84de0ab5e213c64f59c0f5e1a8285c578ed5a28667bdab31ebc2f7db764fc32e"},
+    {file = "git_cliff-2.7.0-py3-none-macosx_11_0_arm64.whl", hash = "sha256:45dcda6206f8b2b7ec0de56b9ee3a7ff12253e59737290a5a918ed8eb62adfe2"},
+    {file = "git_cliff-2.7.0-py3-none-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:5f8b0cb192ab12f3b23b113e6f190c8b060a03f306e447a60580d1e0563f0d3e"},
+    {file = "git_cliff-2.7.0-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:e65f9ee3f747c57356a7efee156fcd2b6d01428dba61c4cd1f0e773d8c842ca6"},
+    {file = "git_cliff-2.7.0-py3-none-manylinux_2_28_aarch64.whl", hash = "sha256:7b2f5dbb82e1d8b62c6885d06eda8a11daa063e6f124b16db634f5e23371ac49"},
+    {file = "git_cliff-2.7.0-py3-none-manylinux_2_5_i686.manylinux1_i686.whl", hash = "sha256:1bdf9c04a883a70cdb0b29bf033ea39d64fab6ba28459b332cd221a7f47d86f0"},
+    {file = "git_cliff-2.7.0-py3-none-manylinux_2_5_x86_64.manylinux1_x86_64.whl", hash = "sha256:a698f9b8b10e6df0dd47b049b75c25f8cfb3dc4f973ab05790912ba55e5a4ebb"},
+    {file = "git_cliff-2.7.0-py3-none-win32.whl", hash = "sha256:914015dd0deab69f23718a8ee982018140095b5b1f45268b15abdfd99d60e098"},
+    {file = "git_cliff-2.7.0-py3-none-win_amd64.whl", hash = "sha256:7180874591548846cf30e4cb6953ff74e8ed2d4bed4487c5e39122581bef15c7"},
+    {file = "git_cliff-2.7.0.tar.gz", hash = "sha256:15badec95cc5c9c7755dc5a0775cc8c836f5c5f271f20ed6a4f32af093ec1eaa"},
 ]
 
 [[package]]
