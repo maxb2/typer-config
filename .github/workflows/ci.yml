@@ -26,17 +26,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       
-      - uses: actions/setup-python@v4
+      - name: Install uv
+        uses: astral-sh/setup-uv@v4
         with:
           python-version: ${{ matrix.python-version }}
-      
-      - name: Setup Poetry
-        uses: abatilo/actions-poetry@v2
-        with:
-          poetry-version: 1.8
-
-      - name: Install Dependencies
-        run: poetry install -n --all-extras
       
       - name: Linting and Type checking
         run: |
@@ -48,3 +41,5 @@ jobs:
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}

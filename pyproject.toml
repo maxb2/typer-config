@@ -1,14 +1,12 @@
-[tool.poetry]
+[project]
 name = "typer-config"
 version = "1.4.2"
 description = "Utilities for working with configuration files in typer CLIs. "
-authors = ["Matt Anderson <matt@manderscience.com>"]
+authors = [
+    { name = "Matt Anderson", email = "matt@mandersience.com" }
+]
 readme = "README.md"
 license = "MIT"
-packages = [
-        {include = "typer_config"},
-        {include = "typer_config/py.typed"}
-    ]
 repository = "https://github.com/maxb2/typer-config"
 documentation = "https://maxb2.github.io/typer-config/"
 homepage = "https://maxb2.github.io/typer-config/"
@@ -43,42 +41,53 @@ classifiers = [
         "License :: OSI Approved :: MIT License"
     ]
 
-[tool.poetry.dependencies]
-python = "^3.9"
-typer = "^0"
-toml = {version = "^0.10.2", optional = true}
-pyyaml = {version = "^6.0", optional = true}
-python-dotenv = {version = "*", optional = true}
+requires-python = ">=3.9"
+dependencies = [
+    "typer==0.*",
+]
 
-[tool.poetry.extras]
-python-dotenv = ["python-dotenv"]
-toml = ["toml"]
-yaml = ["pyyaml"]
-all = ["toml", "pyyaml", "python-dotenv"]
+[project.optional-dependencies]
+all = [
+    "python-dotenv>=0",
+    "toml>=0.10.2,<1",
+    "pyyaml==6.*",
+]
+python-dotenv = [
+    "python-dotenv>=0",
+]
+toml = [
+    "toml>=0.10.2,<1",
+]
+yaml = [
+    "pyyaml==6.*",
+]
 
-[tool.poetry.group.dev.dependencies]
-ruff = ">=0.0.263,<0.8.3"
-black = ">=23.3,<25.0"
-isort = "^5.12.0"
-pytest = ">=7.3.1,<9.0.0"
-mypy = "^1.2.0"
-types-toml = "^0.10.8.6"
-types-pyyaml = "^6.0.12.9"
-pytest-cov = ">=4,<7"
-griffe = ">=0.32.2,<1.6.0"
-git-cliff = "^2.6.1"
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
-[tool.poetry.group.docs.dependencies]
-mkdocs-material = "^9.1.9"
-mkdocstrings = {extras = ["python"], version = ">=0.21.2,<0.28.0"}
-mike = ">=1.1.2,<3.0.0"
-mkdocs-gen-files = "^0.5.0"
-pydantic = ">=1.10.7,<3.0.0"
-blacken-docs = { git = "https://github.com/maxb2/blacken-docs.git", rev = "e82e9e9e1eeee37fd89b9c2d6e3c99cf0aa2d399" }
-schema = "^0.7.5"
+[tool.hatch.build.targets.sdist]
+include = [
+  "src/typer_config/*.py",
+  "src/typer_config/py.typed",
+]
 
-[tool.isort]
-profile = "black"
+[tool.hatch.build.targets.wheel]
+sources = ["src"]
+
+[dependency-groups]
+dev = [
+    "black>=24.10.0",
+    "mike>=2.1.3",
+    "mkdocs-gen-files>=0.5.0",
+    "mkdocs-material>=9.5.49",
+    "mkdocstrings[python]>=0.27.0",
+    "mypy>=1.13.0",
+    "pydantic>=2.10.3",
+    "pytest>=8.3.4",
+    "pytest-cov>=6.0.0",
+    "schema>=0.7.7",
+]
 
 [tool.ruff.lint]
 extend-select = [ # https://beta.ruff.rs/docs/rules/
@@ -126,10 +135,6 @@ extend-ignore = ["D202", "D205", "D107"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"  # Accepts: "google", "numpy", or "pep257".
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
 
 [tool.pytest.ini_options]
 addopts = "-p no:warnings"

@@ -1,5 +1,7 @@
 """Typer Configuration Utilities."""
 
+import importlib.metadata
+
 from .callbacks import (
     conf_callback_factory,
     dotenv_conf_callback,
@@ -15,6 +17,8 @@ from .decorators import (
     use_yaml_config,
 )
 from .loaders import dotenv_loader, ini_loader, json_loader, toml_loader, yaml_loader
+
+__version__ = importlib.metadata.version("typer_config")
 
 __all__ = [
     "conf_callback_factory",
