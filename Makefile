@@ -1,6 +1,6 @@
 PHONY=fmt-docs
 fmt-docs:
-	find . -path './.venv' -prune -type f -o -name '*.md' -exec uvx --from git+https://github.com/maxb2/blacken-docs@e82e9e9 blacken-docs {} +
+	find . -path './.venv' -prune -type f -o -name '*.md' -exec uvx --from git+https://github.com/maxb2/blacken-docs@87fadc3 blacken-docs {} +
 
 PHONY=fmt
 fmt:
