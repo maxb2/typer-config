@@ -22,6 +22,10 @@ PHONY=test
 test:
 	uv run --all-extras pytest --cov=typer_config --cov-report=xml
 
+PHONY=check-workflows
+check-workflows:
+	uvx zizmor .
+
 PHONY=changelog
 changelog:
 	uvx git-cliff --output CHANGELOG.md
