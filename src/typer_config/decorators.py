@@ -90,8 +90,7 @@ def use_config(
         def wrapped(*args, **kwargs):  # noqa: ANN202,ANN002,ANN003
             # NOTE: need to delete the config parameter
             # to match the wrapped command's signature.
-            if param_name in kwargs:
-                del kwargs[param_name]
+            kwargs.pop(param_name, None)
 
             return cmd(*args, **kwargs)
 
