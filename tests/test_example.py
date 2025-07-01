@@ -8,6 +8,7 @@ import typer
 from typer.testing import CliRunner
 
 import typer_config
+from typer_config.loaders import loader_transformer, toml_loader
 
 RUNNER = CliRunner(mix_stderr=False)
 
@@ -278,8 +279,6 @@ def test_simple_example_decorated_section(simple_app_decorated, confs):
 
 def test_pyproject_example(simple_app):
     """Test pyproject example."""
-
-    from typer_config.loaders import loader_transformer, toml_loader
 
     pyproject_loader = loader_transformer(
         toml_loader,
