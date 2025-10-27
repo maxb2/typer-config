@@ -35,9 +35,7 @@ def yaml_dumper(config: ConfigDict, location: FilePath) -> None:
         raise ModuleNotFoundError(message)
 
     with open(location, "w", encoding="utf-8") as _file:
-        # NOTE: we must convert config from OrderedDict to dict because
-        # pyyaml can't load OrderedDict for python <= 3.8
-        yaml.dump(dict(config), _file)
+        yaml.dump(config, _file)
 
 
 def toml_dumper(config: ConfigDict, location: FilePath) -> None:
