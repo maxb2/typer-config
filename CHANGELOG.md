@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.4.3](https://github.com/maxb2/typer-config/releases/tag/1.4.3) - 2025-10-27
+
+<small>[Compare with 1.4.2](https://github.com/maxb2/typer-config/compare/1.4.2...1.4.3)</small>
+
+### Bug Fixes
+
+- drop python3.9 support (#368) ([369582a](https://github.com/maxb2/typer-config/commit/369582ae281034fe831cf06d47abd7748295f482))
+
+### Miscellaneous Tasks
+
+- switch from poetry to uv (#320) ([471e738](https://github.com/maxb2/typer-config/commit/471e738ad8c1e3db029a34ca9cb7995eec355ec6))
+- add python 3.13 test (#321) ([8451638](https://github.com/maxb2/typer-config/commit/845163800d9408297221bdd3b1bcb114e591b5b6))
+- enable dependabot for uv and gh-actions (#323) ([6bd60b5](https://github.com/maxb2/typer-config/commit/6bd60b5f1f111d1ecca9722ae273b1032541cfa3))
+- use uv build backend (#334) ([aede197](https://github.com/maxb2/typer-config/commit/aede197437b91da54085671021e1476528742477))
+
+### Tools
+
+- new changelog tool and Makefile (#303) ([032204e](https://github.com/maxb2/typer-config/commit/032204e8193f2b9a384259b36b8d44242d8e53be))
+
 ## [1.4.2](https://github.com/maxb2/typer-config/releases/tag/1.4.2) - 2024-11-08
 
 <small>[Compare with 1.4.1](https://github.com/maxb2/typer-config/compare/1.4.1...1.4.2)</small>

@@ -31,9 +31,10 @@ changelog:
 	uvx git-cliff --output CHANGELOG.md
 
 PHONY=release
-release: changelog
+release: 
 	NEXT_VERSION=$(shell uvx git-cliff --bumped-version) && \
 	uvx --from=toml-cli toml set --toml-path=pyproject.toml project.version $$NEXT_VERSION && \
+	uvx git-cliff --output CHANGELOG.md --tag $$NEXT_VERSION && \
 	git add pyproject.toml CHANGELOG.md && \
 	git commit -m "chore: Prepare release $$NEXT_VERSION" && \
 	rm -rf ./dist && \
