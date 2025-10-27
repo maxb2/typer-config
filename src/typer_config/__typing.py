@@ -1,16 +1,9 @@
 """Data and Function types."""
 
-import sys
 from pathlib import Path
-from typing import Any, Callable, Dict, Union
+from typing import Any, Callable, Dict, TypeAlias, Union
 
 from typer import CallbackParam, Context
-
-# Handle some imports based on python version
-if sys.version_info < (3, 10):  # pragma: no cover
-    from typing_extensions import TypeAlias
-else:  # pragma: no cover
-    from typing import TypeAlias
 
 # Data types
 TyperParameterName: TypeAlias = str

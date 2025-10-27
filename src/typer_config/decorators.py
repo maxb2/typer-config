@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import sys
 from enum import Enum
 from functools import wraps
 from inspect import Parameter, signature
@@ -72,10 +71,7 @@ def use_config(
         # It does not affect the actual function implementation.
         # So, a caller can be confused how to pass parameters to
         # the function with modified signature.
-        if sys.version_info < (3, 10):
-            sig = signature(cmd)
-        else:
-            sig = signature(cmd, eval_str=True)
+        sig = signature(cmd, eval_str=True)
 
         config_param = Parameter(
             param_name,
