@@ -1,4 +1,4 @@
-# Default Config File Example
+# Default Multiple Config File Example
 
 This example loads a configuration from a list of default YAML files.
 Each file updates the values from the previous one.
