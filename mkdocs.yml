@@ -28,6 +28,7 @@ nav:
   - Examples:
     - 'examples/simple_yaml.md'
     - 'examples/default_config.md'
+    - 'examples/default_multi_config.md'
     - 'examples/pyproject.md'
     - 'examples/pydantic.md'
     - 'examples/schema.md'

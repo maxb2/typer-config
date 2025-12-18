@@ -223,3 +223,34 @@ def ini_loader(param_value: TyperParameterValue) -> ConfigDict:
     }
 
     return conf
+
+
+def multifile_loader(files: list[TyperParameterValue]) -> ConfigDict:
+    """Loader that merges multiple configuration files into one dictionary.
+
+    Args:
+        files (list[TyperParameterValue]): List of paths to configuration files.
+
+    Returns:
+        ConfigDict: Merged dictionary loaded from all files.
+    """
+    merged_config: ConfigDict = {}
+
+    for file_path in files:
+        if file_path.endswith(".json"):
+            config = json_loader(file_path)
+        elif file_path.endswith((".yaml", ".yml")):
+            config = yaml_loader(file_path)
+        elif file_path.endswith(".toml"):
+            config = toml_loader(file_path)
+        elif file_path.endswith(".ini"):
+            config = ini_loader(file_path)
+        elif file_path.endswith(".env"):
+            config = dotenv_loader(file_path)
+        else:
+            msg = f"Unsupported file format for '{file_path}'."
+            raise ValueError(msg)
+
+        merged_config.update(config)
+
+    return merged_config
