@@ -16,6 +16,7 @@ from .loaders import (
     ini_loader,
     json_loader,
     loader_transformer,
+    multifile_loader,
     toml_loader,
     yaml_loader,
 )
@@ -352,6 +353,50 @@ def use_ini_config(
                 else None
             ),
             config_transformer=lambda config: get_dict_section(config, section),
+        )
+    )
+
+    return use_config(callback=callback, param_name=param_name, param_help=param_help)
+
+
+def use_multifile_config(
+    default_files: List[TyperParameterValue],
+    param_name: TyperParameterName = "config",
+    param_help: str = "Configuration file.",
+) -> TyperCommandDecorator:
+    """Decorator for using multiple configuration files on a typer command.
+
+    Usage:
+        ```py
+        import typer
+        from typer_config.decorators import use_multifile_config
+
+        app = typer.Typer()
+
+        @app.command()
+        @use_multifile_config(["config1.yml", "config2.yml"])
+        def main(...):
+            ...
+        ```
+
+    Args:
+        default_files (List[TyperParameterValue]): List of default file paths to load.
+        param_name (TyperParameterName, optional): name of config parameter.
+            Defaults to "config".
+        param_help (str, optional): config parameter help string.
+            Defaults to "Configuration file.".
+
+    Returns:
+        TyperCommandDecorator: decorator to apply to command
+    """
+
+    callback = conf_callback_factory(
+        loader_transformer(
+            multifile_loader,
+            loader_conditional=lambda _: True,  # always load
+            param_transformer=lambda param_value: (
+                [*default_files, param_value] if param_value else default_files
+            ),
         )
     )
 
