@@ -16,6 +16,7 @@ from .loaders import (
     ini_loader,
     json_loader,
     loader_transformer,
+    multifile_fallback_loader,
     multifile_loader,
     toml_loader,
     yaml_loader,
@@ -361,10 +362,21 @@ def use_ini_config(
 
 def use_multifile_config(
     default_files: List[TyperParameterValue],
+    section: Optional[List[str]] = None,
     param_name: TyperParameterName = "config",
     param_help: str = "Configuration file.",
 ) -> TyperCommandDecorator:
     """Decorator for using multiple configuration files on a typer command.
+
+    Multiple config files are merged together, with later files overriding
+    earlier ones. Files that don't exist are skipped. Nested dictionaries
+    are deep-merged.
+
+    This is useful for configuration inheritance, e.g.:
+    - Start with system defaults: `/etc/myapp.yaml`
+    - Override with user config: `~/.config/myapp.yaml`
+    - Override with local config: `./myapp.yaml`
+    - Override with --config option if provided
 
     Usage:
         ```py
@@ -374,13 +386,21 @@ def use_multifile_config(
         app = typer.Typer()
 
         @app.command()
-        @use_multifile_config(["config1.yml", "config2.yml"])
+        @use_multifile_config([
+            "/etc/myapp.yaml",
+            "~/.config/myapp.yaml",
+            "./myapp.yaml",
+        ])
         def main(...):
             ...
         ```
 
     Args:
         default_files (List[TyperParameterValue]): List of default file paths to load.
+            Files are processed in order, with later files overriding earlier ones.
+            Missing files are silently skipped.
+        section (List[str], optional): List of nested sections to access in the config.
+            Defaults to None.
         param_name (TyperParameterName, optional): name of config parameter.
             Defaults to "config".
         param_help (str, optional): config parameter help string.
@@ -397,6 +417,69 @@ def use_multifile_config(
             param_transformer=lambda param_value: (
                 [*default_files, param_value] if param_value else default_files
             ),
+            config_transformer=lambda config: get_dict_section(config, section),
+        )
+    )
+
+    return use_config(callback=callback, param_name=param_name, param_help=param_help)
+
+
+def use_fallback_config(
+    fallback_files: List[TyperParameterValue],
+    section: Optional[List[str]] = None,
+    param_name: TyperParameterName = "config",
+    param_help: str = "Configuration file.",
+) -> TyperCommandDecorator:
+    """Decorator for using a fallback list of configuration files.
+
+    Only the first existing configuration file is used. Files are checked
+    in order from first to last.
+
+    This is useful for fallback configurations, e.g.:
+    - Use local config if it exists: `./myapp.yaml`
+    - Otherwise, use user config: `~/.config/myapp.yaml`
+    - Otherwise, use system config: `/etc/myapp.yaml`
+
+    Usage:
+        ```py
+        import typer
+        from typer_config.decorators import use_fallback_config
+
+        app = typer.Typer()
+
+        @app.command()
+        @use_fallback_config([
+            "./myapp.yaml",           # highest priority
+            "~/.config/myapp.yaml",
+            "/etc/myapp.yaml",        # lowest priority
+        ])
+        def main(...):
+            ...
+        ```
+
+    Args:
+        fallback_files (List[TyperParameterValue]): List of file paths to try,
+            in order of priority (first has highest priority).
+            The first existing file will be used.
+        section (List[str], optional): List of nested sections to access in the config.
+            Defaults to None.
+        param_name (TyperParameterName, optional): name of config parameter.
+            Defaults to "config".
+        param_help (str, optional): config parameter help string.
+            Defaults to "Configuration file.".
+
+    Returns:
+        TyperCommandDecorator: decorator to apply to command
+    """
+
+    callback = conf_callback_factory(
+        loader_transformer(
+            multifile_fallback_loader,
+            loader_conditional=lambda _: True,  # always load
+            param_transformer=lambda param_value: (
+                [param_value, *fallback_files] if param_value else fallback_files
+            ),
+            config_transformer=lambda config: get_dict_section(config, section),
         )
     )
 

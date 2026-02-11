@@ -1,0 +1,6 @@
+database:
+  host: production.db.example.com
+  credentials:
+    password: supersecret
+logging:
+  level: DEBUG
