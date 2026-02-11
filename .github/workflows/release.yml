@@ -16,6 +16,8 @@ jobs:
         persist-credentials: false
     - name: Install uv
       uses: astral-sh/setup-uv@v7
+      with:
+        enable-cache: false
     - name: Prepare release notes
       run: uvx git-cliff -l -s all > release-notes.md
     - name: Create GitHub release
