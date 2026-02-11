@@ -56,4 +56,4 @@ def toml_dumper(config: ConfigDict, location: FilePath) -> None:
         raise ModuleNotFoundError(message)
 
     with open(location, "w", encoding="utf-8") as _file:
-        toml.dump(config, _file)  # type: ignore
+        toml.dump(config, _file)

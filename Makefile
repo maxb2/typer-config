@@ -4,16 +4,17 @@ fmt-docs:
 
 PHONY=fmt
 fmt:
-	uvx isort --ca --profile=black .
-	uvx black .
+	uv run --group dev isort --ca --profile=black .
+	uv run --group dev black .
 
 PHONY=check-types
 check-types:
-	uv run mypy src/typer_config
+# 	uv run mypy src/typer_config
+	uv run --group dev ty check src/typer_config
 
 PHONY=ruff
 ruff:
-	uvx ruff check .
+	uv run --group dev ruff check .
 
 PHONY=check
 check: ruff check-types

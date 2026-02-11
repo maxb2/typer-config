@@ -22,32 +22,27 @@ from textwrap import dedent
 from typing import Any, Dict, List, NamedTuple, Optional, Tuple
 
 CLASS_RE = re.compile(
-    dedent(
-        r"""
+    dedent(r"""
         [ \t]*
         \.
         (?P<class>[a-zA-Z][a-zA-Z0-9_\-]*)
         [ \t]*
-        """
-    ),
+        """),
     re.DOTALL | re.VERBOSE,
 )
 
 ID_RE = re.compile(
-    dedent(
-        r"""
+    dedent(r"""
         [ \t]*
         \#
         (?P<id>[a-zA-Z][a-zA-Z0-9_\-]*)
         [ \t]*
-        """
-    ),
+        """),
     re.DOTALL | re.VERBOSE,
 )
 
 KEY_VAL_RE = re.compile(
-    dedent(
-        r"""
+    dedent(r"""
         [ \t]*
         (?P<key>\b[a-zA-Z][a-zA-Z0-9_]*)
         (?:
@@ -57,8 +52,7 @@ KEY_VAL_RE = re.compile(
             (?P=quot)
         )?
         [ \t]*
-        """
-    ),
+        """),
     re.DOTALL | re.VERBOSE,
 )
 
@@ -66,8 +60,7 @@ KEY_VAL_RE = re.compile(
 # `markdown.extensions.fenced_code.FencedBlockPreprocessor.FENCED_BLOCK_RE`
 # to include options from `pymdownx/superfences.RE_OPTIONS`
 FENCED_BLOCK_RE = re.compile(
-    dedent(
-        r"""
+    dedent(r"""
         (?P<raw>
             (?P<fence>^(?:~{3,}|`{3,}))[ ]*           # opening fence
             (
@@ -92,8 +85,7 @@ FENCED_BLOCK_RE = re.compile(
             (?P<code>.*?)(?<=\n)                      # the code block
             (?P=fence)[ ]*$                           # closing fence
         )
-        """
-    ),
+        """),
     re.MULTILINE | re.DOTALL | re.VERBOSE,
 )
 

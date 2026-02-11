@@ -33,7 +33,7 @@ class SimpleWarningFormat:
     """Simple Warning Formatter."""
 
     def __enter__(self: SimpleWarningFormat) -> None:  # noqa: D105
-        warnings.formatwarning = (
+        warnings.formatwarning = (  # type: ignore[assignment]
             lambda msg, category, *args, **kwargs: f"{category.__name__}: {msg}\n"  # noqa: ARG005
         )
 
