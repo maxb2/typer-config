@@ -1,6 +1,6 @@
 [project]
 name = "typer-config"
-version = "1.4.3"
+version = "1.5.0"
 description = "Utilities for working with configuration files in typer CLIs. "
 authors = [
     { name = "Matt Anderson", email = "matt@mandersience.com" }

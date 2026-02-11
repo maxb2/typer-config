@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.5.0](https://github.com/maxb2/typer-config/releases/tag/1.5.0) - 2026-02-11
+
+<small>[Compare with 1.4.3](https://github.com/maxb2/typer-config/compare/1.4.3...1.5.0)</small>
+
+### Features
+
+- multifile configs (#383) ([0811ae8](https://github.com/maxb2/typer-config/commit/0811ae87809a639c64e26bd494608cd21a52961d))
+
+### Miscellaneous Tasks
+
+- update pypi classifiers ([73acc8a](https://github.com/maxb2/typer-config/commit/73acc8a190f8d9e6e61f5086d3298f510d535b10))
+- tooling (#395) ([81098f8](https://github.com/maxb2/typer-config/commit/81098f88cf0a49a52d47cfda40330b57f52051f5))
+
 ## [1.4.3](https://github.com/maxb2/typer-config/releases/tag/1.4.3) - 2025-10-27
 
 <small>[Compare with 1.4.2](https://github.com/maxb2/typer-config/compare/1.4.2...1.4.3)</small>
