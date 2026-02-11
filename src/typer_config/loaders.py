@@ -7,7 +7,8 @@ from __future__ import annotations
 
 import json
 from configparser import ConfigParser
-from typing import TYPE_CHECKING, Optional
+from pathlib import Path
+from typing import TYPE_CHECKING, Any, Mapping, Optional
 
 from .__optional_imports import try_import
 
@@ -223,3 +224,119 @@ def ini_loader(param_value: TyperParameterValue) -> ConfigDict:
     }
 
     return conf
+
+
+def _deep_merge(base: dict[str, Any], override: Mapping[str, Any]) -> dict[str, Any]:
+    """Deep merge two dictionaries.
+
+    Values from `override` take precedence over `base`.
+    Nested dictionaries are merged recursively.
+
+    Args:
+        base (dict[str, Any]): Base dictionary.
+        override (Mapping[str, Any]): Dictionary with values to override.
+
+    Returns:
+        dict[str, Any]: Merged dictionary.
+    """
+    result = dict(base)
+    for key, value in override.items():
+        if (
+            key in result
+            and isinstance(result[key], dict)
+            and isinstance(value, Mapping)
+        ):
+            result[key] = _deep_merge(result[key], value)
+        else:
+            result[key] = value
+    return result
+
+
+def _get_loader_for_file(file_path: str) -> ConfigLoader:  # pragma: no cover
+    """Get the appropriate loader based on file extension.
+
+    Args:
+        file_path (str): Path to the configuration file.
+
+    Returns:
+        ConfigLoader: Loader function for the file type.
+
+    Raises:
+        ValueError: If file format is not supported.
+    """
+    if file_path.endswith(".json"):
+        return json_loader
+    if file_path.endswith((".yaml", ".yml")):
+        return yaml_loader
+    if file_path.endswith(".toml"):
+        return toml_loader
+    if file_path.endswith(".ini"):
+        return ini_loader
+    if file_path.endswith(".env"):
+        return dotenv_loader
+    msg = f"Unsupported file format for '{file_path}'."
+    raise ValueError(msg)
+
+
+def multifile_loader(
+    files: list[TyperParameterValue],
+    *,
+    skip_missing: bool = True,
+    deep_merge: bool = True,
+) -> ConfigDict:
+    """Loader that merges multiple configuration files into one dictionary.
+
+    Files are processed in order, with later files overriding earlier ones.
+    Missing files are skipped by default.
+
+    Args:
+        files (list[TyperParameterValue]): List of paths to configuration files.
+        skip_missing (bool, optional): Skip files that don't exist.
+            Defaults to True.
+        deep_merge (bool, optional): Deep merge nested dictionaries.
+            Defaults to True.
+
+    Returns:
+        ConfigDict: Merged dictionary loaded from all files.
+    """
+    merged_config: ConfigDict = {}
+
+    for file_path in files:
+        if not file_path:
+            continue
+
+        if skip_missing and not Path(file_path).is_file():
+            continue
+
+        loader = _get_loader_for_file(file_path)
+        config = loader(file_path)
+
+        if deep_merge:
+            merged_config = _deep_merge(merged_config, config)
+        else:
+            merged_config.update(config)
+
+    return merged_config
+
+
+def multifile_fallback_loader(files: list[TyperParameterValue]) -> ConfigDict:
+    """Loader that uses the first existing configuration file from a list.
+
+    Files are checked in order. The first file that exists is loaded and returned.
+    This is useful for fallback configurations (e.g., local -> user -> system).
+
+    Args:
+        files (list[TyperParameterValue]): List of paths to configuration files,
+            in order of priority (first has highest priority).
+
+    Returns:
+        ConfigDict: Dictionary loaded from the first existing file,
+            or empty dict if no files exist.
+    """
+    for file_path in files:
+
+        if Path(file_path).is_file():
+            loader = _get_loader_for_file(file_path)
+            return loader(file_path)
+
+    return {}
