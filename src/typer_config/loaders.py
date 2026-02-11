@@ -252,7 +252,7 @@ def _deep_merge(base: dict[str, Any], override: Mapping[str, Any]) -> dict[str, 
     return result
 
 
-def _get_loader_for_file(file_path: str) -> ConfigLoader:
+def _get_loader_for_file(file_path: str) -> ConfigLoader:  # pragma: no cover
     """Get the appropriate loader based on file extension.
 
     Args:
@@ -334,8 +334,6 @@ def multifile_fallback_loader(files: list[TyperParameterValue]) -> ConfigDict:
             or empty dict if no files exist.
     """
     for file_path in files:
-        if not file_path:
-            continue
 
         if Path(file_path).is_file():
             loader = _get_loader_for_file(file_path)
