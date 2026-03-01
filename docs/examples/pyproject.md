@@ -6,17 +6,17 @@ Suppose you want to specify parameters in a section of `pyproject.toml`:
 
 ```toml title='pyproject.toml'
 [tool.my_tool.parameters]
-arg1 = "stuff"
-opt1 = "things"
-opt2 = "nothing"
+name = "World"
+greeting = "Hello"
+suffix = "!"
 ```
 
 <!--- This is here for the doc tests to pass.
 ```toml title='other.toml'
 [tool.my_tool.parameters]
-arg1 = "entirely"
-opt1 = "something"
-opt2 = "else"
+name = "Alice"
+greeting = "Hi"
+suffix = "!!"
 ```
 --->
 
@@ -58,11 +58,11 @@ app = typer.Typer()
 @app.command()
 @use_config(pyproject_callback)
 def main(
-    arg1: str,
-    opt1: Annotated[str, typer.Option()],
-    opt2: Annotated[str, typer.Option()] = "hello",
+    name: str,
+    greeting: Annotated[str, typer.Option()],
+    suffix: Annotated[str, typer.Option()] = "!",
 ):
-    typer.echo(f"{opt1} {opt2} {arg1}")
+    typer.echo(f"{greeting}, {name}{suffix}")
 
 
 if __name__ == "__main__":
@@ -78,13 +78,13 @@ other.toml
 pyproject.toml
 
 $ python my_tool.py
-things nothing stuff
+Hello, World!
 
-$ python my_tool.py others
-things nothing others
+$ python my_tool.py Alice
+Hello, Alice!
 
 $ python my_tool.py --config other.toml
-something else entirely
+Hi, Alice!!
 ```
 
 <!--- Test the combinator
@@ -116,11 +116,11 @@ app = typer.Typer()
 @app.command()
 @use_config(pyproject_callback)
 def main(
-    arg1: str,
-    opt1: Annotated[str, typer.Option()],
-    opt2: Annotated[str, typer.Option()] = "hello",
+    name: str,
+    greeting: Annotated[str, typer.Option()],
+    suffix: Annotated[str, typer.Option()] = "!",
 ):
-    typer.echo(f"{opt1} {opt2} {arg1}")
+    typer.echo(f"{greeting}, {name}{suffix}")
 
 
 if __name__ == "__main__":
@@ -134,12 +134,12 @@ other.toml
 pyproject.toml
 
 $ python my_tool.py
-things nothing stuff
+Hello, World!
 
-$ python my_tool.py others
-things nothing others
+$ python my_tool.py Alice
+Hello, Alice!
 
 $ python my_tool.py --config other.toml
-something else entirely
+Hi, Alice!!
 ```
 --->

@@ -12,7 +12,7 @@ This package was inspired by [phha/click_config_file](https://github.com/phha/cl
 
 ```bash
 # Long commands like this:
-$ my-typer-app --opt1 foo --opt2 bar arg1 arg2
+$ my-typer-app --greeting Hello --suffix "!" World
 
 # Can become this:
 $ my-typer-app --config config.yml
@@ -31,7 +31,7 @@ app = typer.Typer()
 
 @app.command()
 @use_yaml_config()  # MUST BE AFTER @app.command() (2)
-def main(foo: FooType): ...
+def main(name: str, greeting: str = "Hello"): ...
 
 
 if __name__ == "__main__":

@@ -22,11 +22,11 @@ app = typer.Typer()
 @app.command()
 @use_fallback_config(fallback_files=["local.yml", "default.yml"])
 def main(
-    host: Annotated[str, typer.Option()],
-    port: Annotated[int, typer.Option()] = 8080,
-    debug: Annotated[bool, typer.Option()] = False,
+    name: str,
+    greeting: Annotated[str, typer.Option()],
+    suffix: Annotated[str, typer.Option()] = "!",
 ):
-    typer.echo(f"Connecting to {host}:{port} (debug={debug})")
+    typer.echo(f"{greeting}, {name}{suffix}")
 
 
 if __name__ == "__main__":
@@ -36,45 +36,45 @@ if __name__ == "__main__":
 With a default config file (local.yml doesn't exist in this example):
 
 ```yaml title="default.yml"
-host: default.example.com
-port: 5432
-debug: false
+name: World
+greeting: Hello
+suffix: "!"
 ```
 
 Since `local.yml` doesn't exist, `default.yml` is used:
 
 ```{.bash title="Terminal"}
 $ python simple_app.py
-Connecting to default.example.com:5432 (debug=False)
+Hello, World!
 
-$ python simple_app.py --host custom.example.com
-Connecting to custom.example.com:5432 (debug=False)
+$ python simple_app.py --greeting Hi
+Hi, World!
 ```
 
 Now if we create a local config, it takes priority:
 
 ```yaml title="local.yml"
-host: local.example.com
-port: 3000
-debug: true
+name: Team
+greeting: Hey
+suffix: "!!"
 ```
 
 ```{.bash title="Terminal (with local.yml)"}
 $ python simple_app.py
-Connecting to local.example.com:3000 (debug=True)
+Hey, Team!!
 ```
 
 The `--config` option always takes priority over the fallback list:
 
 ```yaml title="override.yml"
-host: override.example.com
-port: 9000
-debug: false
+name: Boss
+greeting: Yo
+suffix: "!!!"
 ```
 
 ```{.bash title="Terminal (with --config)"}
 $ python simple_app.py --config override.yml
-Connecting to override.example.com:9000 (debug=False)
+Yo, Boss!!!
 ```
 
 A real-world example with typical config locations:
@@ -102,17 +102,17 @@ result = RUNNER.invoke(app)
 
 assert result.exit_code == 0, f"Loading failed\n\n{result.stdout}"
 # local.yml exists and takes priority
-assert result.stdout.strip() == "Connecting to local.example.com:3000 (debug=True)", f"Unexpected output: {result.stdout}"
+assert result.stdout.strip() == "Hey, Team!!", f"Unexpected output: {result.stdout}"
 
 
-result = RUNNER.invoke(app, ["--host", "custom.example.com"])
+result = RUNNER.invoke(app, ["--greeting", "Hi"])
 
 assert result.exit_code == 0, f"Loading failed\n\n{result.stdout}"
-assert result.stdout.strip() == "Connecting to custom.example.com:3000 (debug=True)", f"Unexpected output: {result.stdout}"
+assert result.stdout.strip() == "Hi, Team!!", f"Unexpected output: {result.stdout}"
 
 result = RUNNER.invoke(app, ["--config", "override.yml"])
 
 assert result.exit_code == 0, f"Loading failed\n\n{result.stdout}"
-assert result.stdout.strip() == "Connecting to override.example.com:9000 (debug=False)", f"Unexpected output: {result.stdout}"
+assert result.stdout.strip() == "Yo, Boss!!!", f"Unexpected output: {result.stdout}"
 ```
 --->

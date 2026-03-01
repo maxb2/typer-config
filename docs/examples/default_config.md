@@ -15,11 +15,11 @@ app = typer.Typer()
 @app.command()
 @use_yaml_config(default_value="config.yml")
 def main(
-    arg1: str,
-    opt1: Annotated[str, typer.Option()],
-    opt2: Annotated[str, typer.Option()] = "hello",
+    name: str,
+    greeting: Annotated[str, typer.Option()],
+    suffix: Annotated[str, typer.Option()] = "!",
 ):
-    typer.echo(f"{opt1} {opt2} {arg1}")
+    typer.echo(f"{greeting}, {name}{suffix}")
 
 
 if __name__ == "__main__":
@@ -28,21 +28,21 @@ if __name__ == "__main__":
 
 1. This package also provides `use_json_config`, `use_toml_config`, `use_ini_config`, and `use_dotenv_config` for those file formats.
    > Note that since INI requires a top-level section `use_ini_config` requires a list of strings that express the path to the section
-   you wish to use, e.g. `@use_ini_config(["section", "subsection", ...])`. 
+   you wish to use, e.g. `@use_ini_config(["section", "subsection", ...])`.
 
 With a config file:
 
 ```yaml title="config.yml"
-arg1: stuff
-opt1: things
-opt2: nothing
+name: World
+greeting: Hello
+suffix: "!"
 ```
 
 <!--- This is here for the doc tests to pass.
 ```yaml title="other.yml"
-arg1: baz
-opt1: foo
-opt2: bar
+name: Alice
+greeting: Hi
+suffix: "!!"
 ```
 --->
 
@@ -50,16 +50,16 @@ And invoked with python:
 
 ```{.bash title="Terminal"}
 $ python simple_app.py
-things nothing stuff
+Hello, World!
 
-$ python simple_app.py others
-things nothing others
+$ python simple_app.py Alice
+Hello, Alice!
 
-$ python simple_app.py --opt1 people
-people nothing stuff
+$ python simple_app.py --greeting Hi
+Hi, World!
 
 $ python simple_app.py --config other.yml
-foo bar baz
+Hi, Alice!!
 ```
 
 
@@ -76,17 +76,17 @@ conf = "config.yml"
 result = RUNNER.invoke(app)
 
 assert result.exit_code == 0, f"Loading failed for {conf}\n\n{result.stdout}"
-assert result.stdout.strip() == "things nothing stuff", f"Unexpected output for {conf}"
+assert result.stdout.strip() == "Hello, World!", f"Unexpected output for {conf}"
 
 
-result = RUNNER.invoke(app, ["others"])
-
-assert result.exit_code == 0, f"Loading failed for {conf}\n\n{result.stdout}"
-assert result.stdout.strip() == "things nothing others", f"Unexpected output for {conf}"
-
-result = RUNNER.invoke(app, ["--opt1", "people"])
+result = RUNNER.invoke(app, ["Alice"])
 
 assert result.exit_code == 0, f"Loading failed for {conf}\n\n{result.stdout}"
-assert result.stdout.strip() == "people nothing stuff", f"Unexpected output for {conf}"
+assert result.stdout.strip() == "Hello, Alice!", f"Unexpected output for {conf}"
+
+result = RUNNER.invoke(app, ["--greeting", "Hi"])
+
+assert result.exit_code == 0, f"Loading failed for {conf}\n\n{result.stdout}"
+assert result.stdout.strip() == "Hi, World!", f"Unexpected output for {conf}"
 ```
 --->

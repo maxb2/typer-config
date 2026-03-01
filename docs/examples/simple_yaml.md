@@ -15,11 +15,11 @@ app = typer.Typer()
 @app.command()
 @use_yaml_config()
 def main(
-    arg1: str,
-    opt1: Annotated[str, typer.Option()],
-    opt2: Annotated[str, typer.Option()] = "hello",
+    name: str,
+    greeting: Annotated[str, typer.Option()],
+    suffix: Annotated[str, typer.Option()] = "!",
 ):
-    typer.echo(f"{opt1} {opt2} {arg1}")
+    typer.echo(f"{greeting}, {name}{suffix}")
 
 
 if __name__ == "__main__":
@@ -31,22 +31,22 @@ if __name__ == "__main__":
 With a config file:
 
 ```yaml title="config.yml"
-arg1: stuff
-opt1: things
-opt2: nothing
+name: World
+greeting: Hello
+suffix: "!"
 ```
 
 And invoked with python:
 
 ```{.bash title="Terminal"}
 $ python simple_app.py --config config.yml
-things nothing stuff
+Hello, World!
 
-$ python simple_app.py --config config.yml others
-things nothing others
+$ python simple_app.py --config config.yml Alice
+Hello, Alice!
 
-$ python simple_app.py --config config.yml --opt1 people
-people nothing stuff
+$ python simple_app.py --config config.yml --greeting Hi
+Hi, World!
 ```
 
 
@@ -63,17 +63,17 @@ conf = "config.yml"
 result = RUNNER.invoke(app, ["--config", conf])
 
 assert result.exit_code == 0, f"Loading failed for {conf}\n\n{result.stdout}"
-assert result.stdout.strip() == "things nothing stuff", f"Unexpected output for {conf}"
+assert result.stdout.strip() == "Hello, World!", f"Unexpected output for {conf}"
 
 
-result = RUNNER.invoke(app, ["--config", conf, "others"])
-
-assert result.exit_code == 0, f"Loading failed for {conf}\n\n{result.stdout}"
-assert result.stdout.strip() == "things nothing others", f"Unexpected output for {conf}"
-
-result = RUNNER.invoke(app, ["--config", conf, "--opt1", "people"])
+result = RUNNER.invoke(app, ["--config", conf, "Alice"])
 
 assert result.exit_code == 0, f"Loading failed for {conf}\n\n{result.stdout}"
-assert result.stdout.strip() == "people nothing stuff", f"Unexpected output for {conf}"
+assert result.stdout.strip() == "Hello, Alice!", f"Unexpected output for {conf}"
+
+result = RUNNER.invoke(app, ["--config", conf, "--greeting", "Hi"])
+
+assert result.exit_code == 0, f"Loading failed for {conf}\n\n{result.stdout}"
+assert result.stdout.strip() == "Hi, World!", f"Unexpected output for {conf}"
 ```
 --->

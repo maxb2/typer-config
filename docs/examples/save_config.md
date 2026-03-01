@@ -19,11 +19,11 @@ app = typer.Typer()
 @use_json_config()  # before dump decorator (2)
 @dump_json_config("./dumped.json")
 def main(
-    arg1: str,
-    opt1: Annotated[str, typer.Option()],
-    opt2: Annotated[str, typer.Option()] = "hello",
+    name: str,
+    greeting: Annotated[str, typer.Option()],
+    suffix: Annotated[str, typer.Option()] = "!",
 ):
-    typer.echo(f"{opt1} {opt2} {arg1}")
+    typer.echo(f"{greeting}, {name}{suffix}")
 
 
 if __name__ == "__main__":
@@ -38,11 +38,11 @@ if __name__ == "__main__":
 And invoked with python:
 
 ```{.bash title="Terminal"}
-$ python simple_app.py --opt1 foo --opt2 bar baz
-foo bar baz
+$ python simple_app.py --greeting Hello --suffix "!" World
+Hello, World!
 
 $ cat ./dumped.json
-{"arg1": "baz", "opt1": "foo", "opt2": "bar"}
+{"name": "World", "greeting": "Hello", "suffix": "!"}
 ```
 
 <!---
@@ -53,19 +53,19 @@ import json, os
 
 RUNNER = CliRunner()
 
-result = RUNNER.invoke(app, ["--opt1", "foo", "--opt2", "bar", "baz"])
+result = RUNNER.invoke(app, ["--greeting", "Hello", "--suffix", "!", "World"])
 
 assert result.exit_code == 0, "Application failed"
-assert result.stdout.strip() == "foo bar baz", "Unexpected output"
+assert result.stdout.strip() == "Hello, World!", "Unexpected output"
 
 
 assert os.path.isfile("./dumped.json"), "Saved file does not exist"
 
 with open("./dumped.json", "r") as f:
     assert json.load(f) == {
-        "opt1": "foo",
-        "opt2": "bar",
-        "arg1": "baz",
+        "greeting": "Hello",
+        "suffix": "!",
+        "name": "World",
     }, "Saved file has wrong contents"
 ```
 --->

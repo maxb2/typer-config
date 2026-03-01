@@ -23,13 +23,13 @@ app = typer.Typer()
 @app.command()
 @use_yaml_config()
 def main(
-    arg1: str,
-    arg2: List[str] = typer.Argument(default=None, callback=argument_list_callback),
-    opt1: str = typer.Option(...),
-    opt2: str = typer.Option("hello"),
+    name: str,
+    nicknames: List[str] = typer.Argument(default=None, callback=argument_list_callback),
+    greeting: str = typer.Option(...),
+    suffix: str = typer.Option("!"),
 ):
-    typer.echo(f"{opt1} {opt2} {arg1}")
-    typer.echo(f"{arg2}")
+    typer.echo(f"{greeting}, {name}{suffix}")
+    typer.echo(f"{nicknames}")
 
 
 if __name__ == "__main__":
@@ -38,20 +38,20 @@ if __name__ == "__main__":
 
 ```yaml title="config.yml"
 # config.yml
-opt1: "apple"
-opt2: "pear"
-arg1: "lemon"
-arg2: ["oak", "aspen", "maple"]
+greeting: "Hello"
+suffix: "!"
+name: "World"
+nicknames: ["Globe", "Earth", "Terra"]
 ```
 
 ```{.bash title="Terminal"}
 $ python arg_list.py --config config.yml
-apple pear lemon
-['oak', 'aspen', 'maple']
+Hello, World!
+['Globe', 'Earth', 'Terra']
 
-$ python arg_list.py strawberry bear wolf snake tiger --config config.yml
-apple pear strawberry
-['bear', 'wolf', 'snake', 'tiger']
+$ python arg_list.py Friend Buddy Pal Mate --config config.yml
+Hello, Friend!
+['Buddy', 'Pal', 'Mate']
 ```
 
 <!---
