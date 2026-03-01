@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.5.1](https://github.com/maxb2/typer-config/releases/tag/1.5.1) - 2026-03-01
+
+<small>[Compare with 1.5.0](https://github.com/maxb2/typer-config/compare/1.5.0...1.5.1)</small>
+
+### Documentation
+
+- improve examples and fix issues across documentation ([ea23b1c](https://github.com/maxb2/typer-config/commit/ea23b1cb6765a2364b99213904b9782256558266))
+- replace abstract examples with relatable greeter app ([8efa5a6](https://github.com/maxb2/typer-config/commit/8efa5a65dbb7dbd6cd21db47ef21fd0dcf91bf27))
+
+### Miscellaneous Tasks
+
+- add CLAUDE.md for Claude Code guidance ([de3755e](https://github.com/maxb2/typer-config/commit/de3755e2ed16e020d9688eb3dcee6f28fbf07b82))
+
 ## [1.5.0](https://github.com/maxb2/typer-config/releases/tag/1.5.0) - 2026-02-11
 
 <small>[Compare with 1.4.3](https://github.com/maxb2/typer-config/compare/1.4.3...1.5.0)</small>
