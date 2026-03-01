@@ -9,7 +9,7 @@ from typer.testing import CliRunner
 import typer_config
 from typer_config.loaders import multifile_fallback_loader, multifile_loader
 
-RUNNER = CliRunner(mix_stderr=False)
+RUNNER = CliRunner()
 
 HERE = Path(__file__).parent.absolute()
 
