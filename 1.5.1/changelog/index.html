@@ -1,0 +1,3093 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../api/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.2">
+    
+    
+      
+        <title>Changelog - Typer Config</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#changelog" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Typer Config" class="md-header__button md-logo" aria-label="Typer Config" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Typer Config
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Changelog
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/maxb2/typer-config" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    maxb2/typer-config
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Typer Config" class="md-nav__button md-logo" aria-label="Typer Config" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Typer Config
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/maxb2/typer-config" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    maxb2/typer-config
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../install/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How it works
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/simple_yaml/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Simple YAML Example
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/default_config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Default Config File Example
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/inheritance_config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inheritance Config Example
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/fallback_config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fallback Config Example
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/pyproject/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pyproject TOML loader
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/pydantic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pydantic Validation Example
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/schema/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schema Validation Example
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/explicit_config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Explicit Configuration Parameter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/dotenv/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dotenv Example
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/ini/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    INI Example
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/save_config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Save Config Files
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../known_issues/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Known Issues
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#151-2026-03-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5.1 - 2026-03-01
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.5.1 - 2026-03-01">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#miscellaneous-tasks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Miscellaneous Tasks
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#150-2026-02-11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5.0 - 2026-02-11
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.5.0 - 2026-02-11">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Features
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#miscellaneous-tasks_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Miscellaneous Tasks
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#143-2025-10-27" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4.3 - 2025-10-27
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.4.3 - 2025-10-27">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bug-fixes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bug Fixes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#miscellaneous-tasks_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Miscellaneous Tasks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tools
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#142-2024-11-08" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4.2 - 2024-11-08
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.4.2 - 2024-11-08">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bug-fixes_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bug Fixes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#141-2024-11-07" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4.1 - 2024-11-07
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.4.1 - 2024-11-07">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bug-fixes_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bug Fixes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#miscellaneous-tasks_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Miscellaneous Tasks
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#140-2023-11-17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4.0 - 2023-11-17
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.4.0 - 2023-11-17">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#features_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Features
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#130-2023-11-06" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.0 - 2023-11-06
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.3.0 - 2023-11-06">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#features_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Features
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#121-2023-10-12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.1 - 2023-10-12
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.2.1 - 2023-10-12">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bug-fixes_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bug Fixes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#120-2023-10-12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.0 - 2023-10-12
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.2.0 - 2023-10-12">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#documentation_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#features_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Features
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#miscellaneous-tasks_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Miscellaneous Tasks
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#110-2023-08-26" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.0 - 2023-08-26
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.1.0 - 2023-08-26">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#features_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Features
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#101-2023-08-23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.0.1 - 2023-08-23
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.0.1 - 2023-08-23">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bug-fixes_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bug Fixes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#documentation_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#miscellaneous-tasks_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Miscellaneous Tasks
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#100-2023-07-20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.0.0 - 2023-07-20
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.0.0 - 2023-07-20">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#documentation_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#miscellaneous-tasks_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Miscellaneous Tasks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deps
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ref" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ref
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#061-2023-07-17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0.6.1 - 2023-07-17
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.6.1 - 2023-07-17">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#documentation_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#060-2023-07-17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0.6.0 - 2023-07-17
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.6.0 - 2023-07-17">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#documentation_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#features_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Features
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#miscellaneous-tasks_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Miscellaneous Tasks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deps_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deps
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tools_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tools
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#050-2023-05-25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0.5.0 - 2023-05-25
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.5.0 - 2023-05-25">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#features_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Features
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#styling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Styling
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#040-2023-05-23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0.4.0 - 2023-05-23
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.4.0 - 2023-05-23">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#documentation_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#features_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Features
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testing
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#030-2023-05-18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0.3.0 - 2023-05-18
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.3.0 - 2023-05-18">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#documentation_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#features_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Features
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#miscellaneous-tasks_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Miscellaneous Tasks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#styling_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Styling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ref_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ref
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#020-2023-05-18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0.2.0 - 2023-05-18
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.2.0 - 2023-05-18">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bug-fixes_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bug Fixes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#documentation_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#features_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Features
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#miscellaneous-tasks_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Miscellaneous Tasks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#styling_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Styling
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#013-2023-05-15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0.1.3 - 2023-05-15
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.1.3 - 2023-05-15">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bug-fixes_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bug Fixes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#feat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Feat
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#features_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Features
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#miscellaneous-tasks_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Miscellaneous Tasks
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#012-2023-05-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0.1.2 - 2023-05-01
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.1.2 - 2023-05-01">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bug-fixes_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bug Fixes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#features_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Features
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#miscellaneous-tasks_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Miscellaneous Tasks
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#151-2026-03-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5.1 - 2026-03-01
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.5.1 - 2026-03-01">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#miscellaneous-tasks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Miscellaneous Tasks
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#150-2026-02-11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5.0 - 2026-02-11
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.5.0 - 2026-02-11">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Features
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#miscellaneous-tasks_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Miscellaneous Tasks
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#143-2025-10-27" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4.3 - 2025-10-27
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.4.3 - 2025-10-27">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bug-fixes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bug Fixes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#miscellaneous-tasks_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Miscellaneous Tasks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tools
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#142-2024-11-08" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4.2 - 2024-11-08
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.4.2 - 2024-11-08">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bug-fixes_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bug Fixes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#141-2024-11-07" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4.1 - 2024-11-07
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.4.1 - 2024-11-07">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bug-fixes_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bug Fixes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#miscellaneous-tasks_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Miscellaneous Tasks
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#140-2023-11-17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4.0 - 2023-11-17
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.4.0 - 2023-11-17">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#features_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Features
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#130-2023-11-06" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.0 - 2023-11-06
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.3.0 - 2023-11-06">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#features_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Features
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#121-2023-10-12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.1 - 2023-10-12
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.2.1 - 2023-10-12">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bug-fixes_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bug Fixes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#120-2023-10-12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.0 - 2023-10-12
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.2.0 - 2023-10-12">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#documentation_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#features_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Features
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#miscellaneous-tasks_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Miscellaneous Tasks
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#110-2023-08-26" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.0 - 2023-08-26
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.1.0 - 2023-08-26">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#features_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Features
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#101-2023-08-23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.0.1 - 2023-08-23
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.0.1 - 2023-08-23">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bug-fixes_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bug Fixes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#documentation_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#miscellaneous-tasks_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Miscellaneous Tasks
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#100-2023-07-20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.0.0 - 2023-07-20
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.0.0 - 2023-07-20">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#documentation_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#miscellaneous-tasks_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Miscellaneous Tasks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deps
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ref" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ref
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#061-2023-07-17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0.6.1 - 2023-07-17
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.6.1 - 2023-07-17">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#documentation_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#060-2023-07-17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0.6.0 - 2023-07-17
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.6.0 - 2023-07-17">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#documentation_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#features_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Features
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#miscellaneous-tasks_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Miscellaneous Tasks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deps_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deps
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tools_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tools
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#050-2023-05-25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0.5.0 - 2023-05-25
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.5.0 - 2023-05-25">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#features_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Features
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#styling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Styling
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#040-2023-05-23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0.4.0 - 2023-05-23
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.4.0 - 2023-05-23">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#documentation_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#features_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Features
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testing
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#030-2023-05-18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0.3.0 - 2023-05-18
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.3.0 - 2023-05-18">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#documentation_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#features_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Features
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#miscellaneous-tasks_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Miscellaneous Tasks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#styling_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Styling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ref_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ref
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#020-2023-05-18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0.2.0 - 2023-05-18
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.2.0 - 2023-05-18">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bug-fixes_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bug Fixes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#documentation_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#features_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Features
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#miscellaneous-tasks_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Miscellaneous Tasks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#styling_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Styling
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#013-2023-05-15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0.1.3 - 2023-05-15
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.1.3 - 2023-05-15">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bug-fixes_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bug Fixes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#feat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Feat
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#features_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Features
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#miscellaneous-tasks_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Miscellaneous Tasks
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#012-2023-05-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0.1.2 - 2023-05-01
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.1.2 - 2023-05-01">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bug-fixes_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bug Fixes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#features_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Features
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#miscellaneous-tasks_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Miscellaneous Tasks
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="changelog">Changelog</h1>
+<p>All notable changes to this project will be documented in this file.</p>
+<h2 id="151-2026-03-01"><a href="https://github.com/maxb2/typer-config/releases/tag/1.5.1">1.5.1</a> - 2026-03-01</h2>
+<p><small><a href="https://github.com/maxb2/typer-config/compare/1.5.0...1.5.1">Compare with 1.5.0</a></small></p>
+<h3 id="documentation">Documentation</h3>
+<ul>
+<li>improve examples and fix issues across documentation (<a href="https://github.com/maxb2/typer-config/commit/ea23b1cb6765a2364b99213904b9782256558266">ea23b1c</a>)</li>
+<li>replace abstract examples with relatable greeter app (<a href="https://github.com/maxb2/typer-config/commit/8efa5a65dbb7dbd6cd21db47ef21fd0dcf91bf27">8efa5a6</a>)</li>
+</ul>
+<h3 id="miscellaneous-tasks">Miscellaneous Tasks</h3>
+<ul>
+<li>add CLAUDE.md for Claude Code guidance (<a href="https://github.com/maxb2/typer-config/commit/de3755e2ed16e020d9688eb3dcee6f28fbf07b82">de3755e</a>)</li>
+</ul>
+<h2 id="150-2026-02-11"><a href="https://github.com/maxb2/typer-config/releases/tag/1.5.0">1.5.0</a> - 2026-02-11</h2>
+<p><small><a href="https://github.com/maxb2/typer-config/compare/1.4.3...1.5.0">Compare with 1.4.3</a></small></p>
+<h3 id="features">Features</h3>
+<ul>
+<li>multifile configs (#383) (<a href="https://github.com/maxb2/typer-config/commit/0811ae87809a639c64e26bd494608cd21a52961d">0811ae8</a>)</li>
+</ul>
+<h3 id="miscellaneous-tasks_1">Miscellaneous Tasks</h3>
+<ul>
+<li>update pypi classifiers (<a href="https://github.com/maxb2/typer-config/commit/73acc8a190f8d9e6e61f5086d3298f510d535b10">73acc8a</a>)</li>
+<li>tooling (#395) (<a href="https://github.com/maxb2/typer-config/commit/81098f88cf0a49a52d47cfda40330b57f52051f5">81098f8</a>)</li>
+</ul>
+<h2 id="143-2025-10-27"><a href="https://github.com/maxb2/typer-config/releases/tag/1.4.3">1.4.3</a> - 2025-10-27</h2>
+<p><small><a href="https://github.com/maxb2/typer-config/compare/1.4.2...1.4.3">Compare with 1.4.2</a></small></p>
+<h3 id="bug-fixes">Bug Fixes</h3>
+<ul>
+<li>drop python3.9 support (#368) (<a href="https://github.com/maxb2/typer-config/commit/369582ae281034fe831cf06d47abd7748295f482">369582a</a>)</li>
+</ul>
+<h3 id="miscellaneous-tasks_2">Miscellaneous Tasks</h3>
+<ul>
+<li>switch from poetry to uv (#320) (<a href="https://github.com/maxb2/typer-config/commit/471e738ad8c1e3db029a34ca9cb7995eec355ec6">471e738</a>)</li>
+<li>add python 3.13 test (#321) (<a href="https://github.com/maxb2/typer-config/commit/845163800d9408297221bdd3b1bcb114e591b5b6">8451638</a>)</li>
+<li>enable dependabot for uv and gh-actions (#323) (<a href="https://github.com/maxb2/typer-config/commit/6bd60b5f1f111d1ecca9722ae273b1032541cfa3">6bd60b5</a>)</li>
+<li>use uv build backend (#334) (<a href="https://github.com/maxb2/typer-config/commit/aede197437b91da54085671021e1476528742477">aede197</a>)</li>
+</ul>
+<h3 id="tools">Tools</h3>
+<ul>
+<li>new changelog tool and Makefile (#303) (<a href="https://github.com/maxb2/typer-config/commit/032204e8193f2b9a384259b36b8d44242d8e53be">032204e</a>)</li>
+</ul>
+<h2 id="142-2024-11-08"><a href="https://github.com/maxb2/typer-config/releases/tag/1.4.2">1.4.2</a> - 2024-11-08</h2>
+<p><small><a href="https://github.com/maxb2/typer-config/compare/1.4.1...1.4.2">Compare with 1.4.1</a></small></p>
+<h3 id="bug-fixes_1">Bug Fixes</h3>
+<ul>
+<li>emit warnings when config files are missing (#297) (<a href="https://github.com/maxb2/typer-config/commit/0e072df5a06e1f86d81fe338f2996cc254181dd4">0e072df</a>)</li>
+</ul>
+<h2 id="141-2024-11-07"><a href="https://github.com/maxb2/typer-config/releases/tag/1.4.1">1.4.1</a> - 2024-11-07</h2>
+<p><small><a href="https://github.com/maxb2/typer-config/compare/1.4.0...1.4.1">Compare with 1.4.0</a></small></p>
+<h3 id="bug-fixes_2">Bug Fixes</h3>
+<ul>
+<li>drop py3.8 (#287) (<a href="https://github.com/maxb2/typer-config/commit/232175749581ba8d4f420b28d0133958f280f593">2321757</a>)</li>
+<li>future annotations with custom types (#296) (<a href="https://github.com/maxb2/typer-config/commit/eb2f2524ccd5d62b5b07f4f5580bb9e210af63bb">eb2f252</a>)</li>
+</ul>
+<h3 id="miscellaneous-tasks_3">Miscellaneous Tasks</h3>
+<ul>
+<li>formatting (#233) (<a href="https://github.com/maxb2/typer-config/commit/e1ee1f5fa22a05b06d080559b5ba1fdcae5bf08e">e1ee1f5</a>)</li>
+</ul>
+<h2 id="140-2023-11-17"><a href="https://github.com/maxb2/typer-config/releases/tag/1.4.0">1.4.0</a> - 2023-11-17</h2>
+<p><small><a href="https://github.com/maxb2/typer-config/compare/1.3.0...1.4.0">Compare with 1.3.0</a></small></p>
+<h3 id="features_1">Features</h3>
+<ul>
+<li>list argument callback (#129) (<a href="https://github.com/maxb2/typer-config/commit/aabeee26bbb2179270b0ef984ac00babc0ac72f3">aabeee2</a>)</li>
+</ul>
+<h2 id="130-2023-11-06"><a href="https://github.com/maxb2/typer-config/releases/tag/1.3.0">1.3.0</a> - 2023-11-06</h2>
+<p><small><a href="https://github.com/maxb2/typer-config/compare/1.2.1...1.3.0">Compare with 1.2.1</a></small></p>
+<h3 id="features_2">Features</h3>
+<ul>
+<li>default decorator sections (#123) (<a href="https://github.com/maxb2/typer-config/commit/0b8b8ea6b64d3270909b14289d1f9f2e7b263d27">0b8b8ea</a>)</li>
+</ul>
+<h2 id="121-2023-10-12"><a href="https://github.com/maxb2/typer-config/releases/tag/1.2.1">1.2.1</a> - 2023-10-12</h2>
+<p><small><a href="https://github.com/maxb2/typer-config/compare/1.2.0...1.2.1">Compare with 1.2.0</a></small></p>
+<h3 id="bug-fixes_3">Bug Fixes</h3>
+<ul>
+<li>export use_ini_config in library (<a href="https://github.com/maxb2/typer-config/commit/d66cb3ce90109d643f4f277c1fa447c881279836">d66cb3c</a>)</li>
+</ul>
+<h2 id="120-2023-10-12"><a href="https://github.com/maxb2/typer-config/releases/tag/1.2.0">1.2.0</a> - 2023-10-12</h2>
+<p><small><a href="https://github.com/maxb2/typer-config/compare/1.1.0...1.2.0">Compare with 1.1.0</a></small></p>
+<h3 id="documentation_1">Documentation</h3>
+<ul>
+<li>fix typos (<a href="https://github.com/maxb2/typer-config/commit/60cd8ea2b37ced4c7da0e5fd788a3e9f360e5767">60cd8ea</a>)</li>
+</ul>
+<h3 id="features_3">Features</h3>
+<ul>
+<li>ini decorator (#102) (<a href="https://github.com/maxb2/typer-config/commit/80bab13a855a46e167507e105c524cc35b18cc34">80bab13</a>)</li>
+</ul>
+<h3 id="miscellaneous-tasks_4">Miscellaneous Tasks</h3>
+<ul>
+<li>limit CI to run on main and pull requests (<a href="https://github.com/maxb2/typer-config/commit/3eb256854ea93c8826edb4c11b6431457a40c7de">3eb2568</a>)</li>
+<li>release on tags (<a href="https://github.com/maxb2/typer-config/commit/0e57e8afafba9eee5a619792e42426085998a39a">0e57e8a</a>)</li>
+<li>remove venv cache (<a href="https://github.com/maxb2/typer-config/commit/869cde1e83a52510b0816ec9e90ceb01f6b89f46">869cde1</a>)</li>
+</ul>
+<h2 id="110-2023-08-26"><a href="https://github.com/maxb2/typer-config/releases/tag/1.1.0">1.1.0</a> - 2023-08-26</h2>
+<p><small><a href="https://github.com/maxb2/typer-config/compare/1.0.1...1.1.0">Compare with 1.0.1</a></small></p>
+<h3 id="features_4">Features</h3>
+<ul>
+<li>add default values to config decorators (#67) (<a href="https://github.com/maxb2/typer-config/commit/19d10b782387d910c89f763550cfdfb8126f866d">19d10b7</a>)</li>
+</ul>
+<h2 id="101-2023-08-23"><a href="https://github.com/maxb2/typer-config/releases/tag/1.0.1">1.0.1</a> - 2023-08-23</h2>
+<p><small><a href="https://github.com/maxb2/typer-config/compare/1.0.0...1.0.1">Compare with 1.0.0</a></small></p>
+<h3 id="bug-fixes_4">Bug Fixes</h3>
+<ul>
+<li>add py.typed so mypy will use our annotations (<a href="https://github.com/maxb2/typer-config/commit/ac56f1c02f5e549cd1713f4eb3c7d147a139b5ab">ac56f1c</a>)</li>
+</ul>
+<h3 id="documentation_2">Documentation</h3>
+<ul>
+<li>fix changelog (<a href="https://github.com/maxb2/typer-config/commit/6177a8e3ae8582bc0bf63ce1d4385ee0e9f0f6f6">6177a8e</a>)</li>
+</ul>
+<h3 id="miscellaneous-tasks_5">Miscellaneous Tasks</h3>
+<ul>
+<li>venv cache (#57) (<a href="https://github.com/maxb2/typer-config/commit/7cbfc08e5f8d53a7c9d2cb8f9c667d6b4d543f81">7cbfc08</a>)</li>
+<li>update blacken-docs (<a href="https://github.com/maxb2/typer-config/commit/66b9dcef48feff1a998025fa47576c86513c3727">66b9dce</a>)</li>
+<li>update blacken-docs again (<a href="https://github.com/maxb2/typer-config/commit/2484e91a970d51c19a557b1ead8cf8c1b61a1f44">2484e91</a>)</li>
+</ul>
+<h2 id="100-2023-07-20"><a href="https://github.com/maxb2/typer-config/releases/tag/1.0.0">1.0.0</a> - 2023-07-20</h2>
+<p><small><a href="https://github.com/maxb2/typer-config/compare/0.6.1...1.0.0">Compare with 0.6.1</a></small></p>
+<h3 id="documentation_3">Documentation</h3>
+<ul>
+<li>fix links and simplify notes (<a href="https://github.com/maxb2/typer-config/commit/8c8492a5d89c9500eebeeb813576e8c0b0232365">8c8492a</a>)</li>
+<li>use decorators (<a href="https://github.com/maxb2/typer-config/commit/f945284c8e30b0ba0d0497081e9ac404d301d3a5">f945284</a>)</li>
+</ul>
+<h3 id="miscellaneous-tasks_6">Miscellaneous Tasks</h3>
+<ul>
+<li>remove deprecated code (#45) (<a href="https://github.com/maxb2/typer-config/commit/e363a80a510abccbe6538acf50ca43a755f710bd">e363a80</a>)</li>
+</ul>
+<h3 id="deps">Deps</h3>
+<ul>
+<li>fix blacken-docs (#43) (<a href="https://github.com/maxb2/typer-config/commit/e6320e641348f2b838f0bac58e0fde8ec3b2da5a">e6320e6</a>)</li>
+</ul>
+<h3 id="ref">Ref</h3>
+<ul>
+<li>ruff linting (#44) (<a href="https://github.com/maxb2/typer-config/commit/a79245a0c8e02513c62437bf56d117b910f9a1a5">a79245a</a>)</li>
+</ul>
+<h2 id="061-2023-07-17"><a href="https://github.com/maxb2/typer-config/releases/tag/0.6.1">0.6.1</a> - 2023-07-17</h2>
+<p><small><a href="https://github.com/maxb2/typer-config/compare/0.6.0...0.6.1">Compare with 0.6.0</a></small></p>
+<h3 id="documentation_4">Documentation</h3>
+<ul>
+<li>use Annotated type (#41) (<a href="https://github.com/maxb2/typer-config/commit/f2a8a254d971d064f66d7c02bed9bf4c22b64c24">f2a8a25</a>)</li>
+</ul>
+<h2 id="060-2023-07-17"><a href="https://github.com/maxb2/typer-config/releases/tag/0.6.0">0.6.0</a> - 2023-07-17</h2>
+<p><small><a href="https://github.com/maxb2/typer-config/compare/0.5.0...0.6.0">Compare with 0.5.0</a></small></p>
+<h3 id="documentation_5">Documentation</h3>
+<ul>
+<li>update decorator docs (#40) (<a href="https://github.com/maxb2/typer-config/commit/360e5efd23bf4375f1f0a81e10a211b618f2b62d">360e5ef</a>)</li>
+</ul>
+<h3 id="features_5">Features</h3>
+<ul>
+<li>config decorator (#34) (<a href="https://github.com/maxb2/typer-config/commit/ae8e44df68c0ccf24be42af598050278f1d79737">ae8e44d</a>)</li>
+<li>dump configuration on invocation (#27) (<a href="https://github.com/maxb2/typer-config/commit/b2c7b423d2cfc334cc9264544ed62256734acf7a">b2c7b42</a>)</li>
+</ul>
+<h3 id="miscellaneous-tasks_7">Miscellaneous Tasks</h3>
+<ul>
+<li>Create dependabot.yml (<a href="https://github.com/maxb2/typer-config/commit/388eb7b9d823cbe1fa2d99f0be9d201d47176886">388eb7b</a>)</li>
+<li>fix dependabot.yml (<a href="https://github.com/maxb2/typer-config/commit/b92cb0d29f1cb009810ef8db7b951c5830adf611">b92cb0d</a>)</li>
+</ul>
+<h3 id="deps_1">Deps</h3>
+<ul>
+<li>update griffe (<a href="https://github.com/maxb2/typer-config/commit/e5fc30314bfe77ed33dc174bca6deb7849fcc547">e5fc303</a>)</li>
+</ul>
+<h3 id="tools_1">Tools</h3>
+<ul>
+<li>isort arguments (<a href="https://github.com/maxb2/typer-config/commit/63279cef24c5453a10b73de36a7439dbcfefee60">63279ce</a>)</li>
+</ul>
+<h2 id="050-2023-05-25"><a href="https://github.com/maxb2/typer-config/releases/tag/0.5.0">0.5.0</a> - 2023-05-25</h2>
+<p><small><a href="https://github.com/maxb2/typer-config/compare/0.4.0...0.5.0">Compare with 0.4.0</a></small></p>
+<h3 id="features_6">Features</h3>
+<ul>
+<li>loader conditionals (#23) (<a href="https://github.com/maxb2/typer-config/commit/4bb82de3a9d1e355a0eb0048d10d4246d57a5c22">4bb82de</a>)</li>
+</ul>
+<h3 id="styling">Styling</h3>
+<ul>
+<li>isort (<a href="https://github.com/maxb2/typer-config/commit/85480c06b793e43ad93358e977cb26921b21c5e4">85480c0</a>)</li>
+</ul>
+<h2 id="040-2023-05-23"><a href="https://github.com/maxb2/typer-config/releases/tag/0.4.0">0.4.0</a> - 2023-05-23</h2>
+<p><small><a href="https://github.com/maxb2/typer-config/compare/0.3.0...0.4.0">Compare with 0.3.0</a></small></p>
+<h3 id="documentation_6">Documentation</h3>
+<ul>
+<li>fix typo (<a href="https://github.com/maxb2/typer-config/commit/e4d1417ada060925c54d44489c0ceb5b25a0e9f0">e4d1417</a>)</li>
+</ul>
+<h3 id="features_7">Features</h3>
+<ul>
+<li>config loader transformer (#21) (<a href="https://github.com/maxb2/typer-config/commit/7af96956b7e1e0170cd5a8a0d7c5076f76f53aa0">7af9695</a>)</li>
+</ul>
+<h3 id="testing">Testing</h3>
+<ul>
+<li>doc example tests (#22) (<a href="https://github.com/maxb2/typer-config/commit/cf0650333fc355b5d3a7acb19bba99e932b008dc">cf06503</a>)</li>
+</ul>
+<h2 id="030-2023-05-18"><a href="https://github.com/maxb2/typer-config/releases/tag/0.3.0">0.3.0</a> - 2023-05-18</h2>
+<p><small><a href="https://github.com/maxb2/typer-config/compare/0.2.0...0.3.0">Compare with 0.2.0</a></small></p>
+<h3 id="documentation_7">Documentation</h3>
+<ul>
+<li>update docs missing dotenv (<a href="https://github.com/maxb2/typer-config/commit/23f67346c0c7cb1d3eb2631a39f2f14bbce92d11">23f6734</a>)</li>
+<li>fix changelog names (<a href="https://github.com/maxb2/typer-config/commit/75b983d8499d7156c0e81739291b6bf4ea10c83c">75b983d</a>)</li>
+</ul>
+<h3 id="features_8">Features</h3>
+<ul>
+<li>INI support (#17) (<a href="https://github.com/maxb2/typer-config/commit/2ec9aa5dbacb5d4f08ccaffb0b2d80d492355fef">2ec9aa5</a>)</li>
+</ul>
+<h3 id="miscellaneous-tasks_8">Miscellaneous Tasks</h3>
+<ul>
+<li>simplify workflow (#18) (<a href="https://github.com/maxb2/typer-config/commit/17c3af324296c34cb9e896be7873440d8cfe4788">17c3af3</a>)</li>
+</ul>
+<h3 id="styling_1">Styling</h3>
+<ul>
+<li>use google docstrings (#16) (<a href="https://github.com/maxb2/typer-config/commit/2e2e09f17b74c034b0032a2c5010767d97c448b3">2e2e09f</a>)</li>
+</ul>
+<h3 id="ref_1">Ref</h3>
+<ul>
+<li>reorder release steps (<a href="https://github.com/maxb2/typer-config/commit/6f83ed0192447fb2c477d31f6006c1ce71b6da25">6f83ed0</a>)</li>
+</ul>
+<h2 id="020-2023-05-18"><a href="https://github.com/maxb2/typer-config/releases/tag/0.2.0">0.2.0</a> - 2023-05-18</h2>
+<p><small><a href="https://github.com/maxb2/typer-config/compare/0.1.3...0.2.0">Compare with 0.1.3</a></small></p>
+<h3 id="bug-fixes_5">Bug Fixes</h3>
+<ul>
+<li>tooling (<a href="https://github.com/maxb2/typer-config/commit/ae242202635cc02e1a4aa7e7258ee2e78886c22b">ae24220</a>)</li>
+</ul>
+<h3 id="documentation_8">Documentation</h3>
+<ul>
+<li>add shields (<a href="https://github.com/maxb2/typer-config/commit/8283eb8939d889e57b33f1e497ef2fb168451d60">8283eb8</a>)</li>
+<li>update docstrings for default callbacks (<a href="https://github.com/maxb2/typer-config/commit/c9e145082d247b81e93b94d261e23d55ce8b464a">c9e1450</a>)</li>
+<li>fix broken link (<a href="https://github.com/maxb2/typer-config/commit/2643281e8abed826896d4a6fa2c7e8aef7a6c852">2643281</a>)</li>
+<li>generate changelog for mkdocs (<a href="https://github.com/maxb2/typer-config/commit/394f286f396197a190f92d18b69b866dfa356035">394f286</a>)</li>
+</ul>
+<h3 id="features_9">Features</h3>
+<ul>
+<li>dotenv (#15) (<a href="https://github.com/maxb2/typer-config/commit/28f5e611a9885693ac3c7c156095b5f6fd3ac7e7">28f5e61</a>)</li>
+</ul>
+<h3 id="miscellaneous-tasks_9">Miscellaneous Tasks</h3>
+<ul>
+<li>tooling (#12) (<a href="https://github.com/maxb2/typer-config/commit/fc0e5b8e9ce30ecb00986ceda58c29eaf28b1493">fc0e5b8</a>)</li>
+</ul>
+<h3 id="styling_2">Styling</h3>
+<ul>
+<li>fix formatting (<a href="https://github.com/maxb2/typer-config/commit/17985e4ed85a1f5f6a87ee62e388a62dd3cb0194">17985e4</a>)</li>
+<li>formatting (<a href="https://github.com/maxb2/typer-config/commit/e05b7d84708f65a1531795051379d28d41d07fde">e05b7d8</a>)</li>
+</ul>
+<h2 id="013-2023-05-15"><a href="https://github.com/maxb2/typer-config/releases/tag/0.1.3">0.1.3</a> - 2023-05-15</h2>
+<p><small><a href="https://github.com/maxb2/typer-config/compare/0.1.2...0.1.3">Compare with 0.1.2</a></small></p>
+<h3 id="bug-fixes_6">Bug Fixes</h3>
+<ul>
+<li>typo (<a href="https://github.com/maxb2/typer-config/commit/cca9eb32c4819811806b0cd42217221a212f6143">cca9eb3</a>)</li>
+<li>typo (<a href="https://github.com/maxb2/typer-config/commit/b7a10c3bd035974153a94d0bdd2dd64a9f76fe18">b7a10c3</a>)</li>
+<li>change local type module name to match typer (<a href="https://github.com/maxb2/typer-config/commit/0c087ff29922215ba2d5060b9e19f54b5450dfdb">0c087ff</a>)</li>
+</ul>
+<h3 id="feat">Feat</h3>
+<ul>
+<li>type checking (#4) (<a href="https://github.com/maxb2/typer-config/commit/d4481fb1b19b507b94905d48aef203b7bbf9e524">d4481fb</a>)</li>
+<li>add subpath and default value combinators (#6) (<a href="https://github.com/maxb2/typer-config/commit/d080fe06ae30e3ee817d4fdec06d706c2e7d4975">d080fe0</a>)</li>
+<li>add coverage (#7) (<a href="https://github.com/maxb2/typer-config/commit/a06bdcab9c141f9abe6052f0b1a88c9a46772f72">a06bdca</a>)</li>
+<li>mkdocs (#8) (<a href="https://github.com/maxb2/typer-config/commit/49a0d36fcb7e638ea762c0a550c0d18d1a5bf036">49a0d36</a>)</li>
+</ul>
+<h3 id="features_10">Features</h3>
+<ul>
+<li>add test for pyproject example (#5) (<a href="https://github.com/maxb2/typer-config/commit/dbbd1b6fcb0154b8455309fb642543a4d12b4c6a">dbbd1b6</a>)</li>
+</ul>
+<h3 id="miscellaneous-tasks_10">Miscellaneous Tasks</h3>
+<ul>
+<li>bump version (<a href="https://github.com/maxb2/typer-config/commit/0fe819323bb17ee40eb2dbb0f0851736d6ae1eed">0fe8193</a>)</li>
+</ul>
+<h2 id="012-2023-05-01"><a href="https://github.com/maxb2/typer-config/releases/tag/0.1.2">0.1.2</a> - 2023-05-01</h2>
+<p><small><a href="https://github.com/maxb2/typer-config/compare/0.1.1...0.1.2">Compare with 0.1.1</a></small></p>
+<h3 id="bug-fixes_7">Bug Fixes</h3>
+<ul>
+<li>typer BadParameter (<a href="https://github.com/maxb2/typer-config/commit/64868a33a6bb6a5833c40a02c6e2771b10a16cbc">64868a3</a>)</li>
+<li>tomllib (<a href="https://github.com/maxb2/typer-config/commit/15f53a5c6d9a90d99a7c17f020269177bd799ac3">15f53a5</a>)</li>
+<li>linter (<a href="https://github.com/maxb2/typer-config/commit/8bfeb822906302c1021d5979404ed644284a87be">8bfeb82</a>)</li>
+</ul>
+<h3 id="features_11">Features</h3>
+<ul>
+<li>initial features (<a href="https://github.com/maxb2/typer-config/commit/4298289ac4ff041e5481d837f3ab38a00f052707">4298289</a>)</li>
+<li>simple example as test (<a href="https://github.com/maxb2/typer-config/commit/d59962e24cdbe50db6eb632bbb5ca49922955639">d59962e</a>)</li>
+</ul>
+<h3 id="miscellaneous-tasks_11">Miscellaneous Tasks</h3>
+<ul>
+<li>bump version (<a href="https://github.com/maxb2/typer-config/commit/e7aeb353b0060fbe463cb05ac1f23ae44aa97e44">e7aeb35</a>)</li>
+</ul>
+<!-- generated by git-cliff -->
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "content.code.copy", "content.code.annotate"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
