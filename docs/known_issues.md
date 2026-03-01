@@ -8,7 +8,7 @@ This is a collection of known issues and workarounds to address them.
 
 Providing values for a list argument in a config file doesn't work out of the box.
 You must use a custom callback for list arguments to extract the values from the config.
-Thanks to [@jlwhelan28](https://github.com/jlwhelan28) for the inital solution to this problem.
+Thanks to [@jlwhelan28](https://github.com/jlwhelan28) for the initial solution to this problem.
 Below is a working example of how to deal with an argument list:
 
 ```{.python title="arg_list.py" test="true"}

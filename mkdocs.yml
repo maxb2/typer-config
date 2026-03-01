@@ -34,6 +34,8 @@ nav:
     - 'examples/pydantic.md'
     - 'examples/schema.md'
     - 'examples/explicit_config.md'
+    - 'examples/dotenv.md'
+    - 'examples/ini.md'
     - 'examples/save_config.md'
   - Known Issues: known_issues.md
   - API Reference: api.md

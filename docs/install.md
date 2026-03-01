@@ -4,6 +4,8 @@
 $ pip install typer-config
 ```
 
+> **Note**: Python >= 3.10 is required.
+
 > **Note**: this only supports reading json files. See below for more file formats.
 
 ## Optional dependencies

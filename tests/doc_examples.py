@@ -279,6 +279,8 @@ def exec_file_fence(fence: Fence, **kwargs):
 register_executor("yaml", exec_file_fence)
 register_executor("yml", exec_file_fence)
 register_executor("toml", exec_file_fence)
+register_executor("dotenv", exec_file_fence)
+register_executor("ini", exec_file_fence)
 
 
 def exec_python_fence(fence: Fence, globals_: Optional[Dict] = None):

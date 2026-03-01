@@ -98,7 +98,6 @@ from typer_config import conf_callback_factory
 from typer_config.loaders import toml_loader
 from typer_config.decorators import use_config
 
-
 ### You can define the same loader using the loader_transformer combinator:
 #
 from typer_config.loaders import loader_transformer

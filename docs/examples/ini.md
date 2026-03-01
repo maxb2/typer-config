@@ -1,32 +1,19 @@
-# Schema Validation Example
+# INI Example
 
-This simple example uses a `--config` option to load a configuration from a YAML file and uses [schema](https://github.com/keleshev/schema) to validate the file before continuing.
+This simple example uses a `--config` option to load a configuration from an INI file.
 
 An example typer app:
 ```{.python title="simple_app.py" test="true"}
-from typing import Any
 from typing_extensions import Annotated
 
-from schema import Schema
 import typer
-from typer_config import yaml_loader, conf_callback_factory, use_config
-
-schema = Schema({"arg1": str, "opt1": str, "opt2": str})
-
-
-def validator_loader(param_value: str) -> dict[str, Any]:
-    conf = yaml_loader(param_value)
-    conf = schema.validate(conf)  # raises an exception if not valid
-    return conf
-
-
-validator_callback = conf_callback_factory(validator_loader)
+from typer_config.decorators import use_ini_config
 
 app = typer.Typer()
 
 
 @app.command()
-@use_config(validator_callback)
+@use_ini_config(["section"])
 def main(
     arg1: str,
     opt1: Annotated[str, typer.Option()],
@@ -41,22 +28,23 @@ if __name__ == "__main__":
 
 With a config file:
 
-```yaml title="config.yml"
-arg1: stuff
-opt1: things
-opt2: nothing
+```{.ini title="config.ini"}
+[section]
+arg1 = stuff
+opt1 = things
+opt2 = nothing
 ```
 
 And invoked with python:
 
 ```{.bash title="Terminal"}
-$ python simple_app.py --config config.yml
+$ python simple_app.py --config config.ini
 things nothing stuff
 
-$ python simple_app.py --config config.yml others
+$ python simple_app.py --config config.ini others
 things nothing others
 
-$ python simple_app.py --config config.yml --opt1 people
+$ python simple_app.py --config config.ini --opt1 people
 people nothing stuff
 ```
 
@@ -68,7 +56,7 @@ from typer.testing import CliRunner
 
 RUNNER = CliRunner()
 
-conf = "config.yml"
+conf = "config.ini"
 
 
 result = RUNNER.invoke(app, ["--config", conf])

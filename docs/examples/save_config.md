@@ -12,7 +12,6 @@ from typer_config.decorators import (
     use_json_config,
 )
 
-
 app = typer.Typer()
 
 
