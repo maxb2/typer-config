@@ -33,9 +33,16 @@ class SimpleWarningFormat:
     """Simple Warning Formatter."""
 
     def __enter__(self: SimpleWarningFormat) -> None:  # noqa: D105
-        warnings.formatwarning = (  # type: ignore[assignment]
-            lambda msg, category, *args, **kwargs: f"{category.__name__}: {msg}\n"  # noqa: ARG005
-        )
+        def _fmt(
+            message: Warning | str,
+            category: type[Warning],
+            filename: str,
+            lineno: int,
+            line: str | None = None,
+        ) -> str:
+            return f"{category.__name__}: {message}\n"
+
+        setattr(warnings, "formatwarning", _fmt)
 
     def __exit__(  # noqa: D105
         self: SimpleWarningFormat,
