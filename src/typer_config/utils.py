@@ -36,13 +36,13 @@ class SimpleWarningFormat:
         def _fmt(
             message: Warning | str,
             category: type[Warning],
-            filename: str,
-            lineno: int,
-            line: str | None = None,
+            filename: str,  # noqa: ARG001
+            lineno: int,  # noqa: ARG001
+            line: str | None = None,  # noqa: ARG001
         ) -> str:
             return f"{category.__name__}: {message}\n"
 
-        setattr(warnings, "formatwarning", _fmt)
+        warnings.formatwarning = _fmt  # type: ignore
 
     def __exit__(  # noqa: D105
         self: SimpleWarningFormat,

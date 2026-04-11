@@ -279,7 +279,7 @@ def test_simple_example_decorated_section(simple_app_decorated, confs):
 
 @pytest.mark.parametrize("confs", CONFS, ids=str)
 def test_missing_config_warning_format(simple_app_decorated, confs):
-    """Warning for a missing config uses simple 'UserWarning: ...' format (no file/line)."""
+    """Warning for a missing config uses simple 'UserWarning: ...' format."""
 
     conf, _, dec = confs
     missing = conf + ".non_existent"
@@ -287,14 +287,14 @@ def test_missing_config_warning_format(simple_app_decorated, confs):
 
     result = RUNNER.invoke(_app, ["--config", missing])
 
-    assert f"UserWarning: No such file: '{missing}'" in result.stderr, (
-        f"Unexpected stderr for {conf!r}:\n{result.stderr}"
-    )
+    assert (
+        f"UserWarning: No such file: '{missing}'" in result.stderr
+    ), f"Unexpected stderr for {conf!r}:\n{result.stderr}"
     # Default Python formatter would include the source filename and line number;
     # SimpleWarningFormat must suppress those.
-    assert "utils.py" not in result.stderr, (
-        f"Default warning formatter was active (found 'utils.py' in stderr) for {conf!r}"
-    )
+    assert (
+        "utils.py" not in result.stderr
+    ), f"Default warning formatter was active (found 'utils.py' in stderr) for {conf!r}"
 
 
 def test_pyproject_example(simple_app):
