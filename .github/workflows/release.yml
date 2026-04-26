@@ -21,6 +21,6 @@ jobs:
     - name: Prepare release notes
       run: uvx git-cliff -l -s all > release-notes.md
     - name: Create GitHub release
-      uses: softprops/action-gh-release@v2.6.2
+      uses: softprops/action-gh-release@v3.0.0
       with:
         body_path: release-notes.md
