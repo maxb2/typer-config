@@ -5,7 +5,7 @@ from importlib import import_module
 from importlib.util import find_spec
 
 
-@lru_cache()
+@lru_cache
 def try_import(module_name: str):  # noqa: ANN202 (no type for modules)
     """Try to import a module by name.
 

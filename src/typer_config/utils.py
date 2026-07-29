@@ -4,15 +4,15 @@ from __future__ import annotations
 
 import warnings
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Union
+from typing import Any
 from warnings import showwarning
 
 ORIGINAL_WARNING_FORMATTER = warnings.formatwarning
 
 
 def get_dict_section(
-    _dict: Dict[Any, Any], keys: Optional[List[Any]] = None
-) -> Dict[Any, Any]:
+    _dict: dict[Any, Any], keys: list[Any] | None = None
+) -> dict[Any, Any]:
     """Get section of a dictionary.
 
     Args:
@@ -53,7 +53,7 @@ class SimpleWarningFormat:
         warnings.formatwarning = ORIGINAL_WARNING_FORMATTER
 
 
-def file_exists_and_warn(file_path: Union[Path, str]) -> bool:
+def file_exists_and_warn(file_path: Path | str) -> bool:
     """Check if file exists and warn if it doesn't exist.
 
     Args:

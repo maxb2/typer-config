@@ -1,7 +1,8 @@
 """Data and Function types."""
 
+from collections.abc import Callable
 from pathlib import Path
-from typing import Any, Callable, Dict, TypeAlias, Union
+from typing import Any, TypeAlias
 
 from typer import CallbackParam, Context
 
@@ -12,11 +13,11 @@ TyperParameterName: TypeAlias = str
 TyperParameterValue: TypeAlias = Any
 """Typer CLI parameter value."""
 
-ConfigDict: TypeAlias = Dict[TyperParameterName, Any]
+ConfigDict: TypeAlias = dict[TyperParameterName, Any]
 """Configuration dictionary to be applied to the click context default map."""
 
 
-FilePath: TypeAlias = Union[Path, str]
+FilePath: TypeAlias = Path | str
 """File path"""
 
 # Function types

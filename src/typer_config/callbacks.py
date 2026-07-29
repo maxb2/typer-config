@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-from typing import List, Optional
-
 from typer import BadParameter, CallbackParam, Context
 
 # NOTE: I'm not sure why, but these types must be imported at runtime
@@ -139,8 +137,8 @@ Returns:
 
 
 def argument_list_callback(
-    ctx: Context, param: CallbackParam, param_value: Optional[List[str]]
-) -> List[str]:
+    ctx: Context, param: CallbackParam, param_value: list[str] | None
+) -> list[str]:
     """Argument list callback.
 
     Note:

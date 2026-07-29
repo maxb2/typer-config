@@ -1,6 +1,7 @@
 """Config Dictionary Dumpers."""
 
 import json
+from pathlib import Path
 
 from .__optional_imports import try_import
 from .__typing import ConfigDict, FilePath
@@ -13,7 +14,7 @@ def json_dumper(config: ConfigDict, location: FilePath) -> None:
         config (ConfigDict): configuration
         location (FilePath): file to write
     """
-    with open(location, "w", encoding="utf-8") as _file:
+    with Path(location).open("w", encoding="utf-8") as _file:
         json.dump(config, _file)
 
 
@@ -34,7 +35,7 @@ def yaml_dumper(config: ConfigDict, location: FilePath) -> None:
         message = "Please install the pyyaml library."
         raise ModuleNotFoundError(message)
 
-    with open(location, "w", encoding="utf-8") as _file:
+    with Path(location).open("w", encoding="utf-8") as _file:
         yaml.dump(config, _file)
 
 
@@ -55,5 +56,5 @@ def toml_dumper(config: ConfigDict, location: FilePath) -> None:
         message = "Please install the toml library to write TOML files."
         raise ModuleNotFoundError(message)
 
-    with open(location, "w", encoding="utf-8") as _file:
+    with Path(location).open("w", encoding="utf-8") as _file:
         toml.dump(config, _file)

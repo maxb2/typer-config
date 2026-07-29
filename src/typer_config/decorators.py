@@ -5,7 +5,7 @@ from __future__ import annotations
 from enum import Enum
 from functools import wraps
 from inspect import Parameter, signature
-from typing import TYPE_CHECKING, List, Optional
+from typing import TYPE_CHECKING
 
 from typer import Option
 
@@ -101,10 +101,10 @@ def use_config(
 
 # default decorators
 def use_json_config(
-    section: Optional[List[str]] = None,
+    section: list[str] | None = None,
     param_name: TyperParameterName = "config",
     param_help: str = "Configuration file.",
-    default_value: Optional[TyperParameterValue] = None,
+    default_value: TyperParameterValue | None = None,
 ) -> TyperCommandDecorator:
     """Decorator for using JSON configuration on a typer command.
 
@@ -154,10 +154,10 @@ def use_json_config(
 
 
 def use_yaml_config(
-    section: Optional[List[str]] = None,
+    section: list[str] | None = None,
     param_name: TyperParameterName = "config",
     param_help: str = "Configuration file.",
-    default_value: Optional[TyperParameterValue] = None,
+    default_value: TyperParameterValue | None = None,
 ) -> TyperCommandDecorator:
     """Decorator for using YAML configuration on a typer command.
 
@@ -206,10 +206,10 @@ def use_yaml_config(
 
 
 def use_toml_config(
-    section: Optional[List[str]] = None,
+    section: list[str] | None = None,
     param_name: TyperParameterName = "config",
     param_help: str = "Configuration file.",
-    default_value: Optional[TyperParameterValue] = None,
+    default_value: TyperParameterValue | None = None,
 ) -> TyperCommandDecorator:
     """Decorator for using TOML configuration on a typer command.
 
@@ -258,10 +258,10 @@ def use_toml_config(
 
 
 def use_dotenv_config(
-    section: Optional[List[str]] = None,
+    section: list[str] | None = None,
     param_name: TyperParameterName = "config",
     param_help: str = "Configuration file.",
-    default_value: Optional[TyperParameterValue] = None,
+    default_value: TyperParameterValue | None = None,
 ) -> TyperCommandDecorator:
     """Decorator for using dotenv configuration on a typer command.
 
@@ -310,10 +310,10 @@ def use_dotenv_config(
 
 
 def use_ini_config(
-    section: List[str],
+    section: list[str],
     param_name: TyperParameterName = "config",
     param_help: str = "Configuration file.",
-    default_value: Optional[TyperParameterValue] = None,
+    default_value: TyperParameterValue | None = None,
 ) -> TyperCommandDecorator:
     """Decorator for using INI configuration on a typer command.
 
@@ -361,8 +361,8 @@ def use_ini_config(
 
 
 def use_multifile_config(
-    default_files: List[TyperParameterValue],
-    section: Optional[List[str]] = None,
+    default_files: list[TyperParameterValue],
+    section: list[str] | None = None,
     param_name: TyperParameterName = "config",
     param_help: str = "Configuration file.",
 ) -> TyperCommandDecorator:
@@ -425,8 +425,8 @@ def use_multifile_config(
 
 
 def use_fallback_config(
-    fallback_files: List[TyperParameterValue],
-    section: Optional[List[str]] = None,
+    fallback_files: list[TyperParameterValue],
+    section: list[str] | None = None,
     param_name: TyperParameterName = "config",
     param_help: str = "Configuration file.",
 ) -> TyperCommandDecorator:
