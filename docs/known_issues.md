@@ -12,7 +12,6 @@ Thanks to [@jlwhelan28](https://github.com/jlwhelan28) for the initial solution 
 Below is a working example of how to deal with an argument list:
 
 ```{.python title="arg_list.py" test="true"}
-from typing import List
 import typer
 from typer_config import use_yaml_config
 from typer_config.callbacks import argument_list_callback
@@ -24,7 +23,7 @@ app = typer.Typer()
 @use_yaml_config()
 def main(
     name: str,
-    nicknames: List[str] = typer.Argument(default=None, callback=argument_list_callback),
+    nicknames: list[str] = typer.Argument(default=None, callback=argument_list_callback),
     greeting: str = typer.Option(...),
     suffix: str = typer.Option("!"),
 ):

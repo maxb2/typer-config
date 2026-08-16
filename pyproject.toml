@@ -105,10 +105,11 @@ extend-select = [ # https://beta.ruff.rs/docs/rules/
     "ICN", 
     "INP", 
     "PERF", 
-    "PIE", 
-    "PL", 
-    "PT", 
-    "Q", 
+    "PIE",
+    "PL",
+    "PT",
+    "PYI",
+    "Q",
     "RSE", 
     "RET", 
     "RUF",
@@ -119,12 +120,12 @@ extend-select = [ # https://beta.ruff.rs/docs/rules/
     "TCH", 
     "TD", 
     "TID",
+    "UP",
     "YTT"]
 extend-ignore = ["D202", "D205", "D107"]
 
 [tool.ruff.lint.extend-per-file-ignores]
 "tests/*.py" = ["ANN", "S", "ARG001", "B008", "RUF015"]
-"tests/doc_examples.py" = ["FA100"]
 "docs_gen_files.py" = ["ANN201"]
 "duties.py" = ["ANN201", "ARG001"]
 

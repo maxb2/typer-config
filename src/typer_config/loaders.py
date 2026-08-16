@@ -6,9 +6,10 @@ These loaders must implement the `typer_config.__typing.ConfigLoader` interface.
 from __future__ import annotations
 
 import json
+from collections.abc import Mapping
 from configparser import ConfigParser
 from pathlib import Path
-from typing import TYPE_CHECKING, Any, Mapping, Optional
+from typing import TYPE_CHECKING, Any
 
 from .__optional_imports import try_import
 
@@ -25,9 +26,9 @@ if TYPE_CHECKING:  # pragma: no cover
 
 def loader_transformer(
     loader: ConfigLoader,
-    loader_conditional: Optional[ConfigLoaderConditional] = None,
-    param_transformer: Optional[TyperParameterValueTransformer] = None,
-    config_transformer: Optional[ConfigDictTransformer] = None,
+    loader_conditional: ConfigLoaderConditional | None = None,
+    param_transformer: TyperParameterValueTransformer | None = None,
+    config_transformer: ConfigDictTransformer | None = None,
 ) -> ConfigLoader:
     """Configuration loader transformer.
 
@@ -62,11 +63,11 @@ def loader_transformer(
 
     Args:
         loader (ConfigLoader): Loader to transform.
-        loader_conditional (Optional[ConfigLoaderConditional], optional): Function
+        loader_conditional (ConfigLoaderConditional | None, optional): Function
             to determine whether to execute loader. Defaults to None (no-op).
-        param_transformer (Optional[TyperParameterValueTransformer], optional): Typer
+        param_transformer (TyperParameterValueTransformer | None, optional): Typer
             parameter transformer. Defaults to None (no-op).
-        config_transformer (Optional[ConfigDictTransformer], optional): Config
+        config_transformer (ConfigDictTransformer | None, optional): Config
             dictionary transformer. Defaults to None (no-op).
 
     Returns:
@@ -113,7 +114,7 @@ def yaml_loader(param_value: TyperParameterValue) -> ConfigDict:
         message = "Please install the pyyaml library."
         raise ModuleNotFoundError(message)
 
-    with open(param_value, "r", encoding="utf-8") as _file:
+    with open(param_value, encoding="utf-8") as _file:
         conf: ConfigDict = yaml.safe_load(_file)
 
     return conf
@@ -129,7 +130,7 @@ def json_loader(param_value: TyperParameterValue) -> ConfigDict:
         ConfigDict: dictionary loaded from file
     """
 
-    with open(param_value, "r", encoding="utf-8") as _file:
+    with open(param_value, encoding="utf-8") as _file:
         conf: ConfigDict = json.load(_file)
 
     return conf
@@ -162,7 +163,7 @@ def toml_loader(param_value: TyperParameterValue) -> ConfigDict:
         message = "Please install the toml library."
         raise ModuleNotFoundError(message)
 
-    with open(param_value, "r", encoding="utf-8") as _file:
+    with open(param_value, encoding="utf-8") as _file:
         return toml.load(_file)
 
 
@@ -185,7 +186,7 @@ def dotenv_loader(param_value: TyperParameterValue) -> ConfigDict:
         message = "Please install the python-dotenv library."
         raise ModuleNotFoundError(message)
 
-    with open(param_value, "r", encoding="utf-8") as _file:
+    with open(param_value, encoding="utf-8") as _file:
         # NOTE: I'm using a stream here so that the loader
         # will raise an exception when the file doesn't exist.
         conf: ConfigDict = dotenv.dotenv_values(stream=_file)
@@ -216,7 +217,7 @@ def ini_loader(param_value: TyperParameterValue) -> ConfigDict:
     """
 
     ini_parser = ConfigParser()
-    with open(param_value, "r", encoding="utf-8") as _file:
+    with open(param_value, encoding="utf-8") as _file:
         ini_parser.read_file(_file)
 
     conf: ConfigDict = {
