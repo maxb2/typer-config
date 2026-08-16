@@ -19,7 +19,7 @@ from pathlib import Path
 from subprocess import run
 from tempfile import TemporaryDirectory
 from textwrap import dedent
-from typing import Any, Dict, List, NamedTuple, Optional, Tuple
+from typing import Any, NamedTuple
 
 CLASS_RE = re.compile(
     dedent(r"""
@@ -102,20 +102,20 @@ class Fence(NamedTuple):
     """Markdown Fence."""
 
     fence: str = ""
-    lang: Optional[str] = None
-    attrs: "Optional[OrderedDict[str, Attr]]" = None
-    options: Optional[Dict[str, Any]] = None
+    lang: str | None = None
+    attrs: "OrderedDict[str, Attr] | None" = None
+    options: dict[str, Any] | None = None
     contents: str = ""
-    raw: Optional[str] = None
+    raw: str | None = None
 
-    def options_from_str(raw: str) -> Dict[str, Any]:
+    def options_from_str(raw: str) -> dict[str, Any]:
         """Markdown fence options dict from string.
 
         Args:
             raw (str): string of options
 
         Returns:
-            Dict[str, Any]: dict of options
+            dict[str, Any]: dict of options
         """
         options = {}
         while raw:
@@ -133,7 +133,7 @@ class Fence(NamedTuple):
             raw (str): string of attributes
 
         Returns:
-            Dict[str, Any]: dict of attrs
+            dict[str, Any]: dict of attrs
         """
 
         attrs = OrderedDict()
@@ -152,14 +152,14 @@ class Fence(NamedTuple):
             raw = raw[match.span()[1] :]
         return attrs
 
-    def from_re_groups(groups: Tuple[str]) -> "Fence":
+    def from_re_groups(groups: tuple[str]) -> "Fence":
         """Make Fence from regex groups.
 
         Notes:
             This is tightly coupled to `FENCED_BLOCK_RE`.
 
         Args:
-            groups (Tuple[str]): regex match groups
+            groups (tuple[str]): regex match groups
 
         Returns:
             Fence: markdown fence
@@ -252,14 +252,14 @@ def register_executor(lang, executor):
     _executors[lang] = executor
 
 
-def grab_fences(source: str) -> List[Fence]:
+def grab_fences(source: str) -> list[Fence]:
     """Grab fences in  markdown.
 
     Args:
         source (str): markdown string
 
     Returns:
-        List[Fence]: list of fences in markdown
+        list[Fence]: list of fences in markdown
     """
     return [Fence.from_re_groups(groups) for groups in FENCED_BLOCK_RE.findall(source)]
 
@@ -283,7 +283,7 @@ register_executor("dotenv", exec_file_fence)
 register_executor("ini", exec_file_fence)
 
 
-def exec_python_fence(fence: Fence, globals_: Optional[Dict] = None):
+def exec_python_fence(fence: Fence, globals_: dict | None = None):
     """Python fence executor.
 
     Args:
@@ -313,7 +313,7 @@ def exec_bash_fence(fence: Fence, **kwargs):
         **kwargs: not used
     """
     _cmds = fence.contents.split("$ ")
-    commands: List[Dict] = []
+    commands: list[dict] = []
     for _cmd in _cmds:
         if not _cmd:
             continue
@@ -339,7 +339,7 @@ def check_typer_md_file(fpath: Path):
     Args:
         fpath (Path): path to markdown file
     """
-    with open(fpath, "r") as f:
+    with open(fpath) as f:
         source = f.read()
     fences = grab_fences(source)
 

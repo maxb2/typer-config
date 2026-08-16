@@ -23,7 +23,7 @@ suffix = "!!"
 Then, we can read the values in our typer CLI:
 
 ```python title="my_tool.py"
-from typing import Any, Dict
+from typing import Any
 from typing_extensions import Annotated
 
 import typer
@@ -32,7 +32,7 @@ from typer_config.loaders import toml_loader
 from typer_config.decorators import use_config
 
 
-def pyproject_loader(param_value: str) -> Dict[str, Any]:
+def pyproject_loader(param_value: str) -> dict[str, Any]:
     if not param_value:  # set a default path to read from
         param_value = "pyproject.toml"
     pyproject = toml_loader(param_value)
@@ -90,7 +90,7 @@ Hi, Alice!!
 <!--- Test the combinator
 
 ```python title="my_tool.py"
-from typing import Any, Dict
+from typing import Any
 from typing_extensions import Annotated
 
 import typer

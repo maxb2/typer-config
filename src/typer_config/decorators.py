@@ -5,7 +5,7 @@ from __future__ import annotations
 from enum import Enum
 from functools import wraps
 from inspect import Parameter, signature
-from typing import TYPE_CHECKING, List, Optional
+from typing import TYPE_CHECKING
 
 from typer import Option
 
@@ -101,10 +101,10 @@ def use_config(
 
 # default decorators
 def use_json_config(
-    section: Optional[List[str]] = None,
+    section: list[str] | None = None,
     param_name: TyperParameterName = "config",
     param_help: str = "Configuration file.",
-    default_value: Optional[TyperParameterValue] = None,
+    default_value: TyperParameterValue | None = None,
 ) -> TyperCommandDecorator:
     """Decorator for using JSON configuration on a typer command.
 
@@ -122,7 +122,7 @@ def use_json_config(
         ```
 
     Args:
-        section (List[str], optional): List of nested sections to access in the config.
+        section (list[str], optional): List of nested sections to access in the config.
             Defaults to None.
         param_name (TyperParameterName, optional): name of config parameter.
             Defaults to "config".
@@ -154,10 +154,10 @@ def use_json_config(
 
 
 def use_yaml_config(
-    section: Optional[List[str]] = None,
+    section: list[str] | None = None,
     param_name: TyperParameterName = "config",
     param_help: str = "Configuration file.",
-    default_value: Optional[TyperParameterValue] = None,
+    default_value: TyperParameterValue | None = None,
 ) -> TyperCommandDecorator:
     """Decorator for using YAML configuration on a typer command.
 
@@ -175,7 +175,7 @@ def use_yaml_config(
         ```
 
     Args:
-        section (List[str], optional): List of nested sections to access in the config.
+        section (list[str], optional): List of nested sections to access in the config.
             Defaults to None.
         param_name (str, optional): name of config parameter. Defaults to "config".
         param_help (str, optional): config parameter help string.
@@ -206,10 +206,10 @@ def use_yaml_config(
 
 
 def use_toml_config(
-    section: Optional[List[str]] = None,
+    section: list[str] | None = None,
     param_name: TyperParameterName = "config",
     param_help: str = "Configuration file.",
-    default_value: Optional[TyperParameterValue] = None,
+    default_value: TyperParameterValue | None = None,
 ) -> TyperCommandDecorator:
     """Decorator for using TOML configuration on a typer command.
 
@@ -227,7 +227,7 @@ def use_toml_config(
         ```
 
     Args:
-        section (List[str], optional): List of nested sections to access in the config.
+        section (list[str], optional): List of nested sections to access in the config.
             Defaults to None.
         param_name (str, optional): name of config parameter. Defaults to "config".
         param_help (str, optional): config parameter help string.
@@ -258,10 +258,10 @@ def use_toml_config(
 
 
 def use_dotenv_config(
-    section: Optional[List[str]] = None,
+    section: list[str] | None = None,
     param_name: TyperParameterName = "config",
     param_help: str = "Configuration file.",
-    default_value: Optional[TyperParameterValue] = None,
+    default_value: TyperParameterValue | None = None,
 ) -> TyperCommandDecorator:
     """Decorator for using dotenv configuration on a typer command.
 
@@ -279,7 +279,7 @@ def use_dotenv_config(
         ```
 
     Args:
-        section (List[str], optional): List of nested sections to access in the config.
+        section (list[str], optional): List of nested sections to access in the config.
             Defaults to None.
         param_name (str, optional): name of config parameter. Defaults to "config".
         param_help (str, optional): config parameter help string.
@@ -310,10 +310,10 @@ def use_dotenv_config(
 
 
 def use_ini_config(
-    section: List[str],
+    section: list[str],
     param_name: TyperParameterName = "config",
     param_help: str = "Configuration file.",
-    default_value: Optional[TyperParameterValue] = None,
+    default_value: TyperParameterValue | None = None,
 ) -> TyperCommandDecorator:
     """Decorator for using INI configuration on a typer command.
 
@@ -331,7 +331,7 @@ def use_ini_config(
         ```
 
     Args:
-        section (List[str]): List of nested sections to access in the INI file.
+        section (list[str]): List of nested sections to access in the INI file.
         param_name (str, optional): name of config parameter. Defaults to "config".
         param_help (str, optional): config parameter help string.
             Defaults to "Configuration file.".
@@ -361,8 +361,8 @@ def use_ini_config(
 
 
 def use_multifile_config(
-    default_files: List[TyperParameterValue],
-    section: Optional[List[str]] = None,
+    default_files: list[TyperParameterValue],
+    section: list[str] | None = None,
     param_name: TyperParameterName = "config",
     param_help: str = "Configuration file.",
 ) -> TyperCommandDecorator:
@@ -396,10 +396,10 @@ def use_multifile_config(
         ```
 
     Args:
-        default_files (List[TyperParameterValue]): List of default file paths to load.
+        default_files (list[TyperParameterValue]): List of default file paths to load.
             Files are processed in order, with later files overriding earlier ones.
             Missing files are silently skipped.
-        section (List[str], optional): List of nested sections to access in the config.
+        section (list[str], optional): List of nested sections to access in the config.
             Defaults to None.
         param_name (TyperParameterName, optional): name of config parameter.
             Defaults to "config".
@@ -425,8 +425,8 @@ def use_multifile_config(
 
 
 def use_fallback_config(
-    fallback_files: List[TyperParameterValue],
-    section: Optional[List[str]] = None,
+    fallback_files: list[TyperParameterValue],
+    section: list[str] | None = None,
     param_name: TyperParameterName = "config",
     param_help: str = "Configuration file.",
 ) -> TyperCommandDecorator:
@@ -458,10 +458,10 @@ def use_fallback_config(
         ```
 
     Args:
-        fallback_files (List[TyperParameterValue]): List of file paths to try,
+        fallback_files (list[TyperParameterValue]): List of file paths to try,
             in order of priority (first has highest priority).
             The first existing file will be used.
-        section (List[str], optional): List of nested sections to access in the config.
+        section (list[str], optional): List of nested sections to access in the config.
             Defaults to None.
         param_name (TyperParameterName, optional): name of config parameter.
             Defaults to "config".
